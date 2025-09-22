@@ -24,6 +24,8 @@ export const MAX_ZOOM = 20;
 
 // 定位超时时间（毫秒）
 export const LOCATION_TIMEOUT_MS = 10000;
+// 兼容旧命名
+export const LOCATION_TIMEOUT = LOCATION_TIMEOUT_MS;
 
 // 权限相关
 export const PERMISSIONS = {
@@ -31,3 +33,15 @@ export const PERMISSIONS = {
   APPROXIMATELY_LOCATION: 'ohos.permission.APPROXIMATELY_LOCATION',
   INTERNET: 'ohos.permission.INTERNET'
 } as const;
+
+// 错误消息常量（供 geo.ts 使用）
+export const ERROR_MESSAGES = {
+  LOCATION_PERMISSION_DENIED: '定位权限未授权',
+  LOCATION_UNAVAILABLE: '定位服务不可用',
+  LOCATION_TIMEOUT: '定位超时',
+  UNKNOWN_ERROR: '未知错误'
+} as const;
+
+// 地图动画与默认缩放（兼容旧命名）
+export const CAMERA_ANIMATION_DURATION = 300; // ms
+export const DEFAULT_ZOOM_LEVEL = DEFAULT_ZOOM;

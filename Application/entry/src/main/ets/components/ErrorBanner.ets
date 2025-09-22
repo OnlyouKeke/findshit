@@ -1,6 +1,6 @@
 /**
- * 错误横幅组件
- * 用于显示权限拒绝、定位失败等错误提示
+ * Error banner component
+ * Shows error/warning/info messages with optional action and close.
  */
 
 export enum BannerType {
@@ -11,31 +11,31 @@ export enum BannerType {
 
 @Component
 export struct ErrorBanner {
-  // 横幅类型
+  // Banner type
   @Prop type: BannerType = BannerType.ERROR;
 
-  // 显示状态
-  @Prop @Watch('onVisibleChange') visible: boolean = false;
+  // Visibility state
+  @Prop visible: boolean = false;
 
-  // 错误消息
+  // Message text
   @Prop message: string = '';
 
-  // 操作按钮文本
-  @Prop actionText?: string;
+  // Optional action button text (use union type instead of optional prop)
+  @Prop actionText: string | undefined = undefined;
 
-  // 是否可关闭
+  // Whether the banner is closable
   @Prop closable: boolean = true;
 
-  // 自动隐藏时间（毫秒，0 表示不自动隐藏）
+  // Auto-hide delay in ms (0 = never)
   @Prop autoHideMs: number = 5000;
 
-  // 操作按钮点击回调
-  private onActionClick?: () => void;
+  // Action click callback
+  @Prop onActionClick: (() => void) | undefined = undefined;
 
-  // 关闭按钮点击回调
-  private onClose?: () => void;
+  // Close callback
+  @Prop onClose: (() => void) | undefined = undefined;
 
-  // 自动隐藏定时器
+  // Internal auto-hide timer id
   private autoHideTimer?: number;
 
   aboutToAppear() {
@@ -48,33 +48,20 @@ export struct ErrorBanner {
     this.clearAutoHideTimer();
   }
 
-  // 注意：@Watch 回调建议带 new/old 参数
-  onVisibleChange(newVal: boolean, oldVal: boolean) {
-    if (newVal && this.autoHideMs > 0) {
-      this.startAutoHideTimer();
-    } else {
-      this.clearAutoHideTimer();
-    }
-  }
+  // 通过 UI 生命周期处理显隐与定时器（避免 @Watch 装饰器限制）
+  // 当 Row 出现/消失时启动或清理定时器
 
   build() {
-    if (!this.visible) {
-      // ⚠️ DevEco 5.1.1：无块体组件无法安全链式，须写成 Row() {} 再链
-      Row() {}
-      .width(0)
-      .height(0);
-      return;
-    }
-
+    // Single root node; control visibility via modifier
     Row() {
-      // 图标
+      // Icon
       Image(this.getIconResource())
         .width(20)
         .height(20)
         .fillColor(this.getIconColor())
         .margin({ right: 8 })
 
-      // 消息文本
+      // Message
       Text(this.message)
         .fontSize(14)
         .fontColor(this.getTextColor())
@@ -82,7 +69,7 @@ export struct ErrorBanner {
         .maxLines(2)
         .textOverflow({ overflow: TextOverflow.Ellipsis })
 
-      // 操作按钮
+      // Action button
       if (this.actionText) {
         Button(this.actionText)
           .fontSize(12)
@@ -95,38 +82,45 @@ export struct ErrorBanner {
           .margin({ left: 8, right: 8 })
           .onClick(() => {
             this.onActionClick?.();
-          })
+          });
       }
 
-      // 关闭按钮
+      // Close button
       if (this.closable) {
         Button() {
           Image($r('app.media.ic_close'))
             .width(16)
             .height(16)
-            .fillColor(this.getCloseIconColor())
+            .fillColor(this.getCloseIconColor());
         }
-        .width(24)
-        .height(24)
-        .backgroundColor(Color.Transparent)
-        .onClick(() => {
-          this.handleClose();
-        })
+          .width(24)
+          .height(24)
+          .backgroundColor(Color.Transparent)
+          .onClick(() => {
+            this.handleClose();
+          });
       }
     }
-    .width('100%')
-    .padding({ left: 16, right: 16, top: 12, bottom: 12 })
-    .backgroundColor(this.getBackgroundColor())
-    .borderRadius(8)
-    .margin({ left: 16, right: 16, top: 8, bottom: 8 })
-    .shadow({ radius: 4, color: '#1A000000', offsetX: 0, offsetY: 2 })
-    .alignItems(VerticalAlign.Center)
-    .animation({ duration: 300, curve: Curve.EaseInOut });
+      .visibility(this.visible ? Visibility.Visible : Visibility.None)
+      .width('100%')
+      .padding({ left: 16, right: 16, top: 12, bottom: 12 })
+      .backgroundColor(this.getBackgroundColor())
+      .borderRadius(8)
+      .margin({ left: 16, right: 16, top: 8, bottom: 8 })
+      .shadow({ radius: 4, color: '#1A000000', offsetX: 0, offsetY: 2 })
+      .alignItems(VerticalAlign.Center)
+      .onAppear(() => {
+        if (this.visible && this.autoHideMs > 0) {
+          this.startAutoHideTimer();
+        }
+      })
+      .onDisAppear(() => {
+        this.clearAutoHideTimer();
+      })
+      .animation({ duration: 300, curve: Curve.EaseInOut });
   }
 
-  /**
-   * 获取图标资源
-   */
+  /** 获取图标资源 */
   private getIconResource(): Resource {
     switch (this.type) {
       case BannerType.ERROR:
@@ -140,9 +134,7 @@ export struct ErrorBanner {
     }
   }
 
-  /**
-   * 获取图标颜色
-   */
+  // Colors
   private getIconColor(): string {
     switch (this.type) {
       case BannerType.ERROR:
@@ -156,9 +148,6 @@ export struct ErrorBanner {
     }
   }
 
-  /**
-   * 获取背景颜色
-   */
   private getBackgroundColor(): string {
     switch (this.type) {
       case BannerType.ERROR:
@@ -172,9 +161,6 @@ export struct ErrorBanner {
     }
   }
 
-  /**
-   * 获取文本颜色
-   */
   private getTextColor(): string {
     switch (this.type) {
       case BannerType.ERROR:
@@ -188,55 +174,35 @@ export struct ErrorBanner {
     }
   }
 
-  /**
-   * 获取操作按钮文本颜色
-   */
   private getActionTextColor(): string {
     return this.getTextColor();
   }
 
-  /**
-   * 获取操作按钮边框颜色
-   */
   private getActionBorderColor(): string {
     return this.getIconColor();
   }
 
-  /**
-   * 获取关闭图标颜色
-   */
   private getCloseIconColor(): string {
     return this.getTextColor();
   }
 
-  /**
-   * 处理关闭操作
-   */
   private handleClose(): void {
     this.clearAutoHideTimer();
-    if (this.onClose) {
-      this.onClose();
-    }
+    this.onClose?.();
   }
 
-  /**
-   * 启动自动隐藏定时器
-   */
   private startAutoHideTimer(): void {
     this.clearAutoHideTimer();
     if (this.autoHideMs > 0) {
-      this.autoHideTimer = setTimeout(() => {
+      this.autoHideTimer = setTimeout((): void => {
         this.handleClose();
-      }, this.autoHideMs) as unknown as number;
+      }, this.autoHideMs);
     }
   }
 
-  /**
-   * 清除自动隐藏定时器
-   */
   private clearAutoHideTimer(): void {
     if (this.autoHideTimer !== undefined) {
-      clearTimeout(this.autoHideTimer as unknown as number);
+      clearTimeout(this.autoHideTimer);
       this.autoHideTimer = undefined;
     }
   }
