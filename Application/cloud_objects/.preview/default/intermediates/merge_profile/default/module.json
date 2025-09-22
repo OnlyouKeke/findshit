@@ -1,0 +1,27 @@
+{
+	"app": {
+		"bundleName": "com.shit.finding.fun",
+		"debug": true,
+		"versionCode": 1000000,
+		"versionName": "1.0.0",
+		"minAPIVersion": 50101019,
+		"targetAPIVersion": 50101019,
+		"apiReleaseType": "Release",
+		"compileSdkVersion": "5.1.1.208",
+		"compileSdkType": "HarmonyOS",
+		"appEnvironments": [],
+		"bundleType": "app",
+		"buildMode": "debug"
+	},
+	"module": {
+		"name": "cloud_objects",
+		"type": "har",
+		"deviceTypes": [
+			"default",
+			"tablet",
+			"2in1"
+		],
+		"packageName": "cloud_objects",
+		"installationFree": false
+	}
+}

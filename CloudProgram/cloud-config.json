@@ -1,0 +1,23 @@
+{
+  "appSelected": {
+    "appId": "6917584442289455200",
+    "appName": "找屎",
+    "deviceTypes": [
+      {
+        "appAdapters": "5",
+        "deviceType": 4
+      },
+      {
+        "appAdapters": "",
+        "deviceType": 12
+      }
+    ],
+    "enableSites": "CN,SG",
+    "installationFree": 0,
+    "packageType": 7,
+    "projectId": "461323198430459545",
+    "projectName": "华为开发者激励",
+    "siteId": "CN"
+  },
+  "teamId": "2850086000399314158"
+}
