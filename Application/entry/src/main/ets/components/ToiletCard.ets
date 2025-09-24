@@ -59,7 +59,7 @@ export struct ToiletCard {
       Button('一键找屎')
         .fontSize(14)
         .fontColor(Color.White)
-        .backgroundColor('#FF4081')
+        .backgroundColor('#4C8BF5')
         .borderRadius(20)
         .padding({
           left: 16,
@@ -108,7 +108,7 @@ export struct ToiletCard {
       LoadingProgress()
         .width(32)
         .height(32)
-        .color('#FF4081')
+        .color('#4C8BF5')
       
       Text('正在搜索附近厕所...')
         .fontSize(14)
@@ -200,7 +200,7 @@ export struct ToiletCard {
       Image($r('app.media.ic_toilet'))
         .width(24)
         .height(24)
-        .fillColor('#FF4081')
+        .fillColor('#4C8BF5')
         .margin({ right: 12 })
 
       // 厕所信息

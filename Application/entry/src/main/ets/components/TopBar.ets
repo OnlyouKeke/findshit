@@ -12,46 +12,11 @@ export struct TopBar {
   private onSettingsClick?: () => void;
 
   build() {
-    Row() {
-      // 左侧设置按钮
-      Button() {
-        Image($r('app.media.ic_settings'))
-          .width(24)
-          .height(24)
-          .fillColor(Color.White)
-      }
-      .width(40)
-      .height(40)
-      .backgroundColor(Color.Transparent)
-      .borderRadius(20)
-      .onClick(() => {
-        this.handleSettingsClick();
-      })
-
-      // 中间标题
-      Text(APP_TITLE)
-        .fontSize(20)
-        .fontWeight(FontWeight.Bold)
-        .fontColor(Color.White)
-        .textAlign(TextAlign.Center)
-        .layoutWeight(1)
-
-      // 右侧占位（保持对称）
-      Blank()
-        .width(40)
-        .height(40)
-    }
-    .width('100%')
-    .height(56)
-    .padding({
-      left: 16,
-      right: 16,
-      top: 8,
-      bottom: 8
-    })
-    .backgroundColor('#FF4081')
-    .justifyContent(FlexAlign.SpaceBetween)
-    .alignItems(VerticalAlign.Center)
+    // 顶栏已移除，避免占位
+    Blank()
+      .width(0)
+      .height(0)
+      .visibility(Visibility.None)
   }
 
   /**
