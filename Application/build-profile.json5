@@ -1,12 +1,26 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "storeFile": "E:/finding_shit/fs.p12",
+          "storePassword": "00000030DB971F09FA2E7BC64B90E1E5B5A32C115BAAFE6206D0DCB14BC816671D5B6E843A028420F0C7DB45303432A1FA2003509DEAB5964EAF749274E9BB61",
+          "keyAlias": "test",
+          "keyPassword": "000000307781944FFFB4BEAB311F27A51F6EBD34B03F2BA857AD5E58689321C6A91AF32C65E3828BA5557D97F8AD019A1B8080C6ED3FE0765AB41553CCC3371F",
+          "signAlg": "SHA256withECDSA",
+          "profile": "E:/finding_shit/fsRelease.p7b",
+          "certpath": "E:/finding_shit/fs.cer"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",
         "signingConfig": "default",
-        "targetSdkVersion": "5.1.1(19)",
-        "compatibleSdkVersion": "5.1.1(19)",
+        "targetSdkVersion": "5.0.4(16)",
+        "compatibleSdkVersion": "5.0.4(16)",
         "runtimeOS": "HarmonyOS",
         "buildOption": {
           "strictMode": {

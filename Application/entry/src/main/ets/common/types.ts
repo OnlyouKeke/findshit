@@ -41,3 +41,15 @@ export interface AppError {
   message: string;
   retryable?: boolean;
 }
+
+// UI 回调包装（用于 ArkUI V1 组件避免直接传函数作为 Prop）
+export interface CallbackHandler {
+  handler?: () => void;
+}
+
+// 0/1 参数回调包装（用于更复杂组件）
+export interface Callback0 { handler?: () => void }
+export interface Callback1<T> { handler?: (arg: T) => void }
+
+// 最小错误类型（用于宽松捕获）
+export interface MinimalError { code?: string; message?: string }

@@ -3,6 +3,8 @@
  * Shows error/warning/info messages with optional action and close.
  */
 
+import { CallbackHandler } from '../common/types';
+
 export enum BannerType {
   ERROR = 'error',
   WARNING = 'warning',
@@ -11,29 +13,23 @@ export enum BannerType {
 
 @Component
 export struct ErrorBanner {
-  // Banner type
+  // Type and visibility
   @Prop type: BannerType = BannerType.ERROR;
-
-  // Visibility state
   @Prop visible: boolean = false;
 
   // Message text
   @Prop message: string = '';
 
-  // Optional action button text (use union type instead of optional prop)
+  // Optional action button text
   @Prop actionText: string | undefined = undefined;
 
-  // Whether the banner is closable
+  // Closable and auto-hide
   @Prop closable: boolean = true;
-
-  // Auto-hide delay in ms (0 = never)
   @Prop autoHideMs: number = 5000;
 
-  // Action click callback
-  @Prop onActionClick: (() => void) | undefined = undefined;
-
-  // Close callback
-  @Prop onClose: (() => void) | undefined = undefined;
+  // Callbacks wrapped to avoid function-as-prop in @Component V1
+  @Prop onActionClick: CallbackHandler | undefined = undefined;
+  @Prop onClose: CallbackHandler | undefined = undefined;
 
   // Internal auto-hide timer id
   private autoHideTimer?: number;
@@ -48,11 +44,7 @@ export struct ErrorBanner {
     this.clearAutoHideTimer();
   }
 
-  // 通过 UI 生命周期处理显隐与定时器（避免 @Watch 装饰器限制）
-  // 当 Row 出现/消失时启动或清理定时器
-
   build() {
-    // Single root node; control visibility via modifier
     Row() {
       // Icon
       Image(this.getIconResource())
@@ -81,7 +73,7 @@ export struct ErrorBanner {
           .padding({ left: 8, right: 8, top: 4, bottom: 4 })
           .margin({ left: 8, right: 8 })
           .onClick(() => {
-            this.onActionClick?.();
+            this.onActionClick?.handler?.();
           });
       }
 
@@ -120,7 +112,6 @@ export struct ErrorBanner {
       .animation({ duration: 300, curve: Curve.EaseInOut });
   }
 
-  /** 获取图标资源 */
   private getIconResource(): Resource {
     switch (this.type) {
       case BannerType.ERROR:
@@ -134,7 +125,6 @@ export struct ErrorBanner {
     }
   }
 
-  // Colors
   private getIconColor(): string {
     switch (this.type) {
       case BannerType.ERROR:
@@ -188,7 +178,7 @@ export struct ErrorBanner {
 
   private handleClose(): void {
     this.clearAutoHideTimer();
-    this.onClose?.();
+    this.onClose?.handler?.();
   }
 
   private startAutoHideTimer(): void {
@@ -207,3 +197,4 @@ export struct ErrorBanner {
     }
   }
 }
+

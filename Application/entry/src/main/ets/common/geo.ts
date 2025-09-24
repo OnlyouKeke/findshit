@@ -6,9 +6,11 @@
 import { LatLng, AppError } from './types';
 import { LOCATION_TIMEOUT, ERROR_MESSAGES, PERMISSIONS } from './config';
 
-// TODO: 导入 HarmonyOS 定位相关模块
-// import { geoLocationManager } from '@kit.LocationKit';
-// import { abilityAccessCtrl, bundleManager, Permissions } from '@kit.AbilityKit';
+// API 16 权限与包信息
+// 说明：保持最少依赖，按官方 Stage 用法请求运行时权限
+import abilityAccessCtrl from '@ohos.abilityAccessCtrl';
+import bundleManager from '@ohos.bundle.bundleManager';
+import { common } from '@kit.AbilityKit';
 
 /**
  * 定位权限状态
@@ -59,7 +61,7 @@ export interface Geo {
    * 请求定位权限
    * @returns Promise<boolean> 是否授权成功
    */
-  requestLocationPermission(): Promise<boolean>;
+  requestLocationPermission(ctx: common.UIAbilityContext): Promise<boolean>;
 
   /**
    * 检查定位服务是否可用
@@ -155,24 +157,22 @@ export class HarmonyGeo implements Geo {
    */
   async checkLocationPermission(): Promise<LocationPermissionStatus> {
     try {
-      // TODO: 实际的权限检查代码
-      // const atManager = abilityAccessCtrl.createAtManager();
-      // const bundleInfo = await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
-      // const tokenId = bundleInfo.appInfo.accessTokenId;
-      
-      // const locationPermission = await atManager.checkAccessToken(tokenId, PERMISSIONS.LOCATION);
-      // const approximatePermission = await atManager.checkAccessToken(tokenId, PERMISSIONS.APPROXIMATELY_LOCATION);
-      
-      // if (locationPermission === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED ||
-      //     approximatePermission === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED) {
-      //   return LocationPermissionStatus.GRANTED;
-      // } else {
-      //   return LocationPermissionStatus.DENIED;
-      // }
+      const atManager = abilityAccessCtrl.createAtManager();
+      const bundleInfo = await bundleManager.getBundleInfoForSelf(
+        bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION
+      );
+      const tokenId = bundleInfo.appInfo.accessTokenId;
 
-      // 模拟权限检查（开发阶段使用）
-      return LocationPermissionStatus.GRANTED;
+      const precise = await atManager.checkAccessToken(tokenId, PERMISSIONS.LOCATION);
+      const approx = await atManager.checkAccessToken(tokenId, PERMISSIONS.APPROXIMATELY_LOCATION);
 
+      if (
+        precise === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED ||
+        approx === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED
+      ) {
+        return LocationPermissionStatus.GRANTED;
+      }
+      return LocationPermissionStatus.DENIED;
     } catch (error) {
       console.error('HarmonyGeo: 检查权限失败', error);
       return LocationPermissionStatus.NOT_DETERMINED;
@@ -182,18 +182,15 @@ export class HarmonyGeo implements Geo {
   /**
    * 请求定位权限
    */
-  async requestLocationPermission(): Promise<boolean> {
+  async requestLocationPermission(ctx: common.UIAbilityContext): Promise<boolean> {
     try {
-      // TODO: 实际的权限请求代码
-      // const atManager = abilityAccessCtrl.createAtManager();
-      // const permissions: Array<Permissions> = [PERMISSIONS.LOCATION, PERMISSIONS.APPROXIMATELY_LOCATION];
-      // const result = await atManager.requestPermissionsFromUser(getContext(), permissions);
-      
-      // return result.authResults.some(status => status === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED);
-
-      // 模拟权限请求（开发阶段使用）
-      return true;
-
+      const atManager = abilityAccessCtrl.createAtManager();
+      const result = await atManager.requestPermissionsFromUser(ctx, [
+        PERMISSIONS.LOCATION,
+        PERMISSIONS.APPROXIMATELY_LOCATION
+      ]);
+      // authResults: 0 = granted, 2 = deniedOnce/denied?
+      return result?.authResults?.some((v: number) => v === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED) ?? false;
     } catch (error) {
       console.error('HarmonyGeo: 请求权限失败', error);
       return false;
