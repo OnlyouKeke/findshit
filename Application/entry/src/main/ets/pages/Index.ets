@@ -7,7 +7,7 @@ import { ToiletCard } from '../components/ToiletCard';
 import { ErrorBanner, BannerType } from '../components/ErrorBanner';
 import { LatLng, ToiletPoi, AppState, CallbackHandler, Callback0, Callback1, MinimalError, TravelMode } from '../common/types';
 import { DEFAULT_CENTER, DEFAULT_ZOOM } from '../common/config';
-import { HarmonyGeo, LocationPermissionStatus } from '../common/geo';
+import { HarmonyGeo, LocationPermissionStatus, LocationAccuracy } from '../common/geo';
 import { MapKitAdapter } from '../common/mapKitAdapter';
 import { MapComponent, mapCommon, map } from '@kit.MapKit';
 import { AsyncCallback } from '@kit.BasicServicesKit';
@@ -88,9 +88,13 @@ struct Index {
             console.info('Index', 'mapLoad completed');
             // 启用我的位置显示
             this.mapAdapter.setMyLocationEnabled(true);
-            // 如果有位置信息，移动到用户位置
+            // 如果有位置信息，移动到用户位置并确保居中
             if (this.myLocation) {
-              this.mapAdapter.moveCamera(this.myLocation, DEFAULT_ZOOM, true);
+              // 延迟一点时间确保地图完全加载
+              setTimeout(() => {
+                this.mapAdapter.moveCamera(this.myLocation!, DEFAULT_ZOOM, true);
+                console.info('Index: camera moved to user location after map load');
+              }, 500);
             }
           };
           
@@ -125,11 +129,11 @@ struct Index {
     try {
       this.mapAdapter.setOnMapClickListener((pos) => {
         const ctx = getContext(this) as common.UIAbilityContext;
-        openNavigationWithPlanning(ctx, pos, 'Target', this.travelMode, this.selectedTime);
+        openNavigationWithPlanning(ctx, pos, 'Target', this.travelMode, this.selectedTime, this.myLocation);
       });
       this.mapAdapter.setOnMarkerClickListener((_markerId, pos) => {
         const ctx = getContext(this) as common.UIAbilityContext;
-        openNavigationWithPlanning(ctx, pos, 'Target', this.travelMode, this.selectedTime);
+        openNavigationWithPlanning(ctx, pos, 'Target', this.travelMode, this.selectedTime, this.myLocation);
       });
     } catch (err) {
       console.warn('Index: register map listeners failed', err as Error);
@@ -137,63 +141,83 @@ struct Index {
   }
 
   build() {
-    Column() {
-      if (this.bannerVisible) {
-        ErrorBanner({
-          visible: this.bannerVisible,
-          message: this.bannerMessage,
-          type: this.bannerType,
-          actionText: this.getActionText(),
-          onActionClick: ({ handler: () => this.handleBannerAction() } as CallbackHandler),
-          onClose: ({ handler: () => this.hideBanner() } as CallbackHandler)
+    Stack() {
+      // 地图区域作为背景
+      this.buildMapArea()
+
+      // 找屎按钮放在下方
+      Column() {
+        Blank().layoutWeight(1)
+        ToiletCard({
+          loading: this.loading,
+          onFindToiletClick: ({ handler: () => this.handleFindToilet() } as Callback0),
+          onTimeChange: ({ handler: (time: number) => this.handleTimeChange(time) } as Callback1<number>),
+          onModeChange: ({ handler: (mode: TravelMode) => this.handleModeChange(mode) } as Callback1<TravelMode>)
         })
-          .zIndex(9)
       }
+      .width('100%')
+      .height('100%')
+      .zIndex(10)
 
-      Stack() {
-        this.buildMapArea()
-
-        // 找屎按钮放在下方
+      // 悬浮的Banner，不影响地图布局
+      if (this.bannerVisible) {
         Column() {
-          Blank().layoutWeight(1)
-          ToiletCard({
-            loading: this.loading,
-            onFindToiletClick: ({ handler: () => this.handleFindToilet() } as Callback0),
-            onTimeChange: ({ handler: (time: number) => this.handleTimeChange(time) } as Callback1<number>),
-            onModeChange: ({ handler: (mode: TravelMode) => this.handleModeChange(mode) } as Callback1<TravelMode>)
+          ErrorBanner({
+            visible: this.bannerVisible,
+            message: this.bannerMessage,
+            type: this.bannerType,
+            actionText: this.getActionText(),
+            onActionClick: ({ handler: () => this.handleBannerAction() } as CallbackHandler),
+            onClose: ({ handler: () => this.hideBanner() } as CallbackHandler)
           })
+          Blank()
         }
         .width('100%')
         .height('100%')
-        .padding({ bottom: 20 })
-        .zIndex(10)
-
-        Row() {
-          Button() {
-            Image(('app.media.ic_settings'))
-              .width(22)
-              .height(22)
-              .fillColor('#4C8BF5')
-          }
-          .width(44)
-          .height(44)
-          .backgroundColor(Color.White)
-          .borderRadius(22)
-          .shadow({ radius: 8, color: '#1A000000', offsetX: 0, offsetY: 2 })
-          .onClick(() => {
-            try {
-              router.pushUrl({ url: 'pages/Settings' });
-            } catch (err) {
-              console.error('Index: navigate to settings failed', err as Error);
-            }
-          })
-        }
-        .width('100%')
-        .padding({ top: 12, right: 12 })
-        .justifyContent(FlexAlign.End)
-        .zIndex(20)
+        .zIndex(30)
+        .padding({ top: 12 })
       }
-      .layoutWeight(1)
+
+      // 右上角按钮组
+      Column({ space: 8 }) {
+        // 设置按钮
+        Button() {
+          Image(('app.media.ic_settings'))
+            .width(22)
+            .height(22)
+            .fillColor('#4C8BF5')
+        }
+        .width(44)
+        .height(44)
+        .backgroundColor(Color.White)
+        .borderRadius(22)
+        .shadow({ radius: 8, color: '#1A000000', offsetX: 0, offsetY: 2 })
+        .onClick(() => {
+          try {
+            router.pushUrl({ url: 'pages/Settings' });
+          } catch (err) {
+            console.error('Index: navigate to settings failed', err as Error);
+          }
+        })
+        
+        // 定位按钮
+        Button() {
+          Text('📍')
+            .fontSize(20)
+        }
+        .width(44)
+        .height(44)
+        .backgroundColor(Color.White)
+        .borderRadius(22)
+        .shadow({ radius: 8, color: '#1A000000', offsetX: 0, offsetY: 2 })
+        .onClick(() => {
+          this.focusToMyLocation();
+        })
+      }
+      .width('100%')
+      .padding({ top: 12, right: 12 })
+      .alignItems(HorizontalAlign.End)
+      .zIndex(20)
     }
     .width('100%')
     .height('100%')
@@ -215,6 +239,38 @@ struct Index {
       this.appState = AppState.INIT;
       this.mapAdapter.initIfNeeded();
       this.mapAdapter.moveCamera(DEFAULT_CENTER, DEFAULT_ZOOM);
+      
+      // 主动申请位置权限
+      console.info('Index: requesting location permission on startup');
+      const ctx = getContext(this) as common.UIAbilityContext;
+      const granted = await this.geoService.requestLocationPermission(ctx);
+      
+      if (granted) {
+        console.info('Index: location permission granted');
+        this.mapAdapter.setMyLocationEnabled(true);
+        
+        // 自动获取当前位置并显示在地图上
+        try {
+          console.info('Index: auto-locating user position');
+          const location = await this.geoService.getCurrentLatLng({
+            accuracy: LocationAccuracy.HIGH,
+            timeout: 10000 // 10秒超时
+          });
+          
+          console.info('Index: auto-location successful:', location);
+          this.myLocation = location;
+          this.mapAdapter.moveCamera(location, DEFAULT_ZOOM, true);
+          this.mapAdapter.clearMarkers();
+          this.mapAdapter.addMarker(location, '我的位置');
+          this.showInfo('已显示定位，地图已聚焦到您的位置');
+        } catch (locationError) {
+          console.warn('Index: auto-location failed:', locationError);
+          // 定位失败不影响应用启动，只是不显示当前位置
+        }
+      } else {
+        console.warn('Index: location permission denied');
+      }
+      
       this.appState = AppState.IDLE;
     } catch (error) {
       console.error('Index: initialize app failed', error as Error);
@@ -229,28 +285,85 @@ struct Index {
       this.error = undefined;
       this.hideBanner();
 
-      const location = await this.geoService.getCurrentLatLng();
       // 运行时权限：检查并申请定位权限（API 16）
       const perm = await this.geoService.checkLocationPermission();
       if (perm !== LocationPermissionStatus.GRANTED) {
+        console.info('Index: location permission not granted, requesting permission');
         const ctx = getContext(this) as common.UIAbilityContext;
         const granted = await this.geoService.requestLocationPermission(ctx);
         if (!granted) {
+          console.warn('Index: user denied location permission');
           this.showPermissionError();
           throw new Error('LOCATION_PERMISSION_DENIED');
         }
+        console.info('Index: location permission granted by user');
       }
-      this.myLocation = location;
-      this.mapAdapter.moveCamera(location, DEFAULT_ZOOM);
+
+      // 获取当前位置
+      console.info('Index: getting current location for toilet search');
+      const currentLocation = await this.geoService.getCurrentLatLng({
+        accuracy: LocationAccuracy.HIGH,
+        timeout: 15000 // 15秒超时
+      });
+      
+      console.info('Index: current location obtained:', currentLocation);
+      this.myLocation = currentLocation;
+      
+      // 确保当前位置在地图中心
+      console.info('Index: centering map to current location');
+      this.mapAdapter.moveCamera(currentLocation, DEFAULT_ZOOM, true);
       this.mapAdapter.setMyLocationEnabled(true);
       this.mapAdapter.clearMarkers();
-      this.mapAdapter.addMarker(location, 'My Location');
+      this.mapAdapter.addMarker(currentLocation, '我的位置');
 
-      this.toilets = [];
+      // 搜索附近厕所
+      this.appState = AppState.SEARCHING;
+      
+      // 模拟搜索附近厕所（这里需要实际的数据提供者实现）
+      const toilets: ToiletPoi[] = [];
+      
+      if (toilets.length === 0) {
+        this.appState = AppState.EMPTY;
+        this.showError('附近没有找到厕所');
+        return;
+      }
+      
+      // 根据选择的时长筛选最近的厕所
+      const nearestToilet = await this.findNearestToiletWithinTime(currentLocation, toilets);
+      
+      if (!nearestToilet) {
+        this.showError(`在${this.selectedTime}分钟内未找到可达厕所`);
+        return;
+      }
+      
+      // 渲染结果
+      this.appState = AppState.RENDERING;
+      this.toilets = toilets;
+      
+      // 添加厕所标记，高亮最近的厕所
+      toilets.forEach(toilet => {
+        const isNearest = toilet.id === nearestToilet.id;
+        this.mapAdapter.addMarker(toilet, toilet.name);
+      });
+      
+      // 自动导航到最近的厕所
+      console.info('Index: navigating to nearest toilet:', nearestToilet);
+      const ctx = getContext(this) as common.UIAbilityContext;
+      openNavigationWithPlanning(
+        ctx, 
+        nearestToilet, 
+        nearestToilet.name, 
+        this.travelMode, 
+        this.selectedTime,
+        currentLocation
+      );
+      
       this.appState = AppState.IDLE;
-      this.showInfo('Located. Tap map to navigate.');
+      const modeText = this.travelMode === TravelMode.WALKING ? '步行' : '骑行';
+      this.showInfo(`已为您规划${modeText}路线到"${nearestToilet.name}"`);
+      
     } catch (error) {
-      console.error('Index: one-tap locate failed', error as Error);
+      console.error('Index: handleFindToilet failed', error as Error);
       this.appState = AppState.ERROR;
       const appErr = error as MinimalError;
       const code: string = appErr.code ?? '';
@@ -267,11 +380,68 @@ struct Index {
     }
   }
 
+  private async findNearestToiletWithinTime(currentLocation: LatLng, toilets: ToiletPoi[]): Promise<ToiletPoi | null> {
+    if (toilets.length === 0) {
+      return null;
+    }
+
+    // 计算每个厕所的距离和预估时间
+    const toiletsWithTime = toilets.map(toilet => {
+      // 计算直线距离（米）
+      const distance = this.calculateDistance(currentLocation, toilet);
+      
+      // 根据出行方式估算时间（分钟）
+      let estimatedTime: number;
+      if (this.travelMode === TravelMode.WALKING) {
+        // 步行速度约 5 km/h = 83.33 m/min
+        estimatedTime = distance / 83.33;
+      } else {
+        // 骑行速度约 15 km/h = 250 m/min
+        estimatedTime = distance / 250;
+      }
+      
+      return {
+        toilet,
+        distance,
+        estimatedTime
+      };
+    });
+
+    // 筛选在指定时间内可达的厕所
+    const reachableToilets = toiletsWithTime.filter(item => item.estimatedTime <= this.selectedTime);
+    
+    if (reachableToilets.length === 0) {
+      return null;
+    }
+
+    // 返回距离最近的厕所
+    const nearest = reachableToilets.reduce((prev, current) => 
+      prev.distance < current.distance ? prev : current
+    );
+    
+    return nearest.toilet;
+  }
+
+  private calculateDistance(pos1: LatLng, pos2: LatLng): number {
+    const R = 6371000; // 地球半径（米）
+    const lat1Rad = pos1.lat * Math.PI / 180;
+    const lat2Rad = pos2.lat * Math.PI / 180;
+    const deltaLatRad = (pos2.lat - pos1.lat) * Math.PI / 180;
+    const deltaLngRad = (pos2.lng - pos1.lng) * Math.PI / 180;
+
+    const a = Math.sin(deltaLatRad / 2) * Math.sin(deltaLatRad / 2) +
+              Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+              Math.sin(deltaLngRad / 2) * Math.sin(deltaLngRad / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return R * c; // 返回距离（米）
+  }
+
   private handleToiletItemClick(toilet: ToiletPoi): void {
     try {
       this.mapAdapter.moveCamera(toilet, DEFAULT_ZOOM);
       const ctx = getContext(this) as common.UIAbilityContext;
-      openNavigationWithPlanning(ctx, toilet, toilet.name, this.travelMode, this.selectedTime);
+      openNavigationWithPlanning(ctx, toilet, toilet.name, this.travelMode, this.selectedTime, this.myLocation);
     } catch (error) {
       console.error('Index: move to toilet location failed', error as Error);
     }
@@ -290,8 +460,8 @@ struct Index {
   }
 
   private showPermissionError(): void {
-    this.bannerType = BannerType.WARNING;
-    this.bannerMessage = 'Location permission denied. Enable it in Settings.';
+    this.bannerType = BannerType.ERROR;
+    this.bannerMessage = '定位权限被拒绝，请在设置中开启位置权限以使用定位功能';
     this.bannerVisible = true;
   }
 
@@ -311,6 +481,22 @@ struct Index {
   private hideBanner(): void {
     this.bannerVisible = false;
     this.error = undefined;
+  }
+
+  private focusToMyLocation(): void {
+    if (this.myLocation) {
+      // 如果已有定位信息，直接聚焦到该位置
+      console.info('Index: focusing to my location:', this.myLocation);
+      this.mapAdapter.moveCamera(this.myLocation, DEFAULT_ZOOM, true);
+      // 确保用户位置标记可见
+      this.mapAdapter.clearMarkers();
+      this.mapAdapter.addMarker(this.myLocation, '我的位置');
+      this.showInfo('已聚焦到您的位置');
+    } else {
+      // 如果没有定位信息，重新获取位置
+      console.info('Index: no location available, requesting new location');
+      this.handleFindToilet();
+    }
   }
 
   private getActionText(): string | undefined {

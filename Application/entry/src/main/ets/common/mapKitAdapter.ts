@@ -7,6 +7,7 @@ import { MapAdapter, CameraPosition } from './mapAdapter';
 import { LatLng, ToiletPoi } from './types';
 import { DEFAULT_ZOOM_LEVEL, CAMERA_ANIMATION_DURATION } from './config';
 import { formatDistance } from './utils/haversine';
+import { map, mapCommon } from '@kit.MapKit';
 
 export class MapKitAdapter implements MapAdapter {
   private mapController: any | undefined;
@@ -15,6 +16,8 @@ export class MapKitAdapter implements MapAdapter {
   private markerIdCounter = 0;
   private pendingMapClickListener?: (position: LatLng) => void;
   private pendingMarkerClickListener?: (markerId: string, position: LatLng) => void;
+  private pendingCameraPosition?: CameraPosition;
+  private pendingAnimated: boolean = true;
 
   constructor() {}
 
@@ -39,6 +42,20 @@ export class MapKitAdapter implements MapAdapter {
       if (this.pendingMarkerClickListener) {
         this.setOnMarkerClickListener(this.pendingMarkerClickListener);
       }
+      
+      // 如果有待处理的相机位置，现在执行
+      if (this.pendingCameraPosition) {
+        console.info('MapKitAdapter: executing pending camera position');
+        const position = this.pendingCameraPosition;
+        const animated = this.pendingAnimated;
+        this.pendingCameraPosition = undefined;
+        
+        // 延迟执行确保地图完全初始化
+        setTimeout(() => {
+          this.setCameraPosition(position, animated);
+        }, 200);
+      }
+      
       console.log('MapKitAdapter: controller attached');
     } catch (error) {
       console.error('MapKitAdapter: attachController failed', error);
@@ -48,7 +65,15 @@ export class MapKitAdapter implements MapAdapter {
   /** 移动相机到指定位置信息 - 优化动画效果 */
   moveCamera(target: LatLng, zoom?: number, animated: boolean = true): void {
     if (!this.mapController) {
-      console.warn('MapKitAdapter: map not ready');
+      console.warn('MapKitAdapter: map not ready, saving camera position for later');
+      // 保存相机位置，等地图准备好后再移动
+      this.pendingCameraPosition = {
+        target,
+        zoom: zoom || DEFAULT_ZOOM_LEVEL,
+        bearing: 0,
+        tilt: 0
+      };
+      this.pendingAnimated = animated;
       return;
     }
     try {
@@ -59,6 +84,8 @@ export class MapKitAdapter implements MapAdapter {
         bearing: 0, // 方位角
         tilt: 0 // 倾斜角
       };
+      
+      console.info('MapKitAdapter: moving camera to', target, 'zoom:', zoom, 'animated:', animated);
       
       if (animated) {
         // 使用平滑动画移动相机
@@ -75,36 +102,78 @@ export class MapKitAdapter implements MapAdapter {
     }
   }
 
-  /** 设置相机位置 - 增强动画选项 */
+  /** 设置相机位置 - 使用HarmonyOS MapKit官方API */
   setCameraPosition(position: CameraPosition, animated: boolean = true, animationOptions?: any): void {
     if (!this.mapController) {
       console.warn('MapKitAdapter: map not ready');
       return;
     }
     try {
-      const api: any = this.mapController;
       const target = position.target;
       const zoom = position.zoom || DEFAULT_ZOOM_LEVEL;
-      const bearing = (position as any).bearing || 0;
-      const tilt = (position as any).tilt || 0;
       
-      const cameraConfig = { target, zoom, bearing, tilt };
+      console.log('MapKitAdapter: attempting to set camera position:', target, 'zoom:', zoom);
       
-      if (animated && typeof api?.animateCamera === 'function') {
-        const finalAnimationOptions = {
-          duration: CAMERA_ANIMATION_DURATION,
-          curve: 'ease-in-out',
-          ...animationOptions
-        };
-        api.animateCamera(cameraConfig, finalAnimationOptions);
-      } else if (typeof api?.moveCamera === 'function') {
-        api.moveCamera(cameraConfig);
-      } else if (typeof api?.setCameraPosition === 'function') {
-        api.setCameraPosition(cameraConfig);
-      }
-      console.log(`MapKitAdapter: camera -> ${target.lat}, ${target.lng} (animated: ${animated})`);
+      // 使用HarmonyOS MapKit官方API - map.newLatLng方法
+       // 根据官方文档，需要使用map.newLatLng来创建相机位置
+       try {
+         if (map && typeof map.newLatLng === 'function') {
+           // 使用官方推荐的map.newLatLng方法
+           const latLng: mapCommon.LatLng = {
+             latitude: target.lat,
+             longitude: target.lng
+           };
+           
+           if (animated) {
+             // 使用animateCamera进行动画移动
+             this.mapController.animateCamera(map.newLatLng(latLng, zoom));
+             console.log('MapKitAdapter: used animateCamera with map.newLatLng (animated)');
+           } else {
+             // 对于非动画移动，也使用animateCamera但可能需要设置duration为0
+             // 或者尝试直接设置相机位置
+             this.mapController.animateCamera(map.newLatLng(latLng, zoom));
+             console.log('MapKitAdapter: used animateCamera with map.newLatLng (instant)');
+           }
+         } else {
+           console.warn('MapKitAdapter: map.newLatLng not available, trying alternative methods');
+           this.fallbackCameraPosition(target, zoom, animated);
+         }
+       } catch (error) {
+         console.warn('MapKitAdapter: error using map.newLatLng, using fallback:', error);
+         this.fallbackCameraPosition(target, zoom, animated);
+       }
+      
+      console.log(`MapKitAdapter: camera moved to ${target.lat}, ${target.lng} (zoom: ${zoom}, animated: ${animated})`);
     } catch (error) {
       console.error('MapKitAdapter: setCameraPosition error', error);
+      console.error('MapKitAdapter: available methods:', Object.getOwnPropertyNames(this.mapController));
+    }
+  }
+  
+  /** 备用相机位置设置方法 */
+  private fallbackCameraPosition(target: LatLng, zoom: number, animated: boolean): void {
+    const latLng = {
+      latitude: target.lat,
+      longitude: target.lng
+    };
+    
+    const cameraPosition = {
+      target: latLng,
+      zoom: zoom
+    };
+    
+    // 尝试不同的API调用方式
+    if (typeof this.mapController?.animateCamera === 'function') {
+      this.mapController.animateCamera(cameraPosition);
+      console.log('MapKitAdapter: used fallback animateCamera');
+    } else if (typeof this.mapController?.setCameraPosition === 'function') {
+      this.mapController.setCameraPosition(cameraPosition);
+      console.log('MapKitAdapter: used fallback setCameraPosition');
+    } else if (typeof this.mapController?.moveCamera === 'function') {
+      this.mapController.moveCamera(cameraPosition);
+      console.log('MapKitAdapter: used fallback moveCamera');
+    } else {
+      console.error('MapKitAdapter: no camera control methods available');
     }
   }
 

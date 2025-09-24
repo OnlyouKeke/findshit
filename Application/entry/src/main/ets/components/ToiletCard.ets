@@ -56,7 +56,7 @@ export struct ToiletCard {
     .shadow({ radius: 8, color: '#1F000000', offsetX: 0, offsetY: -2 })
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
-    .padding({ left: 20, right: 20, top: 16, bottom: 16 })
+    .padding({ left: 20, right: 20, top: 16, bottom: 0 })
   }
 
   @Builder

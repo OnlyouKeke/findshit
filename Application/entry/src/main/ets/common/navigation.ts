@@ -1,28 +1,68 @@
 /**
  * 导航唤起工具
  * 支持华为地图导航API的路径规划功能，包括步行和骑行规划
+ * 集成高德地图路线规划API
  * 回退到常见地图App（高德、百度、腾讯）
  */
 
 import { common, Want } from '@kit.AbilityKit';
 import { TravelMode, LatLng } from './types';
+import { RouteService, RouteRequest } from './routeService';
 
 /**
  * 打开华为地图进行路径规划
+ * 首先尝试使用高德地图API进行路线规划验证，然后启动导航
  * @param context 应用上下文
  * @param destination 目标位置
  * @param destinationName 目标位置名称
  * @param travelMode 出行方式
  * @param timeLimit 时间限制（分钟）
+ * @param origin 起点位置（可选，默认使用当前位置）
  */
 export async function openNavigationWithPlanning(
   context: common.UIAbilityContext,
   destination: LatLng,
   destinationName: string = '目标位置',
   travelMode: TravelMode = TravelMode.WALKING,
-  timeLimit?: number
+  timeLimit?: number,
+  origin?: LatLng
 ): Promise<boolean> {
   try {
+    // 如果提供了起点和时间限制，先使用高德API验证路线
+    if (origin && timeLimit) {
+      try {
+        const routeService = new RouteService();
+        const routeRequest: RouteRequest = {
+          origin,
+          destination,
+          travelMode,
+          timeLimit
+        };
+        
+        console.info('Navigation: planning route with Amap API', routeRequest);
+        const routeResult = await routeService.planRoute(routeRequest);
+        
+        // 检查路线是否在时间限制内
+        const estimatedMinutes = routeResult.duration / 60;
+        if (estimatedMinutes > timeLimit) {
+          console.warn('Navigation: route exceeds time limit', {
+            estimated: estimatedMinutes,
+            limit: timeLimit
+          });
+          // 仍然继续导航，但给出提示
+        }
+        
+        console.info('Navigation: route validated', {
+          distance: routeResult.distance,
+          duration: routeResult.duration,
+          estimatedMinutes
+        });
+      } catch (routeError) {
+        console.warn('Navigation: route planning failed, proceeding with direct navigation', routeError);
+        // 路线规划失败不影响导航，继续使用华为地图
+      }
+    }
+    
     // 转换出行方式为华为地图API参数
     const vehicleType = getVehicleType(travelMode);
     
@@ -37,6 +77,11 @@ export async function openNavigationWithPlanning(
         destinationLongitude: destination.lng,
         destinationName: destinationName,
         vehicleType: vehicleType, // 交通出行工具：0-驾车，1-步行，2-骑行
+        // 如果有起点，添加起点参数
+        ...(origin && {
+          originLatitude: origin.lat,
+          originLongitude: origin.lng
+        }),
         // 如果有时间限制，可以添加额外参数
         ...(timeLimit && { timeLimit: timeLimit })
       }

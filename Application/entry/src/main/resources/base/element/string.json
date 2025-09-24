@@ -250,11 +250,11 @@
     },
     {
       "name": "permission_internet_reason",
-      "value": "App needs internet permission to fetch toilet location data."
+      "value": "应用需要网络权限来获取厕所位置数据和地图服务"
     },
     {
       "name": "permission_location_reason",
-      "value": "App needs location permission to find nearby toilets and provide navigation services."
+      "value": "应用需要位置权限来定位您的当前位置，查找附近的厕所并提供导航服务"
     },
     {
       "name": "app_title",

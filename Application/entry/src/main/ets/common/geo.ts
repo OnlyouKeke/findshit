@@ -11,6 +11,8 @@ import { LOCATION_TIMEOUT, ERROR_MESSAGES, PERMISSIONS } from './config';
 import abilityAccessCtrl from '@ohos.abilityAccessCtrl';
 import bundleManager from '@ohos.bundle.bundleManager';
 import { common } from '@kit.AbilityKit';
+// 引入地理位置管理器
+import geoLocationManager from '@ohos.geoLocationManager';
 
 /**
  * 定位权限状态
@@ -105,28 +107,41 @@ export class HarmonyGeo implements Geo {
         throw this.createLocationError('SERVICE_DISABLED', '定位服务未开启');
       }
 
-      // 设置定位参数 - 优化定位精度
-      const locationOptions = {
+      // 设置定位参数 - 使用真实的geoLocationManager API
+      const requestInfo: geoLocationManager.CurrentLocationRequest = {
         priority: this.getLocationPriority(options?.accuracy || LocationAccuracy.HIGH),
-        scenario: 0x301, // SCENE_NAVIGATION - 导航场景，提供最佳精度
-        timeInterval: 1, // 1秒间隔
-        distanceInterval: 0, // 距离间隔0米，获取最新位置
-        maxAccuracy: 3000, // 最大精度3000米
-        fenceRadius: 1, // 围栏半径1米
-        isOffline: false // 在线定位
+        scenario: geoLocationManager.LocationRequestScenario.NAVIGATION, // 导航场景
+        timeoutMs: options?.timeout || LOCATION_TIMEOUT,
+        maxAccuracy: 3000 // 最大精度3000米
       };
 
-      console.info('HarmonyGeo: starting high-precision location request');
+      console.info('HarmonyGeo: starting real location request with params:', requestInfo);
       
-      // 模拟定位延迟（实际项目中应使用真实的定位API）
-      await this.simulateLocationDelay(options?.timeout || LOCATION_TIMEOUT);
-      
-      // 返回上海人民广场坐标作为模拟位置
-      // 在实际项目中，这里应该调用真实的定位API
-      const location = { lat: 31.2304, lng: 121.4737 };
-      
-      console.info('HarmonyGeo: location obtained successfully', location);
-      return location;
+      // 使用真实的定位API获取当前位置
+      return new Promise<LatLng>((resolve, reject) => {
+        geoLocationManager.getCurrentLocation(requestInfo, (err, location) => {
+          if (err) {
+            console.error('HarmonyGeo: getCurrentLocation failed', err);
+            reject(this.createLocationError('LOCATION_ERROR', `定位失败: ${err.message}`));
+            return;
+          }
+          
+          if (!location) {
+            console.error('HarmonyGeo: location is null');
+            reject(this.createLocationError('LOCATION_ERROR', '无法获取位置信息'));
+            return;
+          }
+          
+          const result: LatLng = {
+            lat: location.latitude,
+            lng: location.longitude
+          };
+          
+          console.info('HarmonyGeo: real location obtained successfully:', result);
+          console.info('HarmonyGeo: location details - accuracy:', location.accuracy, 'altitude:', location.altitude);
+          resolve(result);
+        });
+      });
     } catch (error) {
       console.error('HarmonyGeo: getCurrentLatLng failed', error);
       throw this.createLocationError('LOCATION_ERROR', ERROR_MESSAGES.LOCATION_FAILED);
@@ -167,6 +182,13 @@ export class HarmonyGeo implements Geo {
     try {
       console.info('HarmonyGeo: requesting location permission');
       
+      // 先检查当前权限状态
+      const currentStatus = await this.checkLocationPermission();
+      if (currentStatus === LocationPermissionStatus.GRANTED) {
+        console.info('HarmonyGeo: location permission already granted');
+        return true;
+      }
+      
       const atManager = abilityAccessCtrl.createAtManager();
       const bundleInfo = await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
       const tokenId = bundleInfo.appInfo.accessTokenId;
@@ -177,6 +199,7 @@ export class HarmonyGeo implements Geo {
         PERMISSIONS.APPROXIMATELY_LOCATION
       ];
       
+      console.info('HarmonyGeo: showing permission dialog to user');
       const result = await atManager.requestPermissionsFromUser(ctx, permissions);
       
       // 检查权限授予结果
@@ -188,8 +211,13 @@ export class HarmonyGeo implements Geo {
       console.info('HarmonyGeo: permission request result', {
         location: locationGranted,
         approximate: approximateGranted,
-        success
+        success,
+        authResults: result?.authResults
       });
+      
+      if (!success) {
+        console.warn('HarmonyGeo: user denied location permission');
+      }
       
       return success;
     } catch (error) {
@@ -203,12 +231,13 @@ export class HarmonyGeo implements Geo {
    */
   async isLocationServiceEnabled(): Promise<boolean> {
     try {
-      // TODO: 实际的定位服务检查代码
-      // return await geoLocationManager.isLocationEnabled();
-
-      // 模拟定位服务检查（开发阶段使用）
-      return true;
-
+      console.info('HarmonyGeo: checking location service status');
+      
+      // 使用geoLocationManager检查定位服务状态
+      const enabled = geoLocationManager.isLocationEnabled();
+      
+      console.info('HarmonyGeo: location service enabled:', enabled);
+      return enabled;
     } catch (error) {
       console.error('HarmonyGeo: 检查定位服务失败', error);
       return false;
@@ -218,37 +247,20 @@ export class HarmonyGeo implements Geo {
   /**
    * 获取定位优先级
    */
-  private getLocationPriority(accuracy: LocationAccuracy): number {
-    // TODO: 根据实际的 geoLocationManager API 返回对应的优先级
+  private getLocationPriority(accuracy: LocationAccuracy): geoLocationManager.LocationRequestPriority {
     switch (accuracy) {
       case LocationAccuracy.HIGH:
-        return 0x0201; // PRIORITY_ACCURACY
+        return geoLocationManager.LocationRequestPriority.ACCURACY; // 高精度定位
       case LocationAccuracy.MEDIUM:
-        return 0x0203; // PRIORITY_FAST_FIRST_FIX
+        return geoLocationManager.LocationRequestPriority.FIRST_FIX; // 快速首次定位
       case LocationAccuracy.LOW:
-        return 0x0204; // PRIORITY_LOW_POWER
+        return geoLocationManager.LocationRequestPriority.LOW_POWER; // 低功耗定位
       default:
-        return 0x0201;
+        return geoLocationManager.LocationRequestPriority.ACCURACY;
     }
   }
 
-  /**
-   * 模拟定位延迟
-   */
-  private async simulateLocationDelay(timeout: number): Promise<void> {
-    const delay = Math.min(1000 + Math.random() * 2000, timeout); // 1-3秒随机延迟
-    return new Promise((resolve, reject) => {
-      const timer = setTimeout(resolve, delay);
-      
-      // 模拟超时
-      if (Math.random() < 0.1) { // 10% 概率超时
-        setTimeout(() => {
-          clearTimeout(timer);
-          reject(new Error('Location timeout'));
-        }, timeout);
-      }
-    });
-  }
+
 
   /**
    * 创建定位错误
