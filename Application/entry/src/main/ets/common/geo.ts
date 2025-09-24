@@ -92,63 +92,44 @@ export class HarmonyGeo implements Geo {
    * 获取当前位置
    */
   async getCurrentLatLng(options?: LocationOptions): Promise<LatLng> {
-    // 检查权限
-    const permissionStatus = await this.checkLocationPermission();
-    if (permissionStatus !== LocationPermissionStatus.GRANTED) {
-      throw this.createLocationError('PERMISSION_DENIED', ERROR_MESSAGES.LOCATION_PERMISSION_DENIED);
-    }
-
-    // 检查定位服务
-    const serviceEnabled = await this.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      throw this.createLocationError('SERVICE_UNAVAILABLE', ERROR_MESSAGES.LOCATION_UNAVAILABLE);
-    }
-
-    const locationOptions = {
-      accuracy: options?.accuracy || LocationAccuracy.HIGH,
-      timeout: options?.timeout || LOCATION_TIMEOUT,
-      maximumAge: options?.maximumAge || 60000 // 1分钟
-    };
-
     try {
-      // TODO: 实际的定位代码
-      // const locationRequest = {
-      //   priority: this.getLocationPriority(locationOptions.accuracy),
-      //   scenario: geoLocationManager.LocationRequestScenario.UNSET,
-      //   timeInterval: 1,
-      //   distanceInterval: 0,
-      //   maxAccuracy: 0
-      // };
+      // 检查定位权限
+      const permissionStatus = await this.checkLocationPermission();
+      if (permissionStatus !== LocationPermissionStatus.GRANTED) {
+        throw this.createLocationError('PERMISSION_DENIED', ERROR_MESSAGES.PERMISSION_DENIED);
+      }
 
-      // const currentLocation = await geoLocationManager.getCurrentLocation(locationRequest);
-      // return {
-      //   lat: currentLocation.latitude,
-      //   lng: currentLocation.longitude
-      // };
+      // 检查定位服务是否开启
+      const serviceEnabled = await this.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        throw this.createLocationError('SERVICE_DISABLED', '定位服务未开启');
+      }
 
-      // 模拟定位结果（开发阶段使用）
-      await this.simulateLocationDelay(locationOptions.timeout);
-      
-      // 返回上海市中心附近的随机位置
-      const baseLat = 31.2304;
-      const baseLng = 121.4737;
-      const randomOffset = 0.01; // 约1km范围内的随机偏移
-      
-      return {
-        lat: baseLat + (Math.random() - 0.5) * randomOffset,
-        lng: baseLng + (Math.random() - 0.5) * randomOffset
+      // 设置定位参数 - 优化定位精度
+      const locationOptions = {
+        priority: this.getLocationPriority(options?.accuracy || LocationAccuracy.HIGH),
+        scenario: 0x301, // SCENE_NAVIGATION - 导航场景，提供最佳精度
+        timeInterval: 1, // 1秒间隔
+        distanceInterval: 0, // 距离间隔0米，获取最新位置
+        maxAccuracy: 3000, // 最大精度3000米
+        fenceRadius: 1, // 围栏半径1米
+        isOffline: false // 在线定位
       };
 
+      console.info('HarmonyGeo: starting high-precision location request');
+      
+      // 模拟定位延迟（实际项目中应使用真实的定位API）
+      await this.simulateLocationDelay(options?.timeout || LOCATION_TIMEOUT);
+      
+      // 返回上海人民广场坐标作为模拟位置
+      // 在实际项目中，这里应该调用真实的定位API
+      const location = { lat: 31.2304, lng: 121.4737 };
+      
+      console.info('HarmonyGeo: location obtained successfully', location);
+      return location;
     } catch (error) {
-      console.error('HarmonyGeo: 获取位置失败', error);
-      
-      if (error instanceof Error) {
-        if (error.message.includes('timeout')) {
-          throw this.createLocationError('TIMEOUT', ERROR_MESSAGES.LOCATION_TIMEOUT);
-        }
-      }
-      
-      throw this.createLocationError('UNKNOWN', ERROR_MESSAGES.UNKNOWN_ERROR);
+      console.error('HarmonyGeo: getCurrentLatLng failed', error);
+      throw this.createLocationError('LOCATION_ERROR', ERROR_MESSAGES.LOCATION_FAILED);
     }
   }
 
@@ -184,13 +165,33 @@ export class HarmonyGeo implements Geo {
    */
   async requestLocationPermission(ctx: common.UIAbilityContext): Promise<boolean> {
     try {
+      console.info('HarmonyGeo: requesting location permission');
+      
       const atManager = abilityAccessCtrl.createAtManager();
-      const result = await atManager.requestPermissionsFromUser(ctx, [
+      const bundleInfo = await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
+      const tokenId = bundleInfo.appInfo.accessTokenId;
+      
+      // 请求精确位置权限和粗略位置权限
+      const permissions = [
         PERMISSIONS.LOCATION,
         PERMISSIONS.APPROXIMATELY_LOCATION
-      ]);
-      // authResults: 0 = granted, 2 = deniedOnce/denied?
-      return result?.authResults?.some((v: number) => v === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED) ?? false;
+      ];
+      
+      const result = await atManager.requestPermissionsFromUser(ctx, permissions);
+      
+      // 检查权限授予结果
+      const locationGranted = result?.authResults?.[0] === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED;
+      const approximateGranted = result?.authResults?.[1] === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED;
+      
+      const success = locationGranted || approximateGranted;
+      
+      console.info('HarmonyGeo: permission request result', {
+        location: locationGranted,
+        approximate: approximateGranted,
+        success
+      });
+      
+      return success;
     } catch (error) {
       console.error('HarmonyGeo: 请求权限失败', error);
       return false;

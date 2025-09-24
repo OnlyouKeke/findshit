@@ -1,17 +1,17 @@
-﻿/**
+/**
  * Home page (Index)
  * Map area + bottom list + floating settings button
  */
 
 import { ToiletCard } from '../components/ToiletCard';
 import { ErrorBanner, BannerType } from '../components/ErrorBanner';
-import { LatLng, ToiletPoi, AppState, CallbackHandler, Callback0, Callback1, MinimalError } from '../common/types';
+import { LatLng, ToiletPoi, AppState, CallbackHandler, Callback0, Callback1, MinimalError, TravelMode } from '../common/types';
 import { DEFAULT_CENTER, DEFAULT_ZOOM } from '../common/config';
 import { HarmonyGeo, LocationPermissionStatus } from '../common/geo';
 import { MapKitAdapter } from '../common/mapKitAdapter';
 import { MapComponent, mapCommon, map } from '@kit.MapKit';
 import { AsyncCallback } from '@kit.BasicServicesKit';
-import { openExternalNavigation } from '../common/navigation';
+import { openExternalNavigation, openNavigationWithPlanning } from '../common/navigation';
 import { common } from '@kit.AbilityKit';
 import router from '@ohos.router';
 
@@ -26,6 +26,8 @@ struct Index {
   @State bannerVisible: boolean = false;
   @State bannerMessage: string = '';
   @State bannerType: BannerType = BannerType.ERROR;
+  @State selectedTime: number = 5; // 默认5分钟
+  @State travelMode: TravelMode = TravelMode.WALKING; // 默认步行
 
   private geoService = HarmonyGeo.getInstance();
   private mapAdapter = new MapKitAdapter();
@@ -37,7 +39,7 @@ struct Index {
   aboutToAppear() {
     this.initializeApp();
 
-    // Map init options
+    // Map init options - 根据HarmonyOS NEXT MapKit API配置
     this.mapOptions = {
       position: {
         target: {
@@ -45,10 +47,34 @@ struct Index {
           longitude: DEFAULT_CENTER.lng
         },
         zoom: DEFAULT_ZOOM
-      }
-    } as mapCommon.MapOptions;
+      },
+      // 地图类型
+      mapType: mapCommon.MapType.STANDARD,
+      // 地图最小图层,默认值为2
+      minZoom: 2,
+      // 地图最大图层,默认值为20
+      maxZoom: 20,
+      // 是否支持旋转手势
+      rotateGesturesEnabled: true,
+      // 是否支持滑动手势
+      scrollGesturesEnabled: true,
+      // 是否支持缩放手势
+      zoomGesturesEnabled: true,
+      // 是否支持倾斜手势
+      tiltGesturesEnabled: true,
+      // 是否展示缩放控件
+      zoomControlsEnabled: true,
+      // 是否展示定位按钮
+      myLocationControlsEnabled: true,
+      // 是否展示指南针控件
+      compassControlsEnabled: false,
+      // 是否展示比例尺
+      scaleControlsEnabled: true,
+      // 是否一直显示比例尺，只有比例尺启用时该参数才生效
+      alwaysShowScaleEnabled: true
+    };
 
-    // Map init callback
+    // Map init callback - 优化地图初始化
     this.callback = async (err: Error | undefined, controller: map.MapComponentController) => {
       if (!err && controller) {
         this.mapController = controller;
@@ -56,26 +82,54 @@ struct Index {
 
         try {
           this.mapEventManager = controller.getEventManager();
-          const onLoad = () => { console.info('Index', 'mapLoad'); };
+          
+          // 地图加载完成事件
+          const onLoad = () => {
+            console.info('Index', 'mapLoad completed');
+            // 启用我的位置显示
+            this.mapAdapter.setMyLocationEnabled(true);
+            // 如果有位置信息，移动到用户位置
+            if (this.myLocation) {
+              this.mapAdapter.moveCamera(this.myLocation, DEFAULT_ZOOM, true);
+            }
+          };
+          
+          // 地图点击事件
+          const onMapClick = (event: object) => {
+            console.info('Index', 'map clicked at:', event);
+          };
+          
+          // 相机移动事件
+          const onCameraMove = () => {
+            // 可以在这里处理相机移动逻辑
+          };
+          
           this.mapEventManager.on('mapLoad', onLoad);
+          this.mapEventManager.on('mapClick', onMapClick);
+          this.mapEventManager.on('cameraMove', onCameraMove);
+          
         } catch (e) {
           console.warn('Index: bind map events failed', e as Error);
         }
 
+        // 初始相机位置
         const target = this.myLocation ?? DEFAULT_CENTER;
-        this.mapAdapter.moveCamera(target, DEFAULT_ZOOM);
+        this.mapAdapter.moveCamera(target, DEFAULT_ZOOM, false);
+      } else {
+        console.error('Index: map initialization failed', err);
+        this.showError('地图初始化失败');
       }
     };
 
-    // Click to navigate
+    // Click to navigate with planning
     try {
       this.mapAdapter.setOnMapClickListener((pos) => {
         const ctx = getContext(this) as common.UIAbilityContext;
-        openExternalNavigation(ctx, pos.lat, pos.lng, 'Target');
+        openNavigationWithPlanning(ctx, pos, 'Target', this.travelMode, this.selectedTime);
       });
       this.mapAdapter.setOnMarkerClickListener((_markerId, pos) => {
         const ctx = getContext(this) as common.UIAbilityContext;
-        openExternalNavigation(ctx, pos.lat, pos.lng, 'Target');
+        openNavigationWithPlanning(ctx, pos, 'Target', this.travelMode, this.selectedTime);
       });
     } catch (err) {
       console.warn('Index: register map listeners failed', err as Error);
@@ -99,19 +153,20 @@ struct Index {
       Stack() {
         this.buildMapArea()
 
+        // 找屎按钮放在下方
         Column() {
-          Blank().layoutWeight(0.7)
+          Blank().layoutWeight(1)
           ToiletCard({
-            toilets: this.toilets,
             loading: this.loading,
-            error: this.error,
             onFindToiletClick: ({ handler: () => this.handleFindToilet() } as Callback0),
-            onToiletItemClick: ({ handler: (toilet: ToiletPoi) => this.handleToiletItemClick(toilet) } as Callback1<ToiletPoi>)
+            onTimeChange: ({ handler: (time: number) => this.handleTimeChange(time) } as Callback1<number>),
+            onModeChange: ({ handler: (mode: TravelMode) => this.handleModeChange(mode) } as Callback1<TravelMode>)
           })
-            .layoutWeight(0.3)
         }
         .width('100%')
         .height('100%')
+        .padding({ bottom: 20 })
+        .zIndex(10)
 
         Row() {
           Button() {
@@ -152,9 +207,7 @@ struct Index {
       mapCallback: this.callback
     })
       .width('100%')
-      .height('70%')
-      .margin(16)
-      .borderRadius(16)
+      .height('100%')
   }
 
   private async initializeApp(): Promise<void> {
@@ -218,10 +271,22 @@ struct Index {
     try {
       this.mapAdapter.moveCamera(toilet, DEFAULT_ZOOM);
       const ctx = getContext(this) as common.UIAbilityContext;
-      openExternalNavigation(ctx, toilet.lat, toilet.lng, toilet.name);
+      openNavigationWithPlanning(ctx, toilet, toilet.name, this.travelMode, this.selectedTime);
     } catch (error) {
       console.error('Index: move to toilet location failed', error as Error);
     }
+  }
+
+  private handleTimeChange(time: number): void {
+    this.selectedTime = time;
+    console.info('Index', `Time changed to ${time} minutes`);
+  }
+
+  private handleModeChange(mode: TravelMode): void {
+    this.travelMode = mode;
+    const modeText = mode === TravelMode.WALKING ? '步行' : '骑行';
+    console.info('Index', `Travel mode changed to ${modeText}`);
+    this.showInfo(`已切换到${modeText}模式`);
   }
 
   private showPermissionError(): void {

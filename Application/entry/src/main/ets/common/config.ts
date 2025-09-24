@@ -39,7 +39,9 @@ export const ERROR_MESSAGES = {
   LOCATION_PERMISSION_DENIED: '定位权限未授权',
   LOCATION_UNAVAILABLE: '定位服务不可用',
   LOCATION_TIMEOUT: '定位超时',
-  UNKNOWN_ERROR: '未知错误'
+  UNKNOWN_ERROR: '未知错误',
+  PERMISSION_DENIED: '权限被拒绝',
+  LOCATION_FAILED: '定位失败'
 } as const;
 
 // 地图动画与默认缩放（兼容旧命名）

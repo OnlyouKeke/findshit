@@ -45,7 +45,7 @@ export class MapKitAdapter implements MapAdapter {
     }
   }
 
-  /** 移动相机到指定位置信息 */
+  /** 移动相机到指定位置信息 - 优化动画效果 */
   moveCamera(target: LatLng, zoom?: number, animated: boolean = true): void {
     if (!this.mapController) {
       console.warn('MapKitAdapter: map not ready');
@@ -54,16 +54,29 @@ export class MapKitAdapter implements MapAdapter {
     try {
       const cameraPosition: CameraPosition = {
         target,
-        zoom: zoom || DEFAULT_ZOOM_LEVEL
+        zoom: zoom || DEFAULT_ZOOM_LEVEL,
+        // 添加相机角度和倾斜
+        bearing: 0, // 方位角
+        tilt: 0 // 倾斜角
       };
-      this.setCameraPosition(cameraPosition, animated);
+      
+      if (animated) {
+        // 使用平滑动画移动相机
+        const animationOptions = {
+          duration: CAMERA_ANIMATION_DURATION, // 使用配置的动画时长
+          curve: 'ease-in-out' // 缓动曲线
+        };
+        this.setCameraPosition(cameraPosition, true, animationOptions);
+      } else {
+        this.setCameraPosition(cameraPosition, false);
+      }
     } catch (error) {
       console.error('MapKitAdapter: moveCamera error', error);
     }
   }
 
-  /** 设置相机位置 */
-  setCameraPosition(position: CameraPosition, animated: boolean = true): void {
+  /** 设置相机位置 - 增强动画选项 */
+  setCameraPosition(position: CameraPosition, animated: boolean = true, animationOptions?: any): void {
     if (!this.mapController) {
       console.warn('MapKitAdapter: map not ready');
       return;
@@ -72,14 +85,24 @@ export class MapKitAdapter implements MapAdapter {
       const api: any = this.mapController;
       const target = position.target;
       const zoom = position.zoom || DEFAULT_ZOOM_LEVEL;
+      const bearing = (position as any).bearing || 0;
+      const tilt = (position as any).tilt || 0;
+      
+      const cameraConfig = { target, zoom, bearing, tilt };
+      
       if (animated && typeof api?.animateCamera === 'function') {
-        api.animateCamera({ target, zoom, duration: CAMERA_ANIMATION_DURATION });
+        const finalAnimationOptions = {
+          duration: CAMERA_ANIMATION_DURATION,
+          curve: 'ease-in-out',
+          ...animationOptions
+        };
+        api.animateCamera(cameraConfig, finalAnimationOptions);
       } else if (typeof api?.moveCamera === 'function') {
-        api.moveCamera({ target, zoom });
+        api.moveCamera(cameraConfig);
       } else if (typeof api?.setCameraPosition === 'function') {
-        api.setCameraPosition({ target, zoom });
+        api.setCameraPosition(cameraConfig);
       }
-      console.log(`MapKitAdapter: camera -> ${target.lat}, ${target.lng}`);
+      console.log(`MapKitAdapter: camera -> ${target.lat}, ${target.lng} (animated: ${animated})`);
     } catch (error) {
       console.error('MapKitAdapter: setCameraPosition error', error);
     }
@@ -123,7 +146,7 @@ export class MapKitAdapter implements MapAdapter {
     }
   }
 
-  /** 添加单个标记 */
+  /** 添加单个标记 - 优化标记样式和动画 */
   addMarker(poi: ToiletPoi | LatLng, title?: string, snippet?: string): string {
     if (!this.mapController) {
       console.warn('MapKitAdapter: map not ready');
@@ -133,18 +156,39 @@ export class MapKitAdapter implements MapAdapter {
       const markerId = `marker_${++this.markerIdCounter}`;
       const markerTitle = title || ('name' in (poi as any) ? (poi as any).name : '厕所');
       const markerSnippet = snippet || this.buildSnippet(poi);
+      
       if (typeof this.mapController.addMarker === 'function') {
         const markerOptions: any = {
           position: { latitude: poi.lat, longitude: poi.lng },
           title: markerTitle,
           snippet: markerSnippet,
-          icon: this.getToiletIcon()
+          icon: this.getToiletIcon(),
+          // 优化标记显示效果
+          anchor: { x: 0.5, y: 1.0 }, // 锚点设置为底部中心
+          zIndex: 1, // 设置层级
+          alpha: 1.0, // 透明度
+          flat: false, // 3D效果
+          rotation: 0, // 旋转角度
+          visible: true, // 可见性
+          draggable: false, // 不可拖拽
+          // 添加动画效果
+          animation: {
+            type: 'drop', // 掉落动画
+            duration: 300 // 动画时长300ms
+          }
         };
+        
         const marker = this.mapController.addMarker(markerOptions);
         this.markers.set(markerId, marker);
+        
+        // 添加标记点击动画
+        if (marker && typeof marker.setAnimation === 'function') {
+          marker.setAnimation('bounce');
+        }
       } else {
         this.markers.set(markerId, { poi, title: markerTitle, snippet: markerSnippet });
       }
+      
       console.log(`MapKitAdapter: addMarker ${markerId} - ${markerTitle}`);
       return markerId;
     } catch (error) {

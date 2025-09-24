@@ -1,213 +1,135 @@
 /**
  * 厕所卡片组件
  * 显示附近厕所列表和一键找屎按钮
+ * 集成时间调节器和出行方式选择
  */
 
-import { ToiletPoi, Callback0, Callback1 } from '../common/types';
-import { formatDistance } from '../common/utils/haversine';
+import { Callback0, Callback1, TravelMode } from '../common/types';
+import { NavigationControls } from './NavigationControls';
 
 @Component
 export struct ToiletCard {
-  // 列表数据与状态
-  @Prop toilets: ToiletPoi[] = [];
+  // 加载状态
   @Prop loading: boolean = false;
-  @Prop error: string = '';
 
   // 交互回调（使用对象包装，兼容 ArkUI V1）
   @Prop onFindToiletClick: Callback0 = {};
-  @Prop onToiletItemClick: Callback1<ToiletPoi> = {};
+  @Prop onTimeChange?: Callback1<number>;
+  @Prop onModeChange?: Callback1<TravelMode>;
+
+  // 内部状态
+  @State selectedTime: number = 2;
+  @State travelMode: TravelMode = TravelMode.WALKING;
 
   build() {
-    Column() {
-      this.buildHeader()
-      this.buildContent()
+    Column({ space: 16 }) {
+      // 导航控制区域
+      Row() {
+        // 左侧：时间调节器
+        this.buildTimeSelector()
+        
+        // 中间：找屎按钮
+        Button(this.loading ? '定位中...' : '找屎')
+          .width(100)
+          .height(100)
+          .fontSize(16)
+          .fontWeight(FontWeight.Bold)
+          .fontColor(Color.White)
+          .backgroundColor(this.loading ? '#CCCCCC' : '#4C8BF5')
+          .borderRadius(50)
+          .enabled(!this.loading)
+          .onClick(() => {
+            this.onFindToiletClick.handler?.();
+          })
+        
+        // 右侧：出行方式开关
+        this.buildModeSwitch()
+      }
+      .width('100%')
+      .justifyContent(FlexAlign.SpaceEvenly)
+      .alignItems(VerticalAlign.Center)
     }
     .width('100%')
+    .height(200)
     .backgroundColor(Color.White)
     .borderRadius({ topLeft: 16, topRight: 16 })
     .shadow({ radius: 8, color: '#1F000000', offsetX: 0, offsetY: -2 })
-  }
-
-  @Builder
-  buildHeader() {
-    Row() {
-      Text('附近公共厕所')
-        .fontSize(18)
-        .fontWeight(FontWeight.Medium)
-        .fontColor('#333333')
-        .layoutWeight(1)
-
-      // 一键找屎按钮
-      Button('一键找屎')
-        .fontSize(14)
-        .fontColor(Color.White)
-        .backgroundColor('#4C8BF5')
-        .borderRadius(20)
-        .padding({ left: 16, right: 16, top: 8, bottom: 8 })
-        .enabled(!this.loading)
-        .onClick(() => {
-          this.onFindToiletClick.handler?.();
-        })
-    }
-    .width('100%')
-    .padding({ left: 16, right: 16, top: 16, bottom: 12 })
-    .justifyContent(FlexAlign.SpaceBetween)
-    .alignItems(VerticalAlign.Center)
-  }
-
-  @Builder
-  buildContent() {
-    if (this.loading) {
-      this.buildLoadingState();
-    } else if (this.error) {
-      this.buildErrorState();
-    } else if (this.toilets.length === 0) {
-      this.buildEmptyState();
-    } else {
-      this.buildToiletList();
-    }
-  }
-
-  @Builder
-  buildLoadingState() {
-    Column() {
-      LoadingProgress()
-        .width(32)
-        .height(32)
-        .color('#4C8BF5')
-
-      Text('正在搜索附近厕所...')
-        .fontSize(14)
-        .fontColor('#666666')
-        .margin({ top: 8 })
-    }
-    .width('100%')
-    .height(120)
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
+    .padding({ left: 20, right: 20, top: 16, bottom: 16 })
   }
 
   @Builder
-  buildErrorState() {
-    Column() {
-      Image($r('app.media.ic_error'))
-        .width(32)
-        .height(32)
-        .fillColor('#FF6B6B')
-
-      Text(this.error || '搜索失败')
-        .fontSize(14)
-        .fontColor('#666666')
-        .margin({ top: 8 })
-        .textAlign(TextAlign.Center)
-        .maxLines(2)
-        .textOverflow({ overflow: TextOverflow.Ellipsis })
-    }
-    .width('100%')
-    .height(120)
-    .padding({ left: 16, right: 16 })
-    .justifyContent(FlexAlign.Center)
-    .alignItems(HorizontalAlign.Center)
-  }
-
-  @Builder
-  buildEmptyState() {
-    Column() {
-      Image($r('app.media.ic_empty'))
-        .width(32)
-        .height(32)
-        .fillColor('#CCCCCC')
-
-      Text('附近没有找到公共厕所')
-        .fontSize(14)
-        .fontColor('#666666')
-        .margin({ top: 8 })
-
-      Text('请尝试扩大搜索范围')
+  buildTimeSelector() {
+    Column({ space: 8 }) {
+      // 固定标题
+      Text('分钟')
         .fontSize(12)
-        .fontColor('#999999')
-        .margin({ top: 4 })
+        .fontColor('#333333')
+        .fontWeight(FontWeight.Medium)
+      
+      // 滑动滚轮选择器
+      Column() {
+        TextPicker({ range: ['2', '5', '10'], selected: this.getSelectedIndex() })
+          .width(60)
+          .height(120)
+          .backgroundColor('#F8F9FA')
+          .borderRadius(8)
+          .canLoop(false)
+          .onChange((value: string | string[], index: number | number[]) => {
+            const selectedValue = Array.isArray(value) ? value[0] : value;
+            const timeValue = parseInt(selectedValue);
+            this.selectedTime = timeValue;
+            this.onTimeChange?.handler?.(timeValue);
+          })
+      }
     }
-    .width('100%')
-    .height(120)
-    .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
   }
 
   @Builder
-  buildToiletList() {
-    List({ space: 0 }) {
-      ForEach(this.toilets, (toilet: ToiletPoi, index: number) => {
-        ListItem() {
-          this.buildToiletItem(toilet, index)
-        }
-        .onClick(() => {
-          this.onToiletItemClick.handler?.(toilet);
+  buildModeSwitch() {
+    Column({ space: 8 }) {
+      // Toggle开关组件
+      Toggle({ type: ToggleType.Switch, isOn: this.travelMode === TravelMode.CYCLING })
+        .selectedColor('#4C8BF5')
+        .switchPointColor('#FFFFFF')
+        .onChange((isOn: boolean) => {
+          this.travelMode = isOn ? TravelMode.CYCLING : TravelMode.WALKING;
+          this.onModeChange?.handler?.(this.travelMode);
         })
-      }, (toilet: ToiletPoi) => toilet.id)
+      
+      // 模式标签
+      Row({ space: 12 }) {
+        // 步行图标和文字
+        Column({ space: 1 }) {
+          Text('🚶')
+            .fontSize(12)
+          Text('步行')
+            .fontSize(8)
+            .fontColor(this.travelMode === TravelMode.WALKING ? '#4C8BF5' : '#999999')
+        }
+        .opacity(this.travelMode === TravelMode.WALKING ? 1 : 0.6)
+        
+        // 骑行图标和文字
+        Column({ space: 1 }) {
+          Text('🚴')
+            .fontSize(12)
+          Text('骑行')
+            .fontSize(8)
+            .fontColor(this.travelMode === TravelMode.CYCLING ? '#4C8BF5' : '#999999')
+        }
+        .opacity(this.travelMode === TravelMode.CYCLING ? 1 : 0.6)
+      }
     }
-    .width('100%')
-    .layoutWeight(1)
-    .scrollBar(BarState.Auto)
-    .divider({ strokeWidth: 0.5, color: '#F0F0F0', startMargin: 16, endMargin: 16 })
+    .alignItems(HorizontalAlign.Center)
   }
 
-  @Builder
-  buildToiletItem(toilet: ToiletPoi, index: number) {
-    Row() {
-      // 图标
-      Image($r('app.media.ic_toilet'))
-        .width(24)
-        .height(24)
-        .fillColor('#4C8BF5')
-        .margin({ right: 12 })
-
-      // 文本信息
-      Column() {
-        Text(toilet.name)
-          .fontSize(16)
-          .fontColor('#333333')
-          .fontWeight(FontWeight.Medium)
-          .maxLines(1)
-          .textOverflow({ overflow: TextOverflow.Ellipsis })
-          .width('100%')
-
-        Row() {
-          if (toilet.distance !== undefined) {
-            Text(formatDistance(toilet.distance))
-              .fontSize(12)
-              .fontColor('#666666')
-          }
-
-          if (toilet.openHours) {
-            Text('·')
-              .fontSize(12)
-              .fontColor('#CCCCCC')
-              .margin({ left: 8, right: 8 })
-
-            Text(toilet.openHours)
-              .fontSize(12)
-              .fontColor('#666666')
-              .layoutWeight(1)
-              .maxLines(1)
-              .textOverflow({ overflow: TextOverflow.Ellipsis })
-          }
-        }
-        .width('100%')
-        .margin({ top: 4 })
-      }
-      .layoutWeight(1)
-      .alignItems(HorizontalAlign.Start)
-
-      Image($r('app.media.ic_arrow_right'))
-        .width(16)
-        .height(16)
-        .fillColor('#CCCCCC')
-        .margin({ left: 8 })
-    }
-    .width('100%')
-    .padding({ left: 16, right: 16, top: 12, bottom: 12 })
-    .alignItems(VerticalAlign.Center)
+  // 获取当前选中时间的索引
+  private getSelectedIndex(): number {
+    const timeOptions = [2, 5, 10];
+    const index = timeOptions.indexOf(this.selectedTime);
+    return index >= 0 ? index : 0; // 默认选中2分钟（索引0）
   }
 }
 

@@ -63,6 +63,12 @@
           "when": "inuse"
         }
       }
+    ],
+    "metadata": [
+      {
+        "name": "client_id",
+        "value": "YOUR_CLIENT_ID_HERE"
+      }
     ]
   }
 }

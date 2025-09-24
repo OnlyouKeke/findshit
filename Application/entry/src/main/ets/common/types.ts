@@ -51,5 +51,11 @@ export interface CallbackHandler {
 export interface Callback0 { handler?: () => void }
 export interface Callback1<T> { handler?: (arg: T) => void }
 
+// 出行方式枚举
+export enum TravelMode {
+  WALKING = 'walking',
+  CYCLING = 'cycling'
+}
+
 // 最小错误类型（用于宽松捕获）
 export interface MinimalError { code?: string; message?: string }

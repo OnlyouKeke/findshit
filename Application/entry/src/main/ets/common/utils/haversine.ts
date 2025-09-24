@@ -69,6 +69,16 @@ export function formatDistance(distanceM: number): string {
 }
 
 /**
+ * 格式化步行时间显示
+ * @param distanceM 距离（米）
+ * @returns 格式化的步行时间字符串
+ */
+export function formatWalkingTime(distanceM: number): string {
+  // 默认步行时间为1分钟，不进行复杂计算
+  return '1分钟';
+}
+
+/**
  * 按距离对POI列表进行排序
  * @param pois POI列表
  * @param center 中心点
