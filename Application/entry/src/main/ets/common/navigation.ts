@@ -31,7 +31,7 @@ export async function openNavigationWithPlanning(
     // 如果提供了起点和时间限制，先使用高德API验证路线
     if (origin && timeLimit) {
       try {
-        const routeService = new RouteService();
+        const routeService = RouteService.getInstance();
         const routeRequest: RouteRequest = {
           origin,
           destination,

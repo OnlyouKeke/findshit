@@ -203,9 +203,8 @@ export class RouteService {
       polyline: path.polyline
     };
   }
-}
 
-/**
+  /**
    * 获取估算路线（当API不可用时的回退方案）
    */
   private getEstimatedRoute(request: RouteRequest): RouteResult {

@@ -2,8 +2,8 @@
 	"app": {
 		"bundleName": "com.shit.finding.fun",
 		"debug": true,
-		"versionCode": 9,
-		"versionName": "1.1.8",
+		"versionCode": 13,
+		"versionName": "1.1.12",
 		"minAPIVersion": 50004016,
 		"targetAPIVersion": 50004016,
 		"apiReleaseType": "Release",

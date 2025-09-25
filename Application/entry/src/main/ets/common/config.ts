@@ -12,7 +12,7 @@ export const APP_TITLE = '找屎';
 export const DEFAULT_CENTER: LatLng = { lat: 31.2304, lng: 121.4737 };
 
 // 默认搜索半径（米）
-export const DEFAULT_RADIUS_M = 1500;
+export const DEFAULT_RADIUS_M = 5000;
 
 // 默认结果数量限制
 export const DEFAULT_LIMIT = 20;

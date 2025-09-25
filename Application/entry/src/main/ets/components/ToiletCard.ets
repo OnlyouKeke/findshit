@@ -13,9 +13,9 @@ export struct ToiletCard {
   @Prop loading: boolean = false;
 
   // 交互回调（使用对象包装，兼容 ArkUI V1）
-  @Prop onFindToiletClick: Callback0 = {};
-  @Prop onTimeChange?: Callback1<number>;
-  @Prop onModeChange?: Callback1<TravelMode>;
+  @Prop onFindToiletClick: Callback0 = { handler: undefined };
+  @Prop onTimeChange: Callback1<number> = { handler: undefined };
+  @Prop onModeChange: Callback1<TravelMode> = { handler: undefined };
 
   // 内部状态
   @State selectedTime: number = 2;
@@ -80,7 +80,7 @@ export struct ToiletCard {
             const selectedValue = Array.isArray(value) ? value[0] : value;
             const timeValue = parseInt(selectedValue);
             this.selectedTime = timeValue;
-            this.onTimeChange?.handler?.(timeValue);
+            this.onTimeChange.handler?.(timeValue);
           })
       }
     }
@@ -96,7 +96,7 @@ export struct ToiletCard {
         .switchPointColor('#FFFFFF')
         .onChange((isOn: boolean) => {
           this.travelMode = isOn ? TravelMode.CYCLING : TravelMode.WALKING;
-          this.onModeChange?.handler?.(this.travelMode);
+          this.onModeChange.handler?.(this.travelMode);
         })
       
       // 模式标签

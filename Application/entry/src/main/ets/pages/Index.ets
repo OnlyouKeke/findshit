@@ -6,14 +6,22 @@
 import { ToiletCard } from '../components/ToiletCard';
 import { ErrorBanner, BannerType } from '../components/ErrorBanner';
 import { LatLng, ToiletPoi, AppState, CallbackHandler, Callback0, Callback1, MinimalError, TravelMode } from '../common/types';
-import { DEFAULT_CENTER, DEFAULT_ZOOM } from '../common/config';
+import { DEFAULT_CENTER, DEFAULT_ZOOM, DEFAULT_RADIUS_M } from '../common/config';
 import { HarmonyGeo, LocationPermissionStatus, LocationAccuracy } from '../common/geo';
 import { MapKitAdapter } from '../common/mapKitAdapter';
+import { LocalProvider } from '../common/localProvider';
 import { MapComponent, mapCommon, map } from '@kit.MapKit';
 import { AsyncCallback } from '@kit.BasicServicesKit';
 import { openExternalNavigation, openNavigationWithPlanning } from '../common/navigation';
 import { common } from '@kit.AbilityKit';
 import router from '@ohos.router';
+
+// 定义厕所距离信息接口
+interface ToiletWithDistance {
+  toilet: ToiletPoi;
+  distance: number;
+  estimatedTime: number;
+}
 
 @Entry
 @Component
@@ -31,6 +39,7 @@ struct Index {
 
   private geoService = HarmonyGeo.getInstance();
   private mapAdapter = new MapKitAdapter();
+  private dataProvider = new LocalProvider();
   private mapOptions?: mapCommon.MapOptions;
   private callback?: AsyncCallback<map.MapComponentController>;
   private mapController?: map.MapComponentController;
@@ -150,9 +159,9 @@ struct Index {
         Blank().layoutWeight(1)
         ToiletCard({
           loading: this.loading,
-          onFindToiletClick: ({ handler: () => this.handleFindToilet() } as Callback0),
-          onTimeChange: ({ handler: (time: number) => this.handleTimeChange(time) } as Callback1<number>),
-          onModeChange: ({ handler: (mode: TravelMode) => this.handleModeChange(mode) } as Callback1<TravelMode>)
+          onFindToiletClick: { handler: () => this.handleFindToilet() } as Callback0,
+          onTimeChange: { handler: (time: number) => this.handleTimeChange(time) } as Callback1<number>,
+          onModeChange: { handler: (mode: TravelMode) => this.handleModeChange(mode) } as Callback1<TravelMode>
         })
       }
       .width('100%')
@@ -167,8 +176,8 @@ struct Index {
             message: this.bannerMessage,
             type: this.bannerType,
             actionText: this.getActionText(),
-            onActionClick: ({ handler: () => this.handleBannerAction() } as CallbackHandler),
-            onClose: ({ handler: () => this.hideBanner() } as CallbackHandler)
+            onActionClick: { handler: () => this.handleBannerAction() } as CallbackHandler,
+            onClose: { handler: () => this.hideBanner() } as CallbackHandler
           })
           Blank()
         }
@@ -178,9 +187,8 @@ struct Index {
         .padding({ top: 12 })
       }
 
-      // 右上角按钮组
-      Column({ space: 8 }) {
-        // 设置按钮
+      // 左上角设置按钮
+      Column() {
         Button() {
           Image(('app.media.ic_settings'))
             .width(22)
@@ -199,8 +207,15 @@ struct Index {
             console.error('Index: navigate to settings failed', err as Error);
           }
         })
-        
-        // 定位按钮
+        Blank()
+      }
+      .width('100%')
+      .padding({ top: 12, left: 12 })
+      .alignItems(HorizontalAlign.Start)
+      .zIndex(20)
+
+      // 右上角定位按钮
+      Column() {
         Button() {
           Text('📍')
             .fontSize(20)
@@ -213,6 +228,7 @@ struct Index {
         .onClick(() => {
           this.focusToMyLocation();
         })
+        Blank()
       }
       .width('100%')
       .padding({ top: 12, right: 12 })
@@ -301,17 +317,25 @@ struct Index {
 
       // 获取当前位置
       console.info('Index: getting current location for toilet search');
-      const currentLocation = await this.geoService.getCurrentLatLng({
-        accuracy: LocationAccuracy.HIGH,
-        timeout: 15000 // 15秒超时
-      });
+      let currentLocation: LatLng;
       
-      console.info('Index: current location obtained:', currentLocation);
-      this.myLocation = currentLocation;
-      
-      // 确保当前位置在地图中心
-      console.info('Index: centering map to current location');
-      this.mapAdapter.moveCamera(currentLocation, DEFAULT_ZOOM, true);
+      try {
+        currentLocation = await this.geoService.getCurrentLatLng({
+          accuracy: LocationAccuracy.HIGH,
+          timeout: 15000 // 15秒超时
+        });
+        console.info('Index: current location obtained:', currentLocation);
+        this.myLocation = currentLocation;
+        
+        // 确保当前位置在地图中心
+        console.info('Index: centering map to current location');
+        this.mapAdapter.moveCamera(currentLocation, DEFAULT_ZOOM, true);
+      } catch (locationError) {
+         console.error('Index: failed to get current location:', locationError);
+         this.appState = AppState.ERROR;
+         this.showError('定位失败，请检查GPS设置或网络连接');
+         return;
+       }
       this.mapAdapter.setMyLocationEnabled(true);
       this.mapAdapter.clearMarkers();
       this.mapAdapter.addMarker(currentLocation, '我的位置');
@@ -319,8 +343,14 @@ struct Index {
       // 搜索附近厕所
       this.appState = AppState.SEARCHING;
       
-      // 模拟搜索附近厕所（这里需要实际的数据提供者实现）
-      const toilets: ToiletPoi[] = [];
+      // 使用LocalProvider搜索附近厕所
+      console.info('Index: searching toilets near location:', currentLocation);
+      const toilets = await this.dataProvider.searchToilets({
+        center: currentLocation,
+        radiusM: DEFAULT_RADIUS_M,
+        limit: 20
+      });
+      console.info('Index: found toilets:', toilets.length);
       
       if (toilets.length === 0) {
         this.appState = AppState.EMPTY;
@@ -404,7 +434,7 @@ struct Index {
         toilet,
         distance,
         estimatedTime
-      };
+      } as ToiletWithDistance;
     });
 
     // 筛选在指定时间内可达的厕所
