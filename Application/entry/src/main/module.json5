@@ -67,7 +67,11 @@
     "metadata": [
       {
         "name": "client_id",
-        "value": "YOUR_CLIENT_ID_HERE"
+        "value": "1777626239905880960"
+      },
+      {
+        "name": "baidu_map_ak",
+        "value": "xTn4vwunlUWLWilFpx5QcDUOycbq34YZ"
       }
     ]
   }

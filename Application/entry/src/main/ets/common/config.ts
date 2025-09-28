@@ -9,7 +9,7 @@ import { LatLng } from './types';
 export const APP_TITLE = '找屎';
 
 // 默认地图中心点（上海市中心）
-export const DEFAULT_CENTER: LatLng = { lat: 31.2304, lng: 121.4737 };
+export const DEFAULT_CENTER: LatLng = new LatLng(31.2304, 121.4737);
 
 // 默认搜索半径（米）
 export const DEFAULT_RADIUS_M = 5000;

@@ -3,7 +3,7 @@
  * 用于计算两个经纬度坐标之间的距离
  */
 
-import { LatLng } from '../types';
+import { LatLng } from '@bdmap/base';
 
 /**
  * 地球半径（千米）

@@ -1,6 +1,7 @@
 import { ConfigurationConstant, UIAbility } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
+import { Initializer } from '@bdmap/base';
 
 const HILOG_DOMAIN = 0x0000;
 const TAG = '[EntryAbility]';
@@ -9,6 +10,16 @@ export default class EntryAbility extends UIAbility {
   onCreate() {
     this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
     hilog.info(HILOG_DOMAIN, TAG, '%{public}s', 'Ability onCreate');
+    
+    // 初始化百度地图SDK，传入AK密钥
+    try {
+      const AK_KEY = "xTn4vwunlUWLWilFpx5QcDUOycbq34YZ";
+      const initializer = Initializer.getInstance();
+      initializer.initialize(AK_KEY, this.context.getApplicationContext());
+      hilog.info(HILOG_DOMAIN, TAG, 'Baidu Map SDK initialized successfully with AK');
+    } catch (error) {
+      hilog.error(HILOG_DOMAIN, TAG, 'Failed to initialize Baidu Map SDK: %{public}s', JSON.stringify(error));
+    }
   }
 
   onDestroy(): void {

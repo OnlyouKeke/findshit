@@ -3,11 +3,9 @@
  * 用于「找屎」应用的数据模型
  */
 
-// 经纬度坐标
-export interface LatLng {
-  lat: number;  // 纬度
-  lng: number;  // 经度
-}
+// 使用百度地图SDK的LatLng类型
+import { LatLng } from '@bdmap/base';
+export { LatLng };
 
 // 厕所POI信息
 export interface ToiletPoi extends LatLng {

@@ -5,16 +5,18 @@
 
 import { ToiletCard } from '../components/ToiletCard';
 import { ErrorBanner, BannerType } from '../components/ErrorBanner';
-import { LatLng, ToiletPoi, AppState, CallbackHandler, Callback0, Callback1, MinimalError, TravelMode } from '../common/types';
+import { ToiletPoi, AppState, CallbackHandler, Callback0, Callback1, MinimalError, TravelMode } from '../common/types';
 import { DEFAULT_CENTER, DEFAULT_ZOOM, DEFAULT_RADIUS_M } from '../common/config';
 import { HarmonyGeo, LocationPermissionStatus, LocationAccuracy } from '../common/geo';
-import { MapKitAdapter } from '../common/mapKitAdapter';
+import { BaiduMapAdapter } from '../common/baiduMapAdapter';
 import { LocalProvider } from '../common/localProvider';
-import { MapComponent, mapCommon, map } from '@kit.MapKit';
 import { AsyncCallback } from '@kit.BasicServicesKit';
 import { openExternalNavigation, openNavigationWithPlanning } from '../common/navigation';
 import { common } from '@kit.AbilityKit';
 import router from '@ohos.router';
+import { MapComponent, MapController, MapOptions, MapStatus } from '@bdmap/map';
+import { LatLng, Initializer } from '@bdmap/base';
+import { MapEvent } from '@bdmap/map/src/main/ets/e/h/g1/h1';
 
 // 定义厕所距离信息接口
 interface ToiletWithDistance {
@@ -38,114 +40,89 @@ struct Index {
   @State travelMode: TravelMode = TravelMode.WALKING; // 默认步行
 
   private geoService = HarmonyGeo.getInstance();
-  private mapAdapter = new MapKitAdapter();
+  private mapAdapter = new BaiduMapAdapter();
   private dataProvider = new LocalProvider();
-  private mapOptions?: mapCommon.MapOptions;
-  private callback?: AsyncCallback<map.MapComponentController>;
-  private mapController?: map.MapComponentController;
-  private mapEventManager?: map.MapEventManager;
+  private mapOptions?: MapOptions; // 百度地图选项
+  private callback?: (err: Error | undefined, controller: MapController) => void; // 百度地图回调
+  private mapController?: MapController; // 百度地图控制器
+  private mapEventManager?: object; // 百度地图事件管理器
 
   aboutToAppear() {
+    // 确保百度地图SDK已经初始化
+    this.ensureBaiduSDKInitialized();
+    
     this.initializeApp();
 
-    // Map init options - 根据HarmonyOS NEXT MapKit API配置
-    this.mapOptions = {
-      position: {
-        target: {
-          latitude: DEFAULT_CENTER.lat,
-          longitude: DEFAULT_CENTER.lng
-        },
-        zoom: DEFAULT_ZOOM
-      },
-      // 地图类型
-      mapType: mapCommon.MapType.STANDARD,
-      // 地图最小图层,默认值为2
-      minZoom: 2,
-      // 地图最大图层,默认值为20
-      maxZoom: 20,
-      // 是否支持旋转手势
-      rotateGesturesEnabled: true,
-      // 是否支持滑动手势
-      scrollGesturesEnabled: true,
-      // 是否支持缩放手势
-      zoomGesturesEnabled: true,
-      // 是否支持倾斜手势
-      tiltGesturesEnabled: true,
-      // 是否展示缩放控件
-      zoomControlsEnabled: true,
-      // 是否展示定位按钮
-      myLocationControlsEnabled: true,
-      // 是否展示指南针控件
-      compassControlsEnabled: false,
-      // 是否展示比例尺
-      scaleControlsEnabled: true,
-      // 是否一直显示比例尺，只有比例尺启用时该参数才生效
-      alwaysShowScaleEnabled: true
-    };
+    // 百度地图初始化选项
+    this.mapOptions = new MapOptions();
+    
+    // 创建地图状态对象，设置中心点和缩放级别
+    const mapStatus = new MapStatus({
+      center: new LatLng(DEFAULT_CENTER.lat, DEFAULT_CENTER.lng),
+      zoom: DEFAULT_ZOOM,
+      rotate: 0,
+      overlook: 0,
+      ptOffset: [0, 0]
+    });
+    
+    this.mapOptions.mapStatus = mapStatus;
+    
+    // 手势控制
+    this.mapOptions.zoomGesturesEnabled = true;
+    this.mapOptions.moveGesturesEnabled = true;
+    this.mapOptions.rotateGesturesEnabled = true;
+    this.mapOptions.overlookingGesturesEnabled = true;
 
-    // Map init callback - 优化地图初始化
-    this.callback = async (err: Error | undefined, controller: map.MapComponentController) => {
+    // 百度地图初始化回调
+    this.callback = async (err: Error | undefined, controller: MapController) => {
       if (!err && controller) {
         this.mapController = controller;
-        this.mapAdapter.attachController(controller);
+        this.mapAdapter.initialize(controller);
 
         try {
-          this.mapEventManager = controller.getEventManager();
-          
           // 地图加载完成事件
           const onLoad = () => {
-            console.info('Index', 'mapLoad completed');
-            // 启用我的位置显示
+            console.info('Index', 'Baidu map loaded successfully');
+            // 启用我的位置显示，显示蓝色定位点
             this.mapAdapter.setMyLocationEnabled(true);
             // 如果有位置信息，移动到用户位置并确保居中
             if (this.myLocation) {
-              // 延迟一点时间确保地图完全加载
+              // 延迟一点时间确保地图完全加载，然后居中显示用户位置
               setTimeout(() => {
                 this.mapAdapter.moveCamera(this.myLocation!, DEFAULT_ZOOM, true);
-                console.info('Index: camera moved to user location after map load');
+                console.info('Index: camera moved to user location after map load - ensuring centered');
               }, 500);
             }
           };
           
-          // 地图点击事件
-          const onMapClick = (event: object) => {
-            console.info('Index', 'map clicked at:', event);
-          };
-          
-          // 相机移动事件
-          const onCameraMove = () => {
-            // 可以在这里处理相机移动逻辑
-          };
-          
-          this.mapEventManager.on('mapLoad', onLoad);
-          this.mapEventManager.on('mapClick', onMapClick);
-          this.mapEventManager.on('cameraMove', onCameraMove);
+          // 设置百度地图事件监听器
+          controller.addEventListener(MapEvent.MAPRENDERFINISH, onLoad);
           
         } catch (e) {
-          console.warn('Index: bind map events failed', e as Error);
+          console.warn('Index: bind map events failed', (e as Error).message || e);
         }
 
         // 初始相机位置
         const target = this.myLocation ?? DEFAULT_CENTER;
         this.mapAdapter.moveCamera(target, DEFAULT_ZOOM, false);
       } else {
-        console.error('Index: map initialization failed', err);
+        console.error('Index: map initialization failed', (err as Error)?.message || 'Unknown error');
         this.showError('地图初始化失败');
       }
     };
 
-    // Click to navigate with planning
+    // 设置地图点击监听器
     try {
       this.mapAdapter.setOnMapClickListener((pos) => {
-        const ctx = getContext(this) as common.UIAbilityContext;
-        openNavigationWithPlanning(ctx, pos, 'Target', this.travelMode, this.selectedTime, this.myLocation);
+        const ctx = this.getUIContext().getHostContext() as common.UIAbilityContext;
+        openNavigationWithPlanning(ctx, pos, 'Target', this.travelMode);
       });
       this.mapAdapter.setOnMarkerClickListener((_markerId, pos) => {
-        const ctx = getContext(this) as common.UIAbilityContext;
-        openNavigationWithPlanning(ctx, pos, 'Target', this.travelMode, this.selectedTime, this.myLocation);
+        const ctx = this.getUIContext().getHostContext() as common.UIAbilityContext;
+        openNavigationWithPlanning(ctx, pos, 'Target', this.travelMode);
       });
     } catch (err) {
-      console.warn('Index: register map listeners failed', err as Error);
+      console.warn('Index: register map listeners failed', (err as Error).message || err);
     }
   }
 
@@ -202,10 +179,10 @@ struct Index {
         .shadow({ radius: 8, color: '#1A000000', offsetX: 0, offsetY: 2 })
         .onClick(() => {
           try {
-            router.pushUrl({ url: 'pages/Settings' });
+            router.pushNamedRoute({ name: 'Settings' });
           } catch (err) {
-            console.error('Index: navigate to settings failed', err as Error);
-          }
+          console.error('Index: navigate to settings failed', (err as Error).message || err);
+        }
         })
         Blank()
       }
@@ -243,8 +220,8 @@ struct Index {
   @Builder
   buildMapArea() {
     MapComponent({
-      mapOptions: this.mapOptions,
-      mapCallback: this.callback
+      onReady: this.callback,
+      mapOptions: this.mapOptions
     })
       .width('100%')
       .height('100%')
@@ -253,16 +230,17 @@ struct Index {
   private async initializeApp(): Promise<void> {
     try {
       this.appState = AppState.INIT;
-      this.mapAdapter.initIfNeeded();
+      // 百度地图适配器不需要initIfNeeded调用
       this.mapAdapter.moveCamera(DEFAULT_CENTER, DEFAULT_ZOOM);
       
       // 主动申请位置权限
       console.info('Index: requesting location permission on startup');
-      const ctx = getContext(this) as common.UIAbilityContext;
+      const ctx = this.getUIContext().getHostContext() as common.UIAbilityContext;
       const granted = await this.geoService.requestLocationPermission(ctx);
       
       if (granted) {
         console.info('Index: location permission granted');
+        // 启用系统的我的位置显示，但通过配置禁用控件按钮
         this.mapAdapter.setMyLocationEnabled(true);
         
         // 自动获取当前位置并显示在地图上
@@ -275,9 +253,11 @@ struct Index {
           
           console.info('Index: auto-location successful:', location);
           this.myLocation = location;
+          // 确保用户位置居中显示
           this.mapAdapter.moveCamera(location, DEFAULT_ZOOM, true);
-          this.mapAdapter.clearMarkers();
-          this.mapAdapter.addMarker(location, '我的位置');
+          // 不清除标记，让系统蓝色定位点和自定义标记共存
+          // this.mapAdapter.clearMarkers();
+          // this.mapAdapter.addMarker(location, '我的位置', undefined, 'user_location');
           this.showInfo('已显示定位，地图已聚焦到您的位置');
         } catch (locationError) {
           console.warn('Index: auto-location failed:', locationError);
@@ -289,7 +269,7 @@ struct Index {
       
       this.appState = AppState.IDLE;
     } catch (error) {
-      console.error('Index: initialize app failed', error as Error);
+      console.error('Index: initialize app failed', (error as Error).message || error);
       this.showError('应用初始化失败');
     }
   }
@@ -305,7 +285,7 @@ struct Index {
       const perm = await this.geoService.checkLocationPermission();
       if (perm !== LocationPermissionStatus.GRANTED) {
         console.info('Index: location permission not granted, requesting permission');
-        const ctx = getContext(this) as common.UIAbilityContext;
+        const ctx = this.getUIContext().getHostContext() as common.UIAbilityContext;
         const granted = await this.geoService.requestLocationPermission(ctx);
         if (!granted) {
           console.warn('Index: user denied location permission');
@@ -336,9 +316,10 @@ struct Index {
          this.showError('定位失败，请检查GPS设置或网络连接');
          return;
        }
+      // 启用系统的我的位置显示，显示蓝色定位点
       this.mapAdapter.setMyLocationEnabled(true);
+      // 清除厕所标记，但保留系统蓝色定位点
       this.mapAdapter.clearMarkers();
-      this.mapAdapter.addMarker(currentLocation, '我的位置');
 
       // 搜索附近厕所
       this.appState = AppState.SEARCHING;
@@ -378,22 +359,20 @@ struct Index {
       
       // 自动导航到最近的厕所
       console.info('Index: navigating to nearest toilet:', nearestToilet);
-      const ctx = getContext(this) as common.UIAbilityContext;
+      const ctx = this.getUIContext().getHostContext() as common.UIAbilityContext;
       openNavigationWithPlanning(
         ctx, 
         nearestToilet, 
         nearestToilet.name, 
-        this.travelMode, 
-        this.selectedTime,
-        currentLocation
+        this.travelMode
       );
       
       this.appState = AppState.IDLE;
       const modeText = this.travelMode === TravelMode.WALKING ? '步行' : '骑行';
       this.showInfo(`已为您规划${modeText}路线到"${nearestToilet.name}"`);
       
-    } catch (error) {
-      console.error('Index: handleFindToilet failed', error as Error);
+   } catch (error) {
+      console.error('Index: handleFindToilet failed', (error as Error).message || error);
       this.appState = AppState.ERROR;
       const appErr = error as MinimalError;
       const code: string = appErr.code ?? '';
@@ -452,7 +431,7 @@ struct Index {
     return nearest.toilet;
   }
 
-  private calculateDistance(pos1: LatLng, pos2: LatLng): number {
+  private calculateDistance(pos1: LatLng, pos2: LatLng | ToiletPoi): number {
     const R = 6371000; // 地球半径（米）
     const lat1Rad = pos1.lat * Math.PI / 180;
     const lat2Rad = pos2.lat * Math.PI / 180;
@@ -470,10 +449,10 @@ struct Index {
   private handleToiletItemClick(toilet: ToiletPoi): void {
     try {
       this.mapAdapter.moveCamera(toilet, DEFAULT_ZOOM);
-      const ctx = getContext(this) as common.UIAbilityContext;
-      openNavigationWithPlanning(ctx, toilet, toilet.name, this.travelMode, this.selectedTime, this.myLocation);
+      const ctx = this.getUIContext().getHostContext() as common.UIAbilityContext;
+      openNavigationWithPlanning(ctx, toilet, toilet.name, this.travelMode);
     } catch (error) {
-      console.error('Index: move to toilet location failed', error as Error);
+      console.error('Index: move to toilet location failed', (error as Error).message || error);
     }
   }
 
@@ -515,12 +494,12 @@ struct Index {
 
   private focusToMyLocation(): void {
     if (this.myLocation) {
-      // 如果已有定位信息，直接聚焦到该位置
+      // 如果已有定位信息，直接聚焦到该位置并确保居中
       console.info('Index: focusing to my location:', this.myLocation);
       this.mapAdapter.moveCamera(this.myLocation, DEFAULT_ZOOM, true);
-      // 确保用户位置标记可见
+      // 确保用户位置标记可见并居中
       this.mapAdapter.clearMarkers();
-      this.mapAdapter.addMarker(this.myLocation, '我的位置');
+      this.mapAdapter.addMarker(this.myLocation, '我的位置', undefined, 'user_location');
       this.showInfo('已聚焦到您的位置');
     } else {
       // 如果没有定位信息，重新获取位置
@@ -537,6 +516,20 @@ struct Index {
     this.hideBanner();
     if (this.bannerType === BannerType.WARNING || this.bannerType === BannerType.ERROR) {
       this.handleFindToilet();
+    }
+  }
+
+  /**
+   * 确保百度地图SDK已经初始化
+   */
+  private ensureBaiduSDKInitialized(): void {
+    try {
+      const initializer = Initializer.getInstance();
+      const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+      initializer.initialize("xTn4vwunlUWLWilFpx5QcDUOycbq34YZ", context.getApplicationContext());
+      console.info('Index: Baidu SDK re-initialized to ensure availability');
+    } catch (error) {
+      console.warn('Index: Baidu SDK initialization check failed:', error);
     }
   }
 }

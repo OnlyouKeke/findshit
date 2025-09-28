@@ -4,7 +4,7 @@
  */
 
 import { DataProvider } from './dataProvider';
-import { ToiletPoi, SearchOptions } from './types';
+import { ToiletPoi, SearchOptions, LatLng } from './types';
 import { calculateDistance, isWithinRadius, sortByDistance } from './utils/haversine';
 import { DEFAULT_LIMIT } from './config';
 
@@ -59,111 +59,81 @@ export class LocalProvider implements DataProvider {
    */
   private getDefaultSeedData(): ToiletPoi[] {
     return [
-      {
+      Object.assign(new LatLng(31.2317, 121.4750), {
         id: 'toilet_001',
         name: '人民广场地铁站公厕',
-        lat: 31.2317,
-        lng: 121.4750,
         openHours: '06:00-23:00'
-      },
-      {
+      }),
+      Object.assign(new LatLng(31.2342, 121.4789), {
         id: 'toilet_002',
         name: '南京东路步行街公厕',
-        lat: 31.2342,
-        lng: 121.4789,
         openHours: '24h'
-      },
-      {
+      }),
+      Object.assign(new LatLng(31.2396, 121.4906), {
         id: 'toilet_003',
         name: '外滩观光隧道公厕',
-        lat: 31.2396,
-        lng: 121.4906,
         openHours: '07:00-22:00'
-      },
-      {
+      }),
+      Object.assign(new LatLng(31.2267, 121.4920), {
         id: 'toilet_004',
         name: '豫园商城公厕',
-        lat: 31.2267,
-        lng: 121.4920,
         openHours: '08:00-21:00'
-      },
-      {
+      }),
+      Object.assign(new LatLng(31.2198, 121.4762), {
         id: 'toilet_005',
         name: '新天地广场公厕',
-        lat: 31.2198,
-        lng: 121.4762,
         openHours: '24h'
-      },
-      {
+      }),
+      Object.assign(new LatLng(31.2289, 121.4478), {
         id: 'toilet_006',
         name: '静安寺地铁站公厕',
-        lat: 31.2289,
-        lng: 121.4478,
         openHours: '06:00-23:30'
-      },
-      {
+      }),
+      Object.assign(new LatLng(31.1956, 121.4370), {
         id: 'toilet_007',
         name: '徐家汇商圈公厕',
-        lat: 31.1956,
-        lng: 121.4370,
         openHours: '07:00-22:30'
-      },
-      {
+      }),
+      Object.assign(new LatLng(31.2352, 121.5058), {
         id: 'toilet_008',
         name: '陆家嘴金融中心公厕',
-        lat: 31.2352,
-        lng: 121.5058,
         openHours: '24h'
-      },
-      {
+      }),
+      Object.assign(new LatLng(31.2231, 121.4242), {
         id: 'toilet_009',
         name: '中山公园地铁站公厕',
-        lat: 31.2231,
-        lng: 121.4242,
         openHours: '06:00-23:00'
-      },
-      {
+      }),
+      Object.assign(new LatLng(31.2108, 121.4661), {
         id: 'toilet_010',
         name: '田子坊文化街公厕',
-        lat: 31.2108,
-        lng: 121.4661,
         openHours: '08:00-20:00'
-      },
-      {
+      }),
+      Object.assign(new LatLng(31.2289, 121.4756), {
         id: 'toilet_011',
         name: '上海博物馆公厕',
-        lat: 31.2289,
-        lng: 121.4756,
         openHours: '09:00-17:00'
-      },
-      {
+      }),
+      Object.assign(new LatLng(31.2258, 121.4928), {
         id: 'toilet_012',
         name: '城隍庙旅游区公厕',
-        lat: 31.2258,
-        lng: 121.4928,
         openHours: '07:00-21:00'
-      },
-      {
+      }),
+      Object.assign(new LatLng(31.2198, 121.4689), {
         id: 'toilet_013',
         name: '淮海中路商业街公厕',
-        lat: 31.2198,
-        lng: 121.4689,
         openHours: '24h'
-      },
-      {
+      }),
+      Object.assign(new LatLng(31.1979, 121.3364), {
         id: 'toilet_014',
         name: '虹桥机场T2航站楼公厕',
-        lat: 31.1979,
-        lng: 121.3364,
         openHours: '24h'
-      },
-      {
+      }),
+      Object.assign(new LatLng(31.2495, 121.4558), {
         id: 'toilet_015',
         name: '上海火车站公厕',
-        lat: 31.2495,
-        lng: 121.4558,
         openHours: '24h'
-      }
+      })
     ];
   }
 }

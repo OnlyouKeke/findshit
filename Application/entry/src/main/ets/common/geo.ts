@@ -13,6 +13,8 @@ import bundleManager from '@ohos.bundle.bundleManager';
 import { common } from '@kit.AbilityKit';
 // 引入地理位置管理器
 import geoLocationManager from '@ohos.geoLocationManager';
+// 导入百度地图SDK的LatLng类型用于类型转换
+import { LatLng as BdLatLng } from '@bdmap/base';
 
 /**
  * 定位权限状态
@@ -132,10 +134,7 @@ export class HarmonyGeo implements Geo {
             return;
           }
           
-          const result: LatLng = {
-            lat: location.latitude,
-            lng: location.longitude
-          };
+          const result: LatLng = new BdLatLng(location.latitude, location.longitude);
           
           console.info('HarmonyGeo: real location obtained successfully:', result);
           console.info('HarmonyGeo: location details - accuracy:', location.accuracy, 'altitude:', location.altitude);

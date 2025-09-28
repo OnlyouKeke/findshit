@@ -142,8 +142,8 @@ struct Settings {
     } catch (error) {
       console.error('Settings: 返回失败', error);
       // 如果router.back()失败，尝试跳转到首页
-      router.replaceUrl({
-        url: 'pages/Index'
+      router.replaceNamedRoute({
+        name: 'Index'
       });
     }
   }

@@ -63,13 +63,14 @@ export interface MapAdapter {
   clearMarkers(): void;
 
   /**
-   * 添加单个标记
+   * 添加标记
    * @param poi 厕所POI或坐标
-   * @param title 标题（可选）
-   * @param snippet 描述（可选）
+   * @param title 标题
+   * @param snippet 描述
+   * @param markerType 标记类型，用于选择不同的图标
    * @returns 标记ID
    */
-  addMarker(poi: ToiletPoi | LatLng, title?: string, snippet?: string): string;
+  addMarker(poi: ToiletPoi | LatLng, title?: string, snippet?: string, markerType?: 'toilet' | 'user_location'): string;
 
   /**
    * 批量添加标记
