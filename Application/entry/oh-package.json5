@@ -8,7 +8,7 @@
   "version": "1.0.0",
   "dependencies": {
     "cloud_objects": "file:../cloud_objects",
-    "@bdmap/map": "^1.0.0",
-    "@bdmap/base": "^1.0.0"
+    "@kit/MapKit": "^1.0.0",
+    "@kit/LocationKit": "^1.0.0"
   }
 }

@@ -1,6 +1,6 @@
 /**
  * 厕所卡片组件
- * 显示附近厕所列表和一键找屎按钮
+ * 显示附近厕所列表和一键找厕所按钮
  * 集成时间调节器和出行方式选择
  */
 
@@ -28,8 +28,8 @@ export struct ToiletCard {
         // 左侧：时间调节器
         this.buildTimeSelector()
         
-        // 中间：找屎按钮
-        Button(this.loading ? '定位中...' : '找屎')
+        // 中间：找厕所按钮
+        Button(this.loading ? '定位中...' : '找厕所')
           .width(100)
           .height(100)
           .fontSize(16)

@@ -1,18 +1,15 @@
-/**
- * 设置页面
- * 暂时作为占位页面，包含基本的返回功能
- */
-
 import router from '@ohos.router';
+import { TopBar } from '../widget/TopBar';
 
 @Entry
 @Component
 struct Settings {
+  @State selectedMapEngine: string = 'huawei';
+
   build() {
     Column() {
-      // 顶部导航栏
-      this.buildTopBar()
-      
+      TopBar({ title: '设置' })
+
       // 主内容区域
       this.buildContent()
     }
@@ -22,58 +19,11 @@ struct Settings {
   }
 
   @Builder
-  buildTopBar() {
-    Row() {
-      // 返回按钮
-      Button() {
-        Image($r('app.media.ic_back'))
-          .width(24)
-          .height(24)
-          .fillColor('#333333')
-      }
-      .width(40)
-      .height(40)
-      .backgroundColor(Color.Transparent)
-      .borderRadius(20)
-      .onClick(() => {
-        this.handleBack();
-      })
-
-      // 标题
-      Text('设置')
-        .fontSize(20)
-        .fontWeight(FontWeight.Bold)
-        .fontColor('#333333')
-        .layoutWeight(1)
-        .textAlign(TextAlign.Center)
-
-      // 右侧占位
-      Blank()
-        .width(40)
-        .height(40)
-    }
-    .width('100%')
-    .height(56)
-    .padding({
-      left: 16,
-      right: 16,
-      top: 8,
-      bottom: 8
-    })
-    .backgroundColor(Color.White)
-    .justifyContent(FlexAlign.SpaceBetween)
-    .alignItems(VerticalAlign.Center)
-    .shadow({
-      radius: 2,
-      color: '#1A000000',
-      offsetX: 0,
-      offsetY: 1
-    })
-  }
-
-  @Builder
   buildContent() {
     Column() {
+      // 地图引擎选择
+      this.buildMapEngineSelector()
+
       // 占位内容
       Column() {
         Image($r('app.media.ic_settings'))
@@ -111,6 +61,58 @@ struct Settings {
   }
 
   @Builder
+  buildMapEngineSelector() {
+    Column({ space: 12 }) {
+      Text('地图引擎')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#333333')
+        .width('100%')
+        .textAlign(TextAlign.Start)
+
+      Column({ space: 12 }) {
+        this.buildRadioItem('华为地图', 'huawei');
+        this.buildRadioItem('高德地图', 'amap');
+        this.buildRadioItem('百度地图', 'baidu');
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor(Color.White)
+    .borderRadius(12)
+    .margin({ bottom: 24 })
+    .shadow({
+      radius: 4,
+      color: '#1A000000',
+      offsetX: 0,
+      offsetY: 2
+    })
+  }
+
+  @Builder
+  buildRadioItem(label: string, value: string) {
+    Row({ space: 12 }) {
+      Radio({ group: 'mapEngineGroup', value: value })
+        .checked(this.selectedMapEngine === value)
+        .onChange((isChecked: boolean) => {
+          if (isChecked) {
+            this.selectedMapEngine = value;
+          }
+        })
+
+      Text(label)
+        .fontSize(16)
+        .fontColor('#333333')
+    }
+    .width('100%')
+    .padding({ top: 8, bottom: 8 })
+    .onClick(() => {
+      this.selectedMapEngine = value;
+    })
+  }
+
+  @Builder
   buildFeatureList() {
     Column({ space: 8 }) {
       this.buildFeatureItem('• 搜索半径设置');
@@ -131,20 +133,5 @@ struct Settings {
       .fontColor('#999999')
       .width('100%')
       .textAlign(TextAlign.Start)
-  }
-
-  /**
-   * 处理返回操作
-   */
-  private handleBack(): void {
-    try {
-      router.back();
-    } catch (error) {
-      console.error('Settings: 返回失败', error);
-      // 如果router.back()失败，尝试跳转到首页
-      router.replaceNamedRoute({
-        name: 'Index'
-      });
-    }
   }
 }

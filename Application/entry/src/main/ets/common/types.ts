@@ -1,23 +1,20 @@
 /**
  * 基础类型定义
- * 用于「找屎」应用的数据模型
+ * 用于「找厕所」应用的数据模型
  */
 
-// 使用百度地图SDK的LatLng类型
-import { LatLng } from '@bdmap/base';
-export { LatLng };
-
 // 厕所POI信息
-export interface ToiletPoi extends LatLng {
+export interface ToiletPoi {
   id: string;          // 全局唯一ID
   name: string;        // 展示名称
+  lat: number;         // 纬度
+  lng: number;         // 经度
   distance?: number;   // 距离（米，端侧计算填充）
   openHours?: string;  // 营业时间："06:00-23:00" / "24h" / "无障碍" 等
 }
 
 // 搜索选项
 export interface SearchOptions {
-  center: LatLng;      // 搜索中心点
   radiusM: number;     // 搜索半径（米）
   limit?: number;      // 结果上限（默认 20）
 }
