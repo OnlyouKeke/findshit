@@ -1,0 +1,114 @@
+"D:\Program Files\Huawei\DevEco Studio\tools\node\node.exe" "D:\Program Files\Huawei\DevEco Studio\tools\hvigor\bin\hvigorw.js" --mode module -p module=entry@default -p product=default -p pageType=page -p compileResInc=true -p buildMode=debug -p requiredDeviceType=phone -p previewMode=true -p buildRoot=.preview PreviewBuild --watch --analyze=normal --parallel --incremental --daemon
+> hvigor WARN: The current module 'entry' has dependency which is not installed at its oh-package.json5.
+> hvigor WARN: The current module 'entry' has dependency which is not installed at its oh-package.json5.
+> hvigor UP-TO-DATE :entry:default@PreBuild...  
+> hvigor UP-TO-DATE :cloud_objects:default@PreBuild...  
+> hvigor Finished :entry:default@CreateModuleInfo... after 1 ms 
+> hvigor Finished :entry:default@PreCheckSyscap... after 1 ms 
+> hvigor WARN: The current module 'entry' has dependency which is not installed at its oh-package.json5.
+> hvigor WARN: The current module 'entry' has dependency which is not installed at its oh-package.json5.
+> hvigor WARN: The current module 'entry' has dependency which is not installed at its oh-package.json5.
+> hvigor WARN: The current module 'entry' has dependency which is not installed at its oh-package.json5.
+> hvigor UP-TO-DATE :entry:default@GeneratePkgContextInfo...  
+> hvigor UP-TO-DATE :cloud_objects:default@CreateHarBuildProfile...  
+> hvigor UP-TO-DATE :cloud_objects:default@MergeProfile...  
+> hvigor UP-TO-DATE :entry:default@ProcessRouterMap...  
+> hvigor Finished :entry:default@ProcessStartupConfig... after 1 ms 
+> hvigor UP-TO-DATE :entry:default@CreateBuildProfile...  
+> hvigor UP-TO-DATE :entry:default@MergeProfile...  
+> hvigor WARN: The current module 'entry' has dependency which is not installed at its oh-package.json5.
+> hvigor WARN: The current module 'entry' has dependency which is not installed at its oh-package.json5.
+> hvigor UP-TO-DATE :entry:default@GenerateLoaderJson...  
+> hvigor UP-TO-DATE :entry:default@ProcessProfile...  
+> hvigor Finished :entry:default@PreviewProcessResource... after 1 ms 
+> hvigor Finished :entry:default@PreviewCompileResource... after 247 ms 
+> hvigor Finished :entry:default@PreviewHookCompileResource... after 1 ms 
+> hvigor Finished :entry:default@CopyPreviewProfile... after 3 ms 
+> hvigor Finished :entry:default@ReplacePreviewerPage... after 1 ms 
+> hvigor Finished :entry:buildPreviewerResource... after 1 ms 
+> hvigor Finished :entry:default@PreviewUpdateAssets... after 2 ms 
+> hvigor WARN: The current module 'entry' has dependency which is not installed at its oh-package.json5.
+> hvigor WARN: The current module 'entry' has dependency which is not installed at its oh-package.json5.
+> hvigor WARN: The current module 'entry' has dependency which is not installed at its oh-package.json5.
+> hvigor WARN: The current module 'entry' has dependency which is not installed at its oh-package.json5.
+> hvigor WARN: The current module 'entry' has dependency which is not installed at its oh-package.json5.
+> hvigor WARN: The current module 'entry' has dependency which is not installed at its oh-package.json5.
+> hvigor ERROR: Failed :entry:default@PreviewArkTS... 
+> hvigor ERROR: 10605999 ArkTS Compiler Error
+Error Message: Object is possibly 'null'. At File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:46:35
+10605999 ArkTS Compiler Error
+Error Message: Object is possibly 'null'. At File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:48:31
+10605999 ArkTS Compiler Error
+Error Message: Object is possibly 'null'. At File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:55:30
+10605999 ArkTS Compiler Error
+Error Message: Object is possibly 'null'. At File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:57:29
+10605008 ArkTS Compiler Error
+Error Message: Use explicit types instead of "any", "unknown" (arkts-no-any-unknown) At File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:57:13
+10505001 ArkTS Compiler Error
+Error Message: Declaration or statement expected. At File: E:/finding_shit/Application/entry/src/main/ets/pages/Settings.ets:78:7
+10505001 ArkTS Compiler Error
+Error Message: Type '{ priority: geoLocationManager.LocationRequestPriority; timeoutMs: number; }' is not assignable to type 'LocationRequest'.
+  Object literal may only specify known properties, and 'timeoutMs' does not exist in type 'LocationRequest'. At File: E:/finding_shit/Application/entry/src/main/ets/common/geo.ts:70:7
+10505001 ArkTS Compiler Error
+Error Message: '"@kit.MapKit"' has no exported member named 'Site'. Did you mean 'site'? At File: E:/finding_shit/Application/entry/src/main/ets/map/MapService.ts:1:10
+10505001 ArkTS Compiler Error
+Error Message: Module '"@kit.MapKit"' has no exported member 'SiteSearchService'. At File: E:/finding_shit/Application/entry/src/main/ets/map/HuaweiMapService.ts:2:10
+10505001 ArkTS Compiler Error
+Error Message: Module '"@kit.MapKit"' has no exported member 'SearchStatus'. At File: E:/finding_shit/Application/entry/src/main/ets/map/HuaweiMapService.ts:2:29
+10505001 ArkTS Compiler Error
+Error Message: Module '"@kit.ArkUI"' has no exported member 'ForEach'. At File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:1:10
+10505001 ArkTS Compiler Error
+Error Message: Module '"@kit.ArkUI"' has no exported member 'Navigation'. At File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:1:19
+10505001 ArkTS Compiler Error
+Error Message: Module '"@kit.ArkUI"' has no exported member 'NavPathStack'. At File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:1:31
+10505001 ArkTS Compiler Error
+Error Message: '"@kit.ArkUI"' has no exported member named 'NavRouter'. Did you mean 'Router'? At File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:1:45
+10505001 ArkTS Compiler Error
+Error Message: Module '"@kit.ArkUI"' has no exported member 'RouteStack'. At File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:1:56
+10505001 ArkTS Compiler Error
+Error Message: Module '"@ohos.geoLocationManager"' has no exported member 'geoLocationManager'. Did you mean to use 'import geoLocationManager from "@ohos.geoLocationManager"' instead? At File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:2:10
+10505001 ArkTS Compiler Error
+Error Message: Module '"../common/AppStorage"' has no exported member 'AppStorage'. Did you mean to use 'import AppStorage from "../common/AppStorage"' instead? At File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:9:10
+10505001 ArkTS Compiler Error
+Error Message: Property 'searchNearbyToilets' is missing in type 'Promise<MapService>' but required in type 'MapService'. At File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:31:7
+10505001 ArkTS Compiler Error
+Error Message: Expected 0 arguments, but got 1. At File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:31:60
+10505001 ArkTS Compiler Error
+Error Message: Argument of type '{ toilet: any; center: any; }' is not assignable to parameter of type '{ loading?: boolean; onFindToiletClick?: Callback0; onTimeChange?: Callback1<number>; onModeChange?: Callback1<TravelMode>; selectedTime?: number; travelMode?: TravelMode; }'.
+  Object literal may only specify known properties, and 'toilet' does not exist in type '{ loading?: boolean; onFindToiletClick?: Callback0; onTimeChange?: Callback1<number>; onModeChange?: Callback1<TravelMode>; selectedTime?: number; travelMode?: TravelMode; }'. At File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:86:32
+10505001 ArkTS Compiler Error
+Error Message: Cannot find name 'RadioGroup'. At File: E:/finding_shit/Application/entry/src/main/ets/pages/Settings.ets:73:7
+10505001 ArkTS Compiler Error
+Error Message: Cannot find name 'width'. Did you mean the instance member 'this.width'? At File: E:/finding_shit/Application/entry/src/main/ets/pages/Settings.ets:78:8
+ArkTS:ERROR File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:1:10
+ ERROR Code: 10311006 ArkTS: ERROR
+Error Message: 'ForEach' is not exported from Kit '@kit.ArkUI'.
+
+* Try the following: 
+  > Please make sure the Kit apis are consistent with SDK and there's no local modification on Kit apis.
+  > For more details on Kit apis, please refer to https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/development-intro-api-V5.
+ArkTS:ERROR File: E:/finding_shit/Application/entry/src/main/ets/pages/Index.ets:1:19
+ ERROR Code: 10311006 ArkTS: ERROR
+Error Message: 'Navigation' is not exported from Kit '@kit.ArkUI'.
+
+* Try the following: 
+  > Please make sure the Kit apis are consistent with SDK and there's no local modification on Kit apis.
+  > For more details on Kit apis, please refer to https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/development-intro-api-V5.
+ArkTS:ERROR File: E:/finding_shit/Application/entry/src/main/ets/map/HuaweiMapService.ts:2:10
+ ERROR Code: 10311006 ArkTS: ERROR
+Error Message: 'SiteSearchService' is not exported from Kit '@kit.MapKit'.
+
+* Try the following: 
+  > Please make sure the Kit apis are consistent with SDK and there's no local modification on Kit apis.
+  > For more details on Kit apis, please refer to https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/development-intro-api-V5.
+ArkTS:ERROR File: E:/finding_shit/Application/entry/src/main/ets/map/HuaweiMapService.ts:2:29
+ ERROR Code: 10311006 ArkTS: ERROR
+Error Message: 'SearchStatus' is not exported from Kit '@kit.MapKit'.
+
+* Try the following: 
+  > Please make sure the Kit apis are consistent with SDK and there's no local modification on Kit apis.
+  > For more details on Kit apis, please refer to https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/development-intro-api-V5.
+
+> hvigor ERROR: BUILD FAILED in 7 s 190 ms 
+
+Process finished with exit code -1

@@ -5,10 +5,13 @@ import { TopBar } from '../widget/TopBar';
 @Component
 struct Settings {
   @State selectedMapEngine: string = 'huawei';
+  @StorageLink('searchDistance') searchDistance: number = 500; // 搜索距离，默认500米
+  @State searchDistanceExpanded: boolean = false; // 搜索距离选项是否展开
+  @State mapEngineExpanded: boolean = false; // 地图引擎选项是否展开
 
   build() {
     Column() {
-      TopBar({ title: '设置' })
+      TopBar({ title: '设置', showBackButton: true })
 
       // 主内容区域
       this.buildContent()
@@ -21,39 +24,13 @@ struct Settings {
   @Builder
   buildContent() {
     Column() {
+      // 搜索距离设置
+      this.buildSearchDistanceSelector()
+      
       // 地图引擎选择
       this.buildMapEngineSelector()
 
-      // 占位内容
-      Column() {
-        Image($r('app.media.ic_settings'))
-          .width(64)
-          .height(64)
-          .fillColor('#CCCCCC')
-          .margin({ bottom: 16 })
-
-        Text('设置页面')
-          .fontSize(24)
-          .fontColor('#333333')
-          .fontWeight(FontWeight.Medium)
-          .margin({ bottom: 8 })
-
-        Text('功能开发中...')
-          .fontSize(16)
-          .fontColor('#666666')
-          .margin({ bottom: 24 })
-
-        Text('未来可能包含的功能：')
-          .fontSize(14)
-          .fontColor('#999999')
-          .margin({ bottom: 16 })
-
-        this.buildFeatureList()
-      }
-      .width('100%')
-      .justifyContent(FlexAlign.Center)
-      .alignItems(HorizontalAlign.Center)
-      .layoutWeight(1)
+      // 移除占位内容，让界面更简洁
     }
     .width('100%')
     .layoutWeight(1)
@@ -61,33 +38,155 @@ struct Settings {
   }
 
   @Builder
-  buildMapEngineSelector() {
-    Column({ space: 12 }) {
-      Text('地图引擎')
-        .fontSize(18)
-        .fontWeight(FontWeight.Bold)
-        .fontColor('#333333')
-        .width('100%')
-        .textAlign(TextAlign.Start)
+  buildSearchDistanceSelector() {
+    Column() {
+      // 标题行，可点击展开/折叠
+      Row() {
+        Text('默认搜索距离')
+          .fontSize(18)
+          .fontWeight(FontWeight.Bold)
+          .fontColor('#333333')
+          .layoutWeight(1)
 
-      Column({ space: 12 }) {
-        this.buildRadioItem('华为地图', 'huawei');
-        this.buildRadioItem('高德地图', 'amap');
-        this.buildRadioItem('百度地图', 'baidu');
+        Text(this.getSearchDistanceLabel())
+          .fontSize(14)
+          .fontColor('#666666')
+          .margin({ right: 8 })
+
+        Text(this.searchDistanceExpanded ? '▲' : '▼')
+          .fontSize(12)
+          .fontColor('#999999')
       }
       .width('100%')
+      .padding(16)
+      .onClick(() => {
+        animateTo({
+          duration: 300,
+          curve: Curve.EaseInOut
+        }, () => {
+          this.searchDistanceExpanded = !this.searchDistanceExpanded;
+        });
+      })
+
+      // 展开的选项内容
+      if (this.searchDistanceExpanded) {
+        Column({ space: 12 }) {
+          this.buildDistanceRadioItem('500米', 500);
+          this.buildDistanceRadioItem('1公里', 1000);
+          this.buildDistanceRadioItem('2公里', 2000);
+          this.buildDistanceRadioItem('5公里', 5000);
+        }
+        .width('100%')
+        .padding({ left: 16, right: 16, bottom: 16 })
+      }
     }
     .width('100%')
-    .padding(16)
     .backgroundColor(Color.White)
     .borderRadius(12)
-    .margin({ bottom: 24 })
+    .margin({ bottom: 16 })
     .shadow({
       radius: 4,
       color: '#1A000000',
       offsetX: 0,
       offsetY: 2
     })
+  }
+
+  // 获取当前搜索距离的显示标签
+  getSearchDistanceLabel(): string {
+    switch (this.searchDistance) {
+      case 500: return '500米';
+      case 1000: return '1公里';
+      case 2000: return '2公里';
+      case 5000: return '5公里';
+      default: return '500米';
+    }
+  }
+
+  @Builder
+  buildDistanceRadioItem(label: string, value: number) {
+    Row({ space: 12 }) {
+      Radio({ group: 'searchDistanceGroup', value: value.toString() })
+        .checked(this.searchDistance === value)
+        .onChange((isChecked: boolean) => {
+          if (isChecked) {
+            this.searchDistance = value;
+          }
+        })
+
+      Text(label)
+        .fontSize(16)
+        .fontColor('#333333')
+    }
+    .width('100%')
+    .padding({ top: 8, bottom: 8 })
+    .onClick(() => {
+      this.searchDistance = value;
+    })
+  }
+
+  @Builder
+  buildMapEngineSelector() {
+    Column() {
+      // 标题行，可点击展开/折叠
+      Row() {
+        Text('地图引擎')
+          .fontSize(18)
+          .fontWeight(FontWeight.Bold)
+          .fontColor('#333333')
+          .layoutWeight(1)
+
+        Text(this.getMapEngineLabel())
+          .fontSize(14)
+          .fontColor('#666666')
+          .margin({ right: 8 })
+
+        Text(this.mapEngineExpanded ? '▲' : '▼')
+          .fontSize(12)
+          .fontColor('#999999')
+      }
+      .width('100%')
+      .padding(16)
+      .onClick(() => {
+        animateTo({
+          duration: 300,
+          curve: Curve.EaseInOut
+        }, () => {
+          this.mapEngineExpanded = !this.mapEngineExpanded;
+        });
+      })
+
+      // 展开的选项内容
+      if (this.mapEngineExpanded) {
+        Column({ space: 12 }) {
+          this.buildRadioItem('华为地图', 'huawei');
+          this.buildRadioItem('高德地图', 'amap');
+          this.buildRadioItem('百度地图', 'baidu');
+        }
+        .width('100%')
+        .padding({ left: 16, right: 16, bottom: 16 })
+      }
+    }
+    .width('100%')
+    .backgroundColor(Color.White)
+    .borderRadius(12)
+    .margin({ bottom: 16 })
+    .shadow({
+      radius: 4,
+      color: '#1A000000',
+      offsetX: 0,
+      offsetY: 2
+    })
+  }
+
+  // 获取当前地图引擎的显示标签
+  getMapEngineLabel(): string {
+    switch (this.selectedMapEngine) {
+      case 'huawei': return '华为地图';
+      case 'amap': return '高德地图';
+      case 'baidu': return '百度地图';
+      default: return '华为地图';
+    }
   }
 
   @Builder
@@ -110,28 +209,5 @@ struct Settings {
     .onClick(() => {
       this.selectedMapEngine = value;
     })
-  }
-
-  @Builder
-  buildFeatureList() {
-    Column({ space: 8 }) {
-      this.buildFeatureItem('• 搜索半径设置');
-      this.buildFeatureItem('• 地图主题切换');
-      this.buildFeatureItem('• 定位精度选择');
-      this.buildFeatureItem('• 数据源配置');
-      this.buildFeatureItem('• 隐私设置');
-      this.buildFeatureItem('• 关于应用');
-    }
-    .width('100%')
-    .alignItems(HorizontalAlign.Start)
-  }
-
-  @Builder
-  buildFeatureItem(text: string) {
-    Text(text)
-      .fontSize(12)
-      .fontColor('#999999')
-      .width('100%')
-      .textAlign(TextAlign.Start)
   }
 }

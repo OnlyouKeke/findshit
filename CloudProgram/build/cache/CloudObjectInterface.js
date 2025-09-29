@@ -279,7 +279,9 @@ function generateImplementationClass(node, sourceFile) {
                 if (!isPromise) {
                     myType = typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createIdentifier("Promise"), [member.type]);
                 }
-                publicMethods.push(typescript_1.factory.createMethodDeclaration([typescript_1.factory.createModifier(ts.SyntaxKind.PublicKeyword), typescript_1.factory.createModifier(ts.SyntaxKind.AsyncKeyword)], undefined, member.name, member.questionToken, member.typeParameters, member.parameters, myType, typescript_1.factory.createBlock([typescript_1.factory.createReturnStatement(typescript_1.factory.createCallExpression(typescript_1.factory.createPropertyAccessExpression(typescript_1.factory.createIdentifier("Promise"), typescript_1.factory.createIdentifier("reject")), undefined, [typescript_1.factory.createNewExpression(typescript_1.factory.createIdentifier("Error"), undefined, [typescript_1.factory.createStringLiteral("Method not implemented.", true)])]))], true)));
+                var addMethod = typescript_1.factory.createMethodDeclaration([typescript_1.factory.createModifier(ts.SyntaxKind.PublicKeyword), typescript_1.factory.createModifier(ts.SyntaxKind.AsyncKeyword)], undefined, member.name.getText(sourceFile), member.questionToken, member.typeParameters, member.parameters, myType, typescript_1.factory.createBlock([typescript_1.factory.createReturnStatement(typescript_1.factory.createCallExpression(typescript_1.factory.createPropertyAccessExpression(typescript_1.factory.createIdentifier("Promise"), typescript_1.factory.createIdentifier("reject")), undefined, [typescript_1.factory.createNewExpression(typescript_1.factory.createIdentifier("Error"), undefined, [typescript_1.factory.createStringLiteral("Method not implemented.", true)])]))], true));
+                var leadingComments = ts.getCommentRange(member);
+                publicMethods.push(ts.setCommentRange(addMethod, leadingComments));
             }
         }
     }

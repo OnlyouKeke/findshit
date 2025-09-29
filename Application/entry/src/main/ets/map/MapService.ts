@@ -14,5 +14,5 @@ export type ToiletPoi = Site & {
 }
 
 export interface MapService {
-  searchNearbyToilets(longitude: number, latitude: number): Promise<ToiletPoi[]>;
+  searchNearbyToilets(longitude: number, latitude: number, radiusMeters?: number): Promise<ToiletPoi[]>;
 }
