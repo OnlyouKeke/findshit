@@ -7,8 +7,6 @@
   "main": "",
   "version": "1.0.0",
   "dependencies": {
-    "cloud_objects": "file:../cloud_objects",
-    "@kit/MapKit": "^1.0.0",
-    "@kit/LocationKit": "^1.0.0"
+    "cloud_objects": "file:../cloud_objects"
   }
 }

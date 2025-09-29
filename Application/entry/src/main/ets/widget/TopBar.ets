@@ -2,45 +2,49 @@ import router from '@ohos.router';
 
 @Component
 export struct TopBar {
-  private title: string = '';
-  private showBackButton: boolean = false;
+  @Prop title: string = '找屎';
+  @Prop showBackButton: boolean = false;
 
   build() {
     Row() {
-      // 返回按钮
+      // 左侧返回按钮（可选）
       if (this.showBackButton) {
         Button() {
           Text('←')
-            .fontSize(24)
-            .fontColor('#333333')
+            .fontSize(20)
+            .fontColor('#007DFF')
         }
-        .type(ButtonType.Circle)
         .width(40)
         .height(40)
-        .backgroundColor('#F0F0F0')
+        .backgroundColor('transparent')
+        .borderRadius(20)
         .onClick(() => {
           router.back();
         })
-      }
-
-      // 标题
-      Text(this.title)
-        .fontSize(20)
-        .fontWeight(FontWeight.Bold)
-        .layoutWeight(1)
-        .textAlign(this.showBackButton ? TextAlign.Center : TextAlign.Center)
-
-      // 占位空间（保持标题居中）
-      if (this.showBackButton) {
+      } else {
+        // 占位空间，保持标题居中
         Row()
           .width(40)
           .height(40)
       }
+      
+      // 中间标题
+      Text(this.title)
+        .fontSize(18)
+        .fontWeight(FontWeight.Medium)
+        .fontColor('#333333')
+        .layoutWeight(1)
+        .textAlign(TextAlign.Center)
+      
+      // 右侧占位空间，保持标题居中
+      Row()
+        .width(40)
+        .height(40)
     }
     .width('100%')
     .height(56)
     .padding({ left: 16, right: 16 })
-    .backgroundColor(Color.White)
+    .backgroundColor('#FFFFFF')
     .justifyContent(FlexAlign.SpaceBetween)
     .alignItems(VerticalAlign.Center)
   }

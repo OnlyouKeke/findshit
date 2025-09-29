@@ -179,6 +179,38 @@ struct Index {
     }
   }
 
+  // 导航到指定公厕
+  private navigateToToilet(toilet: ToiletPoi) {
+    try {
+      // 构建导航URL - 使用华为地图或系统默认地图
+      const mapUrl = `geo:${toilet.location.latitude},${toilet.location.longitude}?q=${encodeURIComponent(toilet.name)}`;
+      
+      // 尝试打开地图应用进行导航
+      // 这里可以根据实际需求调用华为地图SDK的导航功能
+      console.log(`导航URL: ${mapUrl}`);
+      console.log(`目标位置: ${toilet.name} (${toilet.location.latitude}, ${toilet.location.longitude})`);
+      
+      // 显示导航确认提示
+      // AlertDialog.show({
+      //   title: '开始导航',
+      //   message: `即将导航到 ${toilet.name}`,
+      //   primaryButton: {
+      //     value: '确定',
+      //     action: () => {
+      //       // 实际的导航逻辑
+      //     }
+      //   },
+      //   secondaryButton: {
+      //     value: '取消',
+      //     action: () => {}
+      //   }
+      // });
+      
+    } catch (error) {
+      console.error('导航失败:', error);
+    }
+  }
+
   async handleFindToilet() {
     if (this.isLoading || !this.geoService || !this.mapService) {
       return;
@@ -346,67 +378,156 @@ struct Index {
         // 公厕列表区域
         if (this.showToiletList && this.toilets.length > 0) {
           Column() {
-            Text(`找到 ${this.toilets.length} 个公厕`)
-              .fontSize(18)
-              .fontWeight(FontWeight.Medium)
-              .fontColor('#333333')
-              .margin({ bottom: 16 })
+            // 列表头部信息
+            Row() {
+              Column({ space: 4 }) {
+                Text(`找到 ${this.toilets.length} 个公厕`)
+                  .fontSize(20)
+                  .fontWeight(FontWeight.Bold)
+                  .fontColor('#1A1A1A')
+                
+                Text(`搜索范围 ${this.searchDistance}米`)
+                  .fontSize(14)
+                  .fontColor('#666666')
+              }
+              .alignItems(HorizontalAlign.Start)
+              
+              Blank()
+              
+              // 排序按钮
+              Button() {
+                Row({ space: 4 }) {
+                  Text('📊')
+                    .fontSize(14)
+                  Text('距离排序')
+                    .fontSize(12)
+                }
+              }
+              .width(80)
+              .height(32)
+              .backgroundColor('#F5F5F5')
+              .borderRadius(16)
+              .onClick(() => {
+                // 按距离重新排序
+                this.toilets = this.toilets.sort((a, b) => a.distance - b.distance);
+              })
+            }
+            .width('100%')
+            .margin({ bottom: 16 })
             
-            List() {
+            // 公厕列表
+            List({ space: 0 }) {
               ForEach(this.toilets, (toilet: ToiletPoi, index: number) => {
                 ListItem() {
                   ToiletCard({
                     toilet: toilet,
                     travelMode: this.travelMode,
                     onNavigate: () => {
-                      // 导航功能
-                      console.log(`Navigate to toilet: ${toilet.name}`);
+                      // 导航功能 - 可以集成华为地图导航
+                      console.log(`导航到公厕: ${toilet.name}`);
+                      // 这里可以调用华为地图的导航API
+                      // 或者打开系统默认地图应用
+                      this.navigateToToilet(toilet);
                     }
                   })
                 }
+                .animation({
+                  duration: 300,
+                  delay: index * 50, // 错开动画时间
+                  curve: Curve.EaseOut
+                })
               })
             }
             .width('100%')
             .layoutWeight(1)
             .scrollBar(BarState.Auto)
             .edgeEffect(EdgeEffect.Spring)
+            .divider({
+              strokeWidth: 0,
+              color: 'transparent'
+            })
           }
           .width('100%')
           .layoutWeight(1)
           .padding({ left: 16, right: 16, top: 16 })
           .animation({
-            duration: 300,
+            duration: 400,
             curve: Curve.EaseOut
           })
         }
         
         // 无结果提示
         if (this.showToiletList && this.toilets.length === 0 && !this.isLoading) {
-          Column({ space: 16 }) {
-            Text('🚽')
-              .fontSize(48)
-              .opacity(0.3)
+          Column({ space: 20 }) {
+            // 空状态图标
+            Column({ space: 8 }) {
+              Text('🚽')
+                .fontSize(64)
+                .opacity(0.2)
+              
+              Text('😔')
+                .fontSize(32)
+                .opacity(0.4)
+            }
             
-            Text('附近1公里内没有找到公厕')
-              .fontSize(16)
-              .fontColor('#666666')
+            // 提示文本
+            Column({ space: 8 }) {
+              Text('附近没有找到公厕')
+                .fontSize(18)
+                .fontWeight(FontWeight.Medium)
+                .fontColor('#333333')
+              
+              Text(`搜索范围：${this.searchDistance}米`)
+                .fontSize(14)
+                .fontColor('#666666')
+              
+              Text('试试扩大搜索范围或换个位置')
+                .fontSize(14)
+                .fontColor('#999999')
+            }
+            .alignItems(HorizontalAlign.Center)
             
-            Text('试试扩大搜索范围或换个位置')
-              .fontSize(14)
-              .fontColor('#999999')
-            
-            Button('重新搜索')
-              .width(100)
-              .height(36)
-              .fontSize(14)
-              .backgroundColor('#007DFF')
-              .borderRadius(18)
-              .onClick(() => {
-                this.showToiletList = false;
-                this.buttonMoved = false;
-              })
+            // 操作按钮
+            Row({ space: 12 }) {
+              Button('扩大范围')
+                .width(100)
+                .height(40)
+                .fontSize(14)
+                .backgroundColor('#F5F5F5')
+                .fontColor('#007DFF')
+                .borderRadius(20)
+                .border({
+                  width: 1,
+                  color: '#007DFF'
+                })
+                .onClick(() => {
+                  // 扩大搜索范围
+                  if (this.searchDistance < 5000) {
+                    this.searchDistance = Math.min(this.searchDistance * 2, 5000);
+                    this.performSearch();
+                  }
+                })
+              
+              Button('重新搜索')
+                .width(100)
+                .height(40)
+                .fontSize(14)
+                .backgroundColor('#007DFF')
+                .borderRadius(20)
+                .onClick(() => {
+                  this.showToiletList = false;
+                  this.buttonMoved = false;
+                })
+            }
           }
-          .margin({ top: 60 })
+          .width('100%')
+          .padding(40)
+          .justifyContent(FlexAlign.Center)
+          .alignItems(HorizontalAlign.Center)
+          .animation({
+            duration: 400,
+            curve: Curve.EaseOut
+          })
         }
       }
       .layoutWeight(1)

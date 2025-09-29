@@ -1,0 +1,228 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 532676608 bytes for G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Zero Based Compressed Oops mode in which the Java heap is
+#     placed in the first 32GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 32GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3528), pid=27772, tid=29116
+#
+# JRE version:  (20.0.2+9) (build )
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (20.0.2+9-78, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: D:\Program Files\Huawei\command-line-tools\sdk\default\openharmony\toolchains\lib\hap-sign-tool.jar verify-profile -inFile E:/finding_shit/fsReleaseRelease.p7b -outFile E:\finding_shit\Application\entry\build\default\intermediates\default\temp\signConfigCheckJson.json
+
+Host: 12th Gen Intel(R) Core(TM) i7-12700H, 20 cores, 31G,  Windows 11 , 64 bit Build 26100 (10.0.26100.5074)
+Time: Mon Sep 29 10:26:44 2025  Windows 11 , 64 bit Build 26100 (10.0.26100.5074) elapsed time: 0.016837 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000001cd795a0b00):  JavaThread "Unknown thread" [_thread_in_vm, id=29116, stack(0x0000000f98a00000,0x0000000f98b00000)]
+
+Stack: [0x0000000f98a00000,0x0000000f98b00000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x6bc25a]
+V  [jvm.dll+0x84971a]
+V  [jvm.dll+0x84b315]
+V  [jvm.dll+0x84ba13]
+V  [jvm.dll+0x280e4f]
+V  [jvm.dll+0x6b8fe9]
+V  [jvm.dll+0x6adbca]
+V  [jvm.dll+0x35b165]
+V  [jvm.dll+0x363386]
+V  [jvm.dll+0x3b400e]
+V  [jvm.dll+0x3b4295]
+V  [jvm.dll+0x32b86a]
+V  [jvm.dll+0x32c68b]
+V  [jvm.dll+0x8123df]
+V  [jvm.dll+0x3c1261]
+V  [jvm.dll+0x7fe103]
+V  [jvm.dll+0x44ccaf]
+V  [jvm.dll+0x44e621]
+C  [jli.dll+0x5287]
+C  [ucrtbase.dll+0x37b0]
+C  [KERNEL32.DLL+0x2e8d7]
+C  [ntdll.dll+0x8d9c]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ffac33ab118, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x000001cd79612a20 WorkerThread "GC Thread#0" [stack: 0x0000000f98b00000,0x0000000f98c00000] [id=5840]
+  0x000001cd7dcf2010 ConcurrentGCThread "G1 Main Marker" [stack: 0x0000000f98c00000,0x0000000f98d00000] [id=35744]
+  0x000001cd7dcf33c0 WorkerThread "G1 Conc#0" [stack: 0x0000000f98d00000,0x0000000f98e00000] [id=35680]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffac2b8eea7]
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x000001cd7959e4c0] Heap_lock - owner thread: 0x000001cd795a0b00
+
+Heap address: 0x0000000605000000, size: 8112 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+ CardTable entry size: 512
+ Card Set container configuration: InlinePtr #cards 4 size 8 Array Of Cards #cards 32 size 80 Howl #buckets 8 coarsen threshold 7372 Howl Bitmap #cards 1024 size 144 coarsen threshold 921 Card regions per heap region 1 cards per card region 8192
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x0000000605000000, 0x0000000800000000)
+  region size 4096K, 0 young (0K), 0 survivors (0K)
+
+[error occurred during error reporting (printing heap information), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffac2f647b9]
+GC Heap History (0 events):
+No events
+
+Dll operation events (1 events):
+Event: 0.010 Loaded shared library C:\Program Files\Java\jdk-20\bin\java.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes loaded (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff7975b0000 - 0x00007ff7975c0000 	C:\Program Files\Java\jdk-20\bin\java.exe
+0x00007ffbd1fc0000 - 0x00007ffbd2229000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffbd0570000 - 0x00007ffbd0639000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffbcf990000 - 0x00007ffbcfd83000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffbcf840000 - 0x00007ffbcf98b000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffbb23a0000 - 0x00007ffbb23b9000 	C:\Program Files\Java\jdk-20\bin\jli.dll
+0x00007ffbb2380000 - 0x00007ffbb239b000 	C:\Program Files\Java\jdk-20\bin\VCRUNTIME140.dll
+0x00007ffbcff40000 - 0x00007ffbcfff4000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffbd11b0000 - 0x00007ffbd1259000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffbd0000000 - 0x00007ffbd00a6000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffbd0de0000 - 0x00007ffbd0ef8000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffbd1d00000 - 0x00007ffbd1ec4000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffbcf810000 - 0x00007ffbcf837000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffbd1ed0000 - 0x00007ffbd1efb000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffbcf420000 - 0x00007ffbcf54d000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffbcf550000 - 0x00007ffbcf5f3000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffbaf2b0000 - 0x00007ffbaf543000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.5074_none_3e0d6f78e32fd63f\COMCTL32.dll
+0x00007ffbced20000 - 0x00007ffbced2b000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffbd0430000 - 0x00007ffbd045f000 	C:\WINDOWS\System32\IMM32.DLL
+0x0000000058c30000 - 0x0000000058c3d000 	C:\Program Files (x86)\360\360Safe\safemon\SafeWrapper.dll
+0x00007ffbc9b50000 - 0x00007ffbc9c55000 	C:\Program Files (x86)\360\360Safe\safemon\libzdtp64.dll
+0x00007ffbd1380000 - 0x00007ffbd1acd000 	C:\WINDOWS\System32\SHELL32.dll
+0x00007ffbcf2b0000 - 0x00007ffbcf41c000 	C:\WINDOWS\System32\wintypes.dll
+0x00007ffbd00b0000 - 0x00007ffbd042b000 	C:\WINDOWS\System32\combase.dll
+0x00007ffbd0470000 - 0x00007ffbd04d2000 	C:\WINDOWS\System32\SHLWAPI.dll
+0x00007ffbb24e0000 - 0x00007ffbb24ec000 	C:\Program Files\Java\jdk-20\bin\vcruntime140_1.dll
+0x00007ffb6c910000 - 0x00007ffb6c99e000 	C:\Program Files\Java\jdk-20\bin\msvcp140.dll
+0x00007ffac2850000 - 0x00007ffac34e8000 	C:\Program Files\Java\jdk-20\bin\server\jvm.dll
+0x00007ffbabfe0000 - 0x00007ffbabfea000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ffbd04f0000 - 0x00007ffbd0564000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffbbfab0000 - 0x00007ffbbfae5000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffbcde70000 - 0x00007ffbcde8b000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ffbb22c0000 - 0x00007ffbb22ca000 	C:\Program Files\Java\jdk-20\bin\jimage.dll
+0x00007ffbcc190000 - 0x00007ffbcc3d2000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ffbd06d0000 - 0x00007ffbd07a7000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007ffba5790000 - 0x00007ffba57cd000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ffbcf150000 - 0x00007ffbcf1e9000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffbb0fc0000 - 0x00007ffbb0fe6000 	C:\Program Files\Java\jdk-20\bin\java.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Program Files\Java\jdk-20\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.5074_none_3e0d6f78e32fd63f;C:\Program Files (x86)\360\360Safe\safemon;C:\Program Files\Java\jdk-20\bin\server
+
+VM Arguments:
+java_command: D:\Program Files\Huawei\command-line-tools\sdk\default\openharmony\toolchains\lib\hap-sign-tool.jar verify-profile -inFile E:/finding_shit/fsReleaseRelease.p7b -outFile E:\finding_shit\Application\entry\build\default\intermediates\default\temp\signConfigCheckJson.json
+java_class_path (initial): D:\Program Files\Huawei\command-line-tools\sdk\default\openharmony\toolchains\lib\hap-sign-tool.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 12                                        {product} {ergonomic}
+     uint ConcGCThreads                            = 4                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 15                                        {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 4194304                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 532676608                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 8506048512                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 4194304                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 7602480                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122027880                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122027880                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 8506048512                             {manageable} {ergonomic}
+     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags foldmultilines=false
+ #1: stderr all=off uptime,level,tags foldmultilines=false
+
+Environment Variables:
+PATH=D:\Program Files\Huawei\command-line-tools\tool\node;c:\\Users\\Administrator\\.trae\\sdks\\workspaces\\7ae21c23\\versions\\node\\current;c:\\Users\\Administrator\\.trae\\sdks\\versions\\node\\current;F:\ProgramData\anaconda3;F:\ProgramData\anaconda3\Library\mingw-w64\bin;F:\ProgramData\anaconda3\Library\usr\bin;F:\ProgramData\anaconda3\Library\bin;F:\ProgramData\anaconda3\Scripts;F:\ProgramData\anaconda3\bin;c:\Users\Administrator\.trae\sdks\workspaces\7ae21c23\versions\node\current;c:\Users\Administrator\.trae\sdks\versions\node\current;D:\Program Files\cuda\bin;D:\Program Files\cuda\libnvvp;D:\Program Files (x86)\VMware\VMware Workstation\bin;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\Program Files\Common Files\Oracle\Java\javapath;C:\win;ows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0;C:\windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;D:\phpStudy\PHPTutorial\MySQL\bin;F:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Program Files\Java\jdk-20;C:\Users\Administrator\AppData\Local\Programs\Python\Python311\Scripts;D:\phpstudy_pro\Extensions\MySQL5.7.26;C:\Program Files\apache-tomcat-10.1.17\bin;C:\Program Files\apache-tomcat-10.1.17\lib;C:\Users\Administrator\Desktop\网\工具\sqlmap;C:\ProgramData\chocolatey\bin;D:\Program Files\Bazel;F:\Program Files\nodejs;F:\Program Files(x86)\Tencent\微信web开发者工具\dll;F:\Program Files\Go\bin;C:\Program Files\Microsoft SQL Server\150\Tools\Binn;F:\Windows Kits\10\Windows Performance Toolkit;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;C:\Program Files\NVIDIA Corporation\Nsight Compute 2025.2.1;D:\Program Files (x86)\pcsuite;F:\ProgramData\anaconda3\condabin;F:\ProgramData\anaconda3\Scripts;F:\ProgramData\anaconda3\Library\bin;D:\Program Files\Huawei\command-line-tools\bin;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\Nmap;f:\Program Files\JetBrains\PyCharm 2023.1\bin;f:\Program Files\JetBrains\IntelliJ IDEA 2023.1\bin;f:\Program Files\JetBrains\DataGrip 2023.1\bin;C:\Users\Administrator\.dotnet\tools;D:\Users\Administrator\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Administrator\AppData\Roaming\npm;F:\Program Files\JetBrains\PyCharm 2023.1\bin;.;C:\Users\Administrator\go\bin;C:\Users\Administrator\AppData\Local\Microsoft\WinGet\Packages\ar51an.iPerf3_Microsoft.Winget.Source_8wekyb3d8bbwe;.;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;D:\Program Files\Huawei\DevEco Studio\bin;.
+USERNAME=Administrator
+LANG=zh_CN.UTF-8
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 154 Stepping 3, GenuineIntel
+TMP=C:\Users\ADMINI~1\AppData\Local\Temp
+TEMP=C:\Users\ADMINI~1\AppData\Local\Temp
+
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 11 , 64 bit Build 26100 (10.0.26100.5074)
+OS uptime: 0 days 0:38 hours
+
+CPU: total 20 (initial active 20) (10 cores per cpu, 2 threads per core) family 6 model 154 stepping 3 microcode 0x42c, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, sha, fma, vzeroupper, clflush, clflushopt, clwb, serialize, rdtscp, rdpid, fsrm, f16c, pku, cet_ibt, cet_ss
+
+Memory: 4k page, system-wide physical 32433M (991M free)
+TotalPageFile size 64613M (AvailPageFile size 329M)
+current process WorkingSet (physical memory assigned to process): 15M, peak: 15M
+current process commit charge ("private bytes"): 76M, peak: 584M
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (20.0.2+9-78) for windows-amd64 JRE (20.0.2+9-78), built on 2023-06-14T10:08:48Z by "mach5one" with MS VC++ 17.1 (VS2022)
+
+END.

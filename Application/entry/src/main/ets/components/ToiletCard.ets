@@ -11,73 +11,152 @@ export struct ToiletCard {
   @Prop travelMode: string;
   @Prop onNavigate: () => void;
 
+  // 根据距离获取颜色
+  private getDistanceColor(): string {
+    if (this.toilet.distance <= 200) return '#00C851'; // 绿色 - 很近
+    if (this.toilet.distance <= 500) return '#FF8800'; // 橙色 - 中等
+    return '#FF4444'; // 红色 - 较远
+  }
+
+  // 根据距离获取步行时间估算
+  private getWalkingTime(): string {
+    const walkingSpeed = 80; // 米/分钟
+    const cyclingSpeed = 200; // 米/分钟
+    
+    const speed = this.travelMode === 'walking' ? walkingSpeed : cyclingSpeed;
+    const minutes = Math.ceil(this.toilet.distance / speed);
+    
+    return `约${minutes}分钟`;
+  }
+
+  // 获取距离显示文本
+  private getDistanceText(): string {
+    if (this.toilet.distance < 1000) {
+      return `${this.toilet.distance}m`;
+    } else {
+      return `${(this.toilet.distance / 1000).toFixed(1)}km`;
+    }
+  }
+
   build() {
     Row() {
-      // 左侧图标
-      Column() {
+      // 左侧图标和距离指示器
+      Column({ space: 4 }) {
         Text('🚽')
-          .fontSize(24)
+          .fontSize(28)
+        
+        // 距离圆点指示器
+        Circle({ width: 8, height: 8 })
+          .fill(this.getDistanceColor())
       }
-      .width(50)
-      .height(50)
-      .backgroundColor('#F0F8FF')
-      .borderRadius(25)
+      .width(60)
+      .height(70)
+      .backgroundColor('#F8F9FA')
+      .borderRadius(12)
       .justifyContent(FlexAlign.Center)
       .alignItems(HorizontalAlign.Center)
       
-      // 中间信息
-      Column({ space: 4 }) {
+      // 中间信息区域
+      Column({ space: 6 }) {
+        // 公厕名称
         Text(this.toilet.name)
           .fontSize(16)
           .fontWeight(FontWeight.Medium)
-          .fontColor('#333333')
+          .fontColor('#1A1A1A')
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
         
+        // 地址信息
         Text(this.toilet.address)
-          .fontSize(14)
+          .fontSize(13)
           .fontColor('#666666')
-          .maxLines(1)
+          .maxLines(2)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
+          .lineHeight(18)
         
-        Row({ space: 8 }) {
-          Text(`${this.toilet.distance}m`)
-            .fontSize(12)
-            .fontColor('#007DFF')
-            .fontWeight(FontWeight.Medium)
+        // 距离和时间信息
+        Row({ space: 12 }) {
+          // 距离标签
+          Row({ space: 4 }) {
+            Text('📍')
+              .fontSize(12)
+            Text(this.getDistanceText())
+              .fontSize(13)
+              .fontColor(this.getDistanceColor())
+              .fontWeight(FontWeight.Medium)
+          }
           
-          Text(this.travelMode === 'walking' ? '🚶 步行' : '🚴 骑行')
-            .fontSize(12)
-            .fontColor('#999999')
+          // 时间估算
+          Row({ space: 4 }) {
+            Text(this.travelMode === 'walking' ? '🚶' : '🚴')
+              .fontSize(12)
+            Text(this.getWalkingTime())
+              .fontSize(13)
+              .fontColor('#007DFF')
+          }
         }
+        .alignItems(VerticalAlign.Center)
       }
       .layoutWeight(1)
       .alignItems(HorizontalAlign.Start)
-      .margin({ left: 12, right: 12 })
-      
+      .margin({ left: 16, right: 12 })
+      .justifyContent(FlexAlign.SpaceBetween)
+
       // 右侧导航按钮
-      Button('导航')
-        .width(60)
-        .height(32)
-        .fontSize(12)
+      Column({ space: 8 }) {
+        Button() {
+          Row({ space: 4 }) {
+            Text('🧭')
+              .fontSize(14)
+            Text('导航')
+              .fontSize(13)
+              .fontWeight(FontWeight.Medium)
+          }
+        }
+        .width(70)
+        .height(36)
         .backgroundColor('#007DFF')
-        .borderRadius(16)
+        .borderRadius(18)
         .onClick(() => {
           this.onNavigate();
         })
+        
+        // 收藏按钮（可选功能）
+        Button() {
+          Text('⭐')
+            .fontSize(16)
+        }
+        .width(36)
+        .height(36)
+        .backgroundColor('#F5F5F5')
+        .borderRadius(18)
+        .onClick(() => {
+          // 收藏功能
+          console.log(`收藏公厕: ${this.toilet.name}`);
+        })
+      }
+      .justifyContent(FlexAlign.Center)
     }
     .width('100%')
-    .height(80)
-    .padding(16)
+    .height(90)
+    .padding({ left: 16, right: 16, top: 12, bottom: 12 })
     .backgroundColor('#FFFFFF')
-    .borderRadius(12)
+    .borderRadius(16)
     .shadow({
-      radius: 8,
-      color: '#00000010',
+      radius: 12,
+      color: '#00000008',
       offsetX: 0,
-      offsetY: 2
+      offsetY: 4
     })
-    .margin({ bottom: 8 })
+    .border({
+      width: 1,
+      color: '#F0F0F0'
+    })
+    .margin({ bottom: 12 })
+    .animation({
+      duration: 200,
+      curve: Curve.EaseOut
+    })
   }
 }
 
