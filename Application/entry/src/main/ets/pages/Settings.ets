@@ -1,5 +1,6 @@
 import router from '@ohos.router';
 import { TopBar } from '../widget/TopBar';
+import AppStorage from '../common/AppStorage';
 
 @Entry
 @Component
@@ -8,6 +9,24 @@ struct Settings {
   @StorageLink('searchDistance') searchDistance: number = 500; // 搜索距离，默认500米
   @State searchDistanceExpanded: boolean = false; // 搜索距离选项是否展开
   @State mapEngineExpanded: boolean = false; // 地图引擎选项是否展开
+
+  async aboutToAppear() {
+    // 读取已保存的地图引擎选择
+    try {
+      this.selectedMapEngine = await AppStorage.getInstance().getMapEngine();
+    } catch (e) {
+      // AppStorage 未初始化时使用默认值
+      this.selectedMapEngine = 'huawei';
+    }
+  }
+
+  private async saveMapEngine(engine: string) {
+    try {
+      await AppStorage.getInstance().setMapEngine(engine);
+    } catch (e) {
+      console.warn('保存地图引擎失败:', e as Error);
+    }
+  }
 
   build() {
     Column() {
@@ -200,6 +219,8 @@ struct Settings {
         .onChange((isChecked: boolean) => {
           if (isChecked) {
             this.selectedMapEngine = value;
+            // 同步保存到持久化存储
+            this.saveMapEngine(value);
           }
         })
 
@@ -211,6 +232,7 @@ struct Settings {
     .padding({ top: 8, bottom: 8 })
     .onClick(() => {
       this.selectedMapEngine = value;
+      this.saveMapEngine(value);
     })
   }
 

@@ -5,8 +5,10 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { HarmonyGeo } from '../common/geo';
 import { MapServiceFactory } from '../map/MapServiceFactory';
 import { MapService, ToiletPoi } from '../map/MapService';
+import MapLauncher from '../map/MapLauncher';
 import AppStorage from '../common/AppStorage';
 import LocationLogStore from '../common/LocationLogStore';
+import SearchLogStore from '../common/SearchLogStore';
 import { ToiletCard } from '../components/ToiletCard';
 import { ErrorBanner } from '../components/ErrorBanner';
 import { TopBar } from '../widget/TopBar';
@@ -30,6 +32,8 @@ struct Index {
   @State private swipeCurrentX: number = 0; // 滑动当前的X坐标
   @State private isSwipeActive: boolean = false; // 是否正在滑动
   @State private swipeOffset: number = 0; // 滑动偏移量
+  @State private visibleCount: number = 0; // 已显示的卡片数量（用于逐个动画显示）
+  private staggerTimerId: number | undefined = undefined; // 逐个显示的定时器ID
   @StorageLink('searchDistance') searchDistance: number = 500; // 搜索距离，默认500米
   private geoService: HarmonyGeo | null = null;
   private mapService: MapService | null = null;
@@ -180,36 +184,42 @@ struct Index {
     }
   }
 
-  // 导航到指定公厕
-  private navigateToToilet(toilet: ToiletPoi) {
+  // 导航到指定公厕（根据设置的地图App）
+  private async navigateToToilet(toilet: ToiletPoi) {
+    if (!this.context) {
+      console.error('导航失败: 缺少UI上下文');
+      return;
+    }
     try {
-      // 构建导航URL - 使用华为地图或系统默认地图
-      const mapUrl = `geo:${toilet.location.latitude},${toilet.location.longitude}?q=${encodeURIComponent(toilet.name)}`;
-      
-      // 尝试打开地图应用进行导航
-      // 这里可以根据实际需求调用华为地图SDK的导航功能
-      console.log(`导航URL: ${mapUrl}`);
-      console.log(`目标位置: ${toilet.name} (${toilet.location.latitude}, ${toilet.location.longitude})`);
-      
-      // 显示导航确认提示
-      // AlertDialog.show({
-      //   title: '开始导航',
-      //   message: `即将导航到 ${toilet.name}`,
-      //   primaryButton: {
-      //     value: '确定',
-      //     action: () => {
-      //       // 实际的导航逻辑
-      //     }
-      //   },
-      //   secondaryButton: {
-      //     value: '取消',
-      //     action: () => {}
-      //   }
-      // });
-      
+      await MapLauncher.openNavigation(this.context, toilet, this.travelMode === 'walking' ? 'walking' : 'cycling');
     } catch (error) {
       console.error('导航失败:', error);
+      this.error = '未能打开目标地图App，请检查是否已安装或重试。';
     }
+  }
+
+  // 取消逐个显示动画
+  private cancelStaggerReveal() {
+    if (this.staggerTimerId !== undefined) {
+      clearTimeout(this.staggerTimerId);
+      this.staggerTimerId = undefined;
+    }
+  }
+
+  // 启动逐个显示动画
+  private startStaggerReveal(total: number) {
+    this.cancelStaggerReveal();
+    this.visibleCount = 0;
+    const target = Math.min(Math.max(total, 0), 200);
+    const step = () => {
+      if (this.visibleCount < target) {
+        this.visibleCount++;
+        this.staggerTimerId = setTimeout(step, 80);
+      } else {
+        this.cancelStaggerReveal();
+      }
+    };
+    step();
   }
 
   async handleFindToilet() {
@@ -234,6 +244,8 @@ struct Index {
     this.error = '';
     this.showToiletList = false;
     this.toilets = [];
+    this.cancelStaggerReveal();
+    this.visibleCount = 0;
     
     try {
       // 检查权限
@@ -269,9 +281,60 @@ struct Index {
       }, () => {
         // 使用用户设置的搜索距离搜索公厕
         this.mapService!.searchNearbyToilets(location.longitude, location.latitude, this.searchDistance)
-          .then(toilets => {
+          .then(async (toilets: ToiletPoi[]) => {
             this.toilets = toilets;
             this.showToiletList = true;
+            this.startStaggerReveal(toilets.length);
+            // 写入搜索成功日志
+            try {
+              if (this.context) {
+                await SearchLogStore.init(this.context);
+                await SearchLogStore.getInstance().append({
+                  timestamp: Date.now(),
+                  centerLatitude: location.latitude,
+                  centerLongitude: location.longitude,
+                  radiusMeters: this.searchDistance,
+                  resultCount: toilets.length
+                });
+              }
+            } catch (e) {
+              console.warn('写入搜索成功日志失败:', e);
+            }
+            // 写入卡片显示日志
+            try {
+              if (this.context) {
+                await SearchLogStore.init(this.context);
+                await SearchLogStore.getInstance().append({
+                  timestamp: Date.now(),
+                  centerLatitude: location.latitude,
+                  centerLongitude: location.longitude,
+                  radiusMeters: this.searchDistance,
+                  resultCount: toilets.length,
+                  message: '展示卡片列表'
+                });
+              }
+            } catch (e) {
+              console.warn('写入卡片显示日志失败:', e);
+            }
+          })
+          .catch(async (err: Error) => {
+            const error = err as Error;
+            console.error(TAG, `搜索接口异常: ${error?.message}`);
+            this.error = `搜索失败：${error?.message || '未知错误'}`;
+            this.showToiletList = false;
+            // 记录搜索失败日志
+            try {
+              if (this.context) {
+                await SearchLogStore.init(this.context);
+                await SearchLogStore.getInstance().appendError(`搜索失败: ${error?.message || 'Unknown error'}`, {
+                  centerLatitude: location.latitude,
+                  centerLongitude: location.longitude,
+                  radiusMeters: this.searchDistance
+                });
+              }
+            } catch (e) {
+              console.warn('写入搜索失败日志失败:', e);
+            }
           });
       });
       
@@ -279,17 +342,19 @@ struct Index {
       const error = err as Error;
       console.error(TAG, `Failed to find toilets, error: ${JSON.stringify(error)}`);
       this.error = `Failed to find toilets: ${error.message || 'Unknown error'}`;
-      // 写入错误日志，便于后续排查
+      // 写入搜索失败日志（与定位日志分开）
       try {
         if (this.context) {
-          await LocationLogStore.init(this.context);
-          await LocationLogStore.getInstance().append({
-            timestamp: Date.now(),
-            message: `搜索失败: ${error.message || 'Unknown error'}`
+          await SearchLogStore.init(this.context);
+          const center = this.center;
+          await SearchLogStore.getInstance().appendError(`搜索失败: ${error.message || 'Unknown error'}`, {
+            centerLatitude: center?.latitude,
+            centerLongitude: center?.longitude,
+            radiusMeters: this.searchDistance
           });
         }
       } catch (e) {
-        console.warn('写入错误日志失败:', e);
+        console.warn('写入搜索失败日志失败:', e);
       }
     } finally {
       this.isLoading = false;
@@ -441,28 +506,32 @@ struct Index {
             .width('100%')
             .margin({ bottom: 16 })
             
-            // 公厕列表
+            // 公厕卡片列表（使用 List 虚拟化，并逐个淡入出现）
             List({ space: 0 }) {
-              ForEach(this.toilets, (toilet: ToiletPoi, index: number) => {
-                ListItem() {
-                  ToiletCard({
-                    toilet: toilet,
-                    travelMode: this.travelMode,
-                    onNavigate: () => {
-                      // 导航功能 - 可以集成华为地图导航
-                      console.log(`导航到公厕: ${toilet.name}`);
-                      // 这里可以调用华为地图的导航API
-                      // 或者打开系统默认地图应用
-                      this.navigateToToilet(toilet);
+              ForEach(
+                this.toilets,
+                (toilet: ToiletPoi, index: number) => {
+                  ListItem() {
+                    // 使用内层容器做动画，避免直接在 ListItem 上变换
+                    Column() {
+                      ToiletCard({
+                        toilet: toilet,
+                        travelMode: this.travelMode,
+                        onNavigate: () => {
+                          console.log(`导航到公厕: ${toilet.name}`);
+                          this.navigateToToilet(toilet);
+                        }
+                      })
                     }
-                  })
-                }
-                .animation({
-                  duration: 300,
-                  delay: index * 50, // 错开动画时间
-                  curve: Curve.EaseOut
-                })
-              })
+                    .opacity(index < this.visibleCount ? 1 : 0)
+                    .animation({
+                      duration: 180,
+                      curve: Curve.EaseOut
+                    })
+                  }
+                },
+                (toilet: ToiletPoi) => toilet.id
+              )
             }
             .width('100%')
             .layoutWeight(1)

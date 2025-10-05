@@ -66,8 +66,8 @@ export struct ToiletCard {
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
         
-        // 地址信息
-        Text(this.toilet.address)
+        // 地址信息（兜底为空字符串，避免未定义导致异常）
+        Text(this.toilet.address || '')
           .fontSize(13)
           .fontColor('#666666')
           .maxLines(2)

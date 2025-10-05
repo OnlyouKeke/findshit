@@ -1,0 +1,675 @@
+2025-09-29 23:03:07 0-0/hdc I/I00000/HiLog: ========Zeroth log of type: init
+ 2025-09-29 23:03:07 621-621/hdc I/I02C01/hmos_cust_carrier_mount/CustCarrierMount: MountCarrierToShared start
+ 2025-09-29 23:03:07 621-621/hdc I/I02C01/hmos_cust_carrier_mount/CustCarrierMount: success to mount carrier to shared
+ 2025-09-29 23:03:09 1185-1185/hdc W/I02C01/hmos_cust_carrier_mount/CustCarrierMount: not exsit CUST_GLOBAL_CARRIER_DIR or COTA_PARAM_CARRIER_DIR
+ 2025-10-05 19:40:34 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: get module getModuleHelper.
+ 2025-10-05 19:40:34 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: invoke getWifiLinkedInfo.
+ 2025-10-05 19:40:34 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: get wifi linked info: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":36,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:34 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: response str len: 452
+ 2025-10-05 19:40:34 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RPC_NAPI: [NAPI]: call doResponse
+ 2025-10-05 19:40:34 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call doResponse
+ 2025-10-05 19:40:34 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: doResponse success, data: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":36,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:34 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: , con: 71.
+ 2025-10-05 19:40:34 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Do response finish. {"confd":"71","call":"not_xdevice","request_id":"20251005194034000105"}
+ 2025-10-05 19:40:34 43373-61243/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: Close socket: 71
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:34 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:36 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:38 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:39 43373-43447/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: server: got connection from 127.0.0.1 port 44664
+ 2025-10-05 19:40:39 43373-61419/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call Socketlistener 71
+ 2025-10-05 19:40:39 43373-61419/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: recv msg from client: 1{"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194039000256"}
+ 2025-10-05 19:40:39 43373-61419/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: result: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194039000256","confd":71}, len is 169
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [startSocket]: Call getRecvData: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194039000256","confd":71}
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: start requestHandler str, {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194039000256","confd":71}
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Finish requestHandler.
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: module: com.ohos.devicetest.wifiApiHelper
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: method: getWifiLinkedInfo
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: params: {},[object Object]
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: get module getModuleHelper.
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: invoke getWifiLinkedInfo.
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: get wifi linked info: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":39,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: response str len: 452
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RPC_NAPI: [NAPI]: call doResponse
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call doResponse
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: doResponse success, data: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":39,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: , con: 71.
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Do response finish. {"confd":"71","call":"not_xdevice","request_id":"20251005194039000256"}
+ 2025-10-05 19:40:39 43373-61419/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: Close socket: 71
+ 2025-10-05 19:40:39 43373-43447/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: server: got connection from 127.0.0.1 port 44666
+ 2025-10-05 19:40:39 43373-61420/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call Socketlistener 71
+ 2025-10-05 19:40:39 43373-61420/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: recv msg from client: 1{"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194039000288"}
+ 2025-10-05 19:40:39 43373-61420/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: result: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194039000288","confd":71}, len is 169
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [startSocket]: Call getRecvData: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194039000288","confd":71}
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: start requestHandler str, {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194039000288","confd":71}
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Finish requestHandler.
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: module: com.ohos.devicetest.wifiApiHelper
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: method: getWifiLinkedInfo
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: params: {},[object Object]
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: get module getModuleHelper.
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: invoke getWifiLinkedInfo.
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: get wifi linked info: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":37,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: response str len: 452
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RPC_NAPI: [NAPI]: call doResponse
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call doResponse
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: doResponse success, data: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":37,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: , con: 71.
+ 2025-10-05 19:40:39 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Do response finish. {"confd":"71","call":"not_xdevice","request_id":"20251005194039000288"}
+ 2025-10-05 19:40:39 43373-61420/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: Close socket: 71
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:41 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:43 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:44 43373-43447/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: server: got connection from 127.0.0.1 port 44668
+ 2025-10-05 19:40:44 43373-61588/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call Socketlistener 71
+ 2025-10-05 19:40:44 43373-61588/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: recv msg from client: 1{"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194044000467"}
+ 2025-10-05 19:40:44 43373-61588/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: result: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194044000467","confd":71}, len is 169
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [startSocket]: Call getRecvData: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194044000467","confd":71}
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: start requestHandler str, {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194044000467","confd":71}
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Finish requestHandler.
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: module: com.ohos.devicetest.wifiApiHelper
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: method: getWifiLinkedInfo
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: params: {},[object Object]
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: get module getModuleHelper.
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: invoke getWifiLinkedInfo.
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: get wifi linked info: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":38,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: response str len: 452
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RPC_NAPI: [NAPI]: call doResponse
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call doResponse
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: doResponse success, data: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":38,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: , con: 71.
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Do response finish. {"confd":"71","call":"not_xdevice","request_id":"20251005194044000467"}
+ 2025-10-05 19:40:44 43373-43447/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: server: got connection from 127.0.0.1 port 44670
+ 2025-10-05 19:40:44 43373-61594/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call Socketlistener 73
+ 2025-10-05 19:40:44 43373-61594/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: recv msg from client: 1{"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194044000588"}
+ 2025-10-05 19:40:44 43373-61594/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: result: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194044000588","confd":73}, len is 169
+ 2025-10-05 19:40:44 43373-61588/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: Close socket: 71
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [startSocket]: Call getRecvData: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194044000588","confd":73}
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: start requestHandler str, {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194044000588","confd":73}
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Finish requestHandler.
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: module: com.ohos.devicetest.wifiApiHelper
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: method: getWifiLinkedInfo
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: params: {},[object Object]
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: get module getModuleHelper.
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: invoke getWifiLinkedInfo.
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: get wifi linked info: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":38,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: response str len: 452
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RPC_NAPI: [NAPI]: call doResponse
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call doResponse
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: doResponse success, data: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":38,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: , con: 73.
+ 2025-10-05 19:40:44 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Do response finish. {"confd":"73","call":"not_xdevice","request_id":"20251005194044000588"}
+ 2025-10-05 19:40:44 43373-61594/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: Close socket: 73
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:45 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:47 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:49 43373-43447/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: server: got connection from 127.0.0.1 port 44672
+ 2025-10-05 19:40:49 43373-61770/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call Socketlistener 71
+ 2025-10-05 19:40:49 43373-61770/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: recv msg from client: 1{"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194049000707"}
+ 2025-10-05 19:40:49 43373-61770/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: result: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194049000707","confd":71}, len is 169
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [startSocket]: Call getRecvData: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194049000707","confd":71}
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: start requestHandler str, {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194049000707","confd":71}
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Finish requestHandler.
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: module: com.ohos.devicetest.wifiApiHelper
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: method: getWifiLinkedInfo
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: params: {},[object Object]
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: get module getModuleHelper.
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: invoke getWifiLinkedInfo.
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: get wifi linked info: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":38,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: response str len: 452
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RPC_NAPI: [NAPI]: call doResponse
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call doResponse
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: doResponse success, data: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":38,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: , con: 71.
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Do response finish. {"confd":"71","call":"not_xdevice","request_id":"20251005194049000707"}
+ 2025-10-05 19:40:49 43373-61770/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: Close socket: 71
+ 2025-10-05 19:40:49 43373-43447/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: server: got connection from 127.0.0.1 port 44674
+ 2025-10-05 19:40:49 43373-61778/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call Socketlistener 71
+ 2025-10-05 19:40:49 43373-61778/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: recv msg from client: 1{"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194049000799"}
+ 2025-10-05 19:40:49 43373-61778/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: result: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194049000799","confd":71}, len is 169
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [startSocket]: Call getRecvData: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194049000799","confd":71}
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: start requestHandler str, {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194049000799","confd":71}
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Finish requestHandler.
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: module: com.ohos.devicetest.wifiApiHelper
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: method: getWifiLinkedInfo
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: params: {},[object Object]
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: get module getModuleHelper.
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: invoke getWifiLinkedInfo.
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: get wifi linked info: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":38,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: response str len: 452
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RPC_NAPI: [NAPI]: call doResponse
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call doResponse
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: doResponse success, data: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":38,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: , con: 71.
+ 2025-10-05 19:40:49 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Do response finish. {"confd":"71","call":"not_xdevice","request_id":"20251005194049000799"}
+ 2025-10-05 19:40:49 43373-61778/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: Close socket: 71
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:50 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 4448-4448/hdc W/A0B701/com.huawei.hmos.calendardata/CalendarData: DeviceManager:onDeviceStateChange UNKNOWN action
+ 2025-10-05 19:40:52 58634-58634/hdc E/A00001/com.huawei.associateassistant/ASSOCIATE_ASSISTANT: KEY_MOUSE_MANAGER  this.settingsRpc === undefined
+ 2025-10-05 19:40:52 58634-58634/hdc W/A00001/com.huawei.associateassistant/ASSOCIATE_ASSISTANT: DEVICE_LOCATION_MANAGER  this.isAutoDirection = true
+ 2025-10-05 19:40:52 58634-58634/hdc W/A00001/com.huawei.associateassistant/ASSOCIATE_ASSISTANT: DEVICE_LOCATION_MANAGER  this.isUnRefreshDirection = false
+ 2025-10-05 19:40:52 58634-59333/hdc E/A00001/com.huawei.associateassistant/ASSOCIATE_ASSISTANT: SPATIAL_AWARENESS  no regist SpatialAwareness
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:52 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:54 43373-43447/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: server: got connection from 127.0.0.1 port 44676
+ 2025-10-05 19:40:54 43373-62042/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call Socketlistener 71
+ 2025-10-05 19:40:54 43373-62042/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: recv msg from client: 1{"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194054000958"}
+ 2025-10-05 19:40:54 43373-62042/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: result: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194054000958","confd":71}, len is 169
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [startSocket]: Call getRecvData: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194054000958","confd":71}
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: start requestHandler str, {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194054000958","confd":71}
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Finish requestHandler.
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: module: com.ohos.devicetest.wifiApiHelper
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: method: getWifiLinkedInfo
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: params: {},[object Object]
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: get module getModuleHelper.
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: invoke getWifiLinkedInfo.
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: get wifi linked info: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":37,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: response str len: 452
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RPC_NAPI: [NAPI]: call doResponse
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call doResponse
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: doResponse success, data: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":37,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: , con: 71.
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Do response finish. {"confd":"71","call":"not_xdevice","request_id":"20251005194054000958"}
+ 2025-10-05 19:40:55 43373-62042/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: Close socket: 71
+ 2025-10-05 19:40:55 43373-43447/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: server: got connection from 127.0.0.1 port 44678
+ 2025-10-05 19:40:55 43373-62043/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call Socketlistener 71
+ 2025-10-05 19:40:55 43373-62043/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: recv msg from client: 1{"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194055000050"}
+ 2025-10-05 19:40:55 43373-62043/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: result: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194055000050","confd":71}, len is 169
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [startSocket]: Call getRecvData: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194055000050","confd":71}
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: start requestHandler str, {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194055000050","confd":71}
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Finish requestHandler.
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: module: com.ohos.devicetest.wifiApiHelper
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: method: getWifiLinkedInfo
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: params: {},[object Object]
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: get module getModuleHelper.
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: invoke getWifiLinkedInfo.
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: get wifi linked info: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":37,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: response str len: 452
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RPC_NAPI: [NAPI]: call doResponse
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call doResponse
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: doResponse success, data: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":37,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: , con: 71.
+ 2025-10-05 19:40:55 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Do response finish. {"confd":"71","call":"not_xdevice","request_id":"20251005194055000050"}
+ 2025-10-05 19:40:55 43373-62043/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: Close socket: 71
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:56 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:58 3347-3347/hdc E/A01A00/com.ohos.sceneboard/SYS_UI: ShutdownDialogVm --> getShutDownSoc error, code: 14700101, message: undefined
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:40:59 34289-34289/hdc E/A000FF/ethod: inputMethod:InputService/HMKeyboard_DisplayWrapper: addVirtualScreenBlocklist error:401
+ 2025-10-05 19:41:00 43373-43447/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: server: got connection from 127.0.0.1 port 44680
+ 2025-10-05 19:41:00 43373-62255/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call Socketlistener 71
+ 2025-10-05 19:41:00 43373-62255/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: recv msg from client: 1{"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194100000188"}
+ 2025-10-05 19:41:00 43373-62255/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: result: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194100000188","confd":71}, len is 169
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [startSocket]: Call getRecvData: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194100000188","confd":71}
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: start requestHandler str, {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194100000188","confd":71}
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Finish requestHandler.
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: module: com.ohos.devicetest.wifiApiHelper
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: method: getWifiLinkedInfo
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: params: {},[object Object]
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: get module getModuleHelper.
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: invoke getWifiLinkedInfo.
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: get wifi linked info: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":37,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: response str len: 452
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RPC_NAPI: [NAPI]: call doResponse
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call doResponse
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: doResponse success, data: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":37,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: , con: 71.
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Do response finish. {"confd":"71","call":"not_xdevice","request_id":"20251005194100000188"}
+ 2025-10-05 19:41:00 43373-62255/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: Close socket: 71
+ 2025-10-05 19:41:00 43373-43447/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: server: got connection from 127.0.0.1 port 44682
+ 2025-10-05 19:41:00 43373-62262/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call Socketlistener 71
+ 2025-10-05 19:41:00 43373-62262/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: recv msg from client: 1{"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194100000267"}
+ 2025-10-05 19:41:00 43373-62262/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: result: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194100000267","confd":71}, len is 169
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [startSocket]: Call getRecvData: {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194100000267","confd":71}
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: start requestHandler str, {"client":"127.0.0.1","method":"getWifiLinkedInfo","module":"com.ohos.devicetest.wifiApiHelper","params":["context","{}"],"request_id":"20251005194100000267","confd":71}
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Finish requestHandler.
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: module: com.ohos.devicetest.wifiApiHelper
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: method: getWifiLinkedInfo
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: params: {},[object Object]
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: get module getModuleHelper.
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: invoke getWifiLinkedInfo.
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [wifiApiHelper]: get wifi linked info: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":37,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: response str len: 452
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RPC_NAPI: [NAPI]: call doResponse
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: call doResponse
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: doResponse success, data: {"ssid":"TBW-D7-C2-5G","bssid":"60:ce:41:fa:7a:70","networkId":1,"rssi":-52,"band":2,"linkSpeed":286,"frequency":5785,"isHidden":false,"isRestricted":false,"chload":42,"snr":37,"macAddress":"12:bd:27:90:47:e3","macType":0,"ipAddress":3232237345,"suppState":9,"connState":4,"wifiStandard":6,"maxSupportedRxLinkSpeed":286,"maxSupportedTxLinkSpeed":286,"rxLinkSpeed":286,"channelWidth":0,"supportedWifiCategory":3,"isHiLinkNetwork":false,"wifiLinkType":0}
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: , con: 71.
+ 2025-10-05 19:41:00 43373-43373/hdc I/A0F1E2/com.ohos.devicetest/DeviceTestAgent: [moduleAdapter]: Do response finish. {"confd":"71","call":"not_xdevice","request_id":"20251005194100000267"}
+ 2025-10-05 19:41:00 43373-62262/hdc I/A0F1E2/com.ohos.devicetest/RpcServer: [RPC SERVER]: Close socket: 71
+ 2025-10-05 19:41:00 3347-3347/hdc E/A04200/com.ohos.sceneboard/WINDOW: SCBSceneSessionManager --> No scene func: 25 has registered!
+ 2025-10-05 19:41:00 55850-55850/hdc E/A00001/com.huawei.hmos.location: core/NK_COMM_TS: NetworkStatus init error: setCallback is not function of CommonCpp
+ 2025-10-05 19:41:00 55850-55850/hdc E/A00001/com.huawei.hmos.location: core/NK_COMM_TS: NetworkStatus init error: setCallback is not function of CommonCpp
+ 2025-10-05 19:41:01 55850-55850/hdc E/A02300/com.huawei.hmos.location: core/L_DownloadSettingManager: unable to access /system/etc/nlp_beta.json
+ 2025-10-05 19:41:01 55850-55850/hdc E/A02300/com.huawei.hmos.location: core/L_NLPScan: no scan cell
+ 2025-10-05 19:41:01 55850-55850/hdc E/A02300/com.huawei.hmos.location: core/L_CloudRequest: cellScan fail
+ 2025-10-05 19:41:01 55850-55850/hdc W/A02300/com.huawei.hmos.location: core/NetworkKitInterceptor: d2a211fd-e5b5-47c8-b30e-d34ce018f653|start:/networklocation/v1/onlineLocation
+ 2025-10-05 19:41:01 55850-55850/hdc E/A00000/com.huawei.hmos.location: core/NK_CPP: [ERROR][cronet_engine_factory.cpp:330][ConstructQuicOptions] httpdns domain:undefined Incorrect
+ 2025-10-05 19:41:01 55850-55850/hdc W/A00001/com.huawei.hmos.location: core/NK_COMM_TS: NetworkStatus netCapabilitiesChange firstChange not need notify
+ 2025-10-05 19:41:01 55850-55850/hdc W/A02300/com.huawei.hmos.location: core/NetworkKitInterceptor: d2a211fd-e5b5-47c8-b30e-d34ce018f653|end:200
+ 2025-10-05 19:41:01 55850-55850/hdc W/A02300/com.huawei.hmos.location: core/TrackerInterceptor: d2a211fd-e5b5-47c8-b30e-d34ce018f653|{"eventId":"LocationServerAPI","transId":"d2a211fd-e5b5-47c8-b30e-d34ce018f653","result":200,"errorMsg":"Success-drcn","callTime":1759664461105,"extraInfo":{"request_url":"/networklocation/v1/onlineLocation","grs_call_time":"1759664461104","grs_cost_time":"1","ucs_call_time":"1759664461105","ucs_cost_time":"44","cloud_call_time":"1759664461150","cloud_cost_time":"124","error_code":"0","trans_id":"d2a211fd-e5b5-47c8-b30e-d34ce018f653","result":"200","error_msg":"Success-drcn","cost_time":"170","call_time":"1759664461105","wifi_enable":"wifiEnable:true,wifiScanAllowed:true"},"errorCode":"0"}

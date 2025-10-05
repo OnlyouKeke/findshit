@@ -1,6 +1,7 @@
 import router from '@ohos.router';
 import { common } from '@kit.AbilityKit';
 import LocationLogStore, { LocationLog } from '../common/LocationLogStore';
+import SearchLogStore, { SearchLog } from '../common/SearchLogStore';
 import { TopBar } from '../widget/TopBar';
 
 @Entry
@@ -8,6 +9,8 @@ import { TopBar } from '../widget/TopBar';
 struct Logs {
   private context: common.UIAbilityContext | null = null;
   @State logs: LocationLog[] = [];
+  @State searchLogs: SearchLog[] = [];
+  @State tab: 'location' | 'search' = 'location';
   @State isLoading: boolean = true;
 
   async aboutToAppear() {
@@ -15,9 +18,12 @@ struct Logs {
     try {
       if (this.context) {
         await LocationLogStore.init(this.context);
-        const items = await LocationLogStore.getInstance().getAll();
-        // 新到旧排序
-        this.logs = items.sort((a, b) => b.timestamp - a.timestamp);
+        const locItems = await LocationLogStore.getInstance().getAll();
+        this.logs = locItems.sort((a, b) => b.timestamp - a.timestamp);
+
+        await SearchLogStore.init(this.context);
+        const schItems = await SearchLogStore.getInstance().getAll();
+        this.searchLogs = schItems.sort((a, b) => b.timestamp - a.timestamp);
       }
     } catch (e) {
       console.error('加载日志失败:', e);
@@ -34,8 +40,13 @@ struct Logs {
 
   private async clearLogs() {
     try {
-      await LocationLogStore.getInstance().clear();
-      this.logs = [];
+      if (this.tab === 'location') {
+        await LocationLogStore.getInstance().clear();
+        this.logs = [];
+      } else {
+        await SearchLogStore.getInstance().clear();
+        this.searchLogs = [];
+      }
     } catch (e) {
       console.error('清空日志失败:', e);
     }
@@ -65,7 +76,25 @@ struct Logs {
       } else {
         // 操作栏
         Row() {
-          Blank().layoutWeight(1)
+          // 顶部切换标签
+          Row({ space: 8 }) {
+            Button(this.tab === 'location' ? '定位日志' : '定位日志')
+              .width(84)
+              .height(28)
+              .backgroundColor(this.tab === 'location' ? '#4C8BF5' : '#F0F0F0')
+              .fontColor(this.tab === 'location' ? '#FFFFFF' : '#333333')
+              .borderRadius(14)
+              .onClick(() => this.tab = 'location')
+            Button(this.tab === 'search' ? '搜索日志' : '搜索日志')
+              .width(84)
+              .height(28)
+              .backgroundColor(this.tab === 'search' ? '#4C8BF5' : '#F0F0F0')
+              .fontColor(this.tab === 'search' ? '#FFFFFF' : '#333333')
+              .borderRadius(14)
+              .onClick(() => this.tab = 'search')
+          }
+          .layoutWeight(1)
+
           Button('清空')
             .width(72)
             .height(32)
@@ -75,44 +104,82 @@ struct Logs {
         }
         .padding({ left: 16, right: 16, top: 12, bottom: 8 })
 
-        // 列表
-        List() {
-          ForEach(this.logs, (item: LocationLog) => {
-            ListItem() {
-              Row() {
-                Column({ space: 4 }) {
-                  Text(this.formatTime(item.timestamp))
-                    .fontSize(14)
-                    .fontColor('#333')
-                  if (item.message) {
-                    Text(`错误: ${item.message}`)
-                      .fontSize(12)
-                      .fontColor('#E34D59')
-                  } else {
-                    Text(`纬度: ${(item.latitude ?? 0).toFixed(6)}  经度: ${(item.longitude ?? 0).toFixed(6)}`)
-                      .fontSize(12)
-                      .fontColor('#666')
+        // 列表（按类型分别渲染，避免 any）
+        if (this.tab === 'location') {
+          List() {
+            ForEach(this.logs, (item: LocationLog) => {
+              ListItem() {
+                Row() {
+                  Column({ space: 4 }) {
+                    Text(this.formatTime(item.timestamp))
+                      .fontSize(14)
+                      .fontColor('#333')
+                    if (item.message) {
+                      Text(`错误: ${item.message}`)
+                        .fontSize(12)
+                        .fontColor('#E34D59')
+                    } else {
+                      Text(`纬度: ${(item.latitude ?? 0).toFixed(6)}  经度: ${(item.longitude ?? 0).toFixed(6)}`)
+                        .fontSize(12)
+                        .fontColor('#666')
+                    }
                   }
-                }
-                .layoutWeight(1)
+                  .layoutWeight(1)
 
-                // 复制按钮
-                Button('复制')
-                  .width(56)
-                  .height(28)
-                  .backgroundColor('#F0F0F0')
-                  .borderRadius(14)
-                  .onClick(() => {
-                    const text = item.message ? item.message : `${item.latitude},${item.longitude}`;
-                    console.log('复制定位到剪贴板:', text);
-                  })
+                  Button('复制')
+                    .width(56)
+                    .height(28)
+                    .backgroundColor('#F0F0F0')
+                    .borderRadius(14)
+                    .onClick(() => {
+                      const text = item.message ? item.message : `${item.latitude},${item.longitude}`;
+                      console.log('复制定位到剪贴板:', text);
+                    })
+                }
+                .padding({ left: 16, right: 16, top: 12, bottom: 12 })
+                .backgroundColor('#FFFFFF')
               }
-              .padding({ left: 16, right: 16, top: 12, bottom: 12 })
-              .backgroundColor('#FFFFFF')
-            }
-          })
+            })
+          }
+          .divider({ strokeWidth: 0.5, color: '#EEE' })
+        } else {
+          List() {
+            ForEach(this.searchLogs, (item: SearchLog) => {
+              ListItem() {
+                Row() {
+                  Column({ space: 4 }) {
+                    Text(this.formatTime(item.timestamp))
+                      .fontSize(14)
+                      .fontColor('#333')
+                    if (item.message) {
+                      Text(`错误: ${item.message}`)
+                        .fontSize(12)
+                        .fontColor('#E34D59')
+                    } else {
+                      Text(`中心: ${(item.centerLatitude ?? 0).toFixed(6)}, ${(item.centerLongitude ?? 0).toFixed(6)}  半径: ${(item.radiusMeters ?? 0)}m  结果: ${(item.resultCount ?? 0)}`)
+                        .fontSize(12)
+                        .fontColor('#666')
+                    }
+                  }
+                  .layoutWeight(1)
+
+                  Button('复制')
+                    .width(56)
+                    .height(28)
+                    .backgroundColor('#F0F0F0')
+                    .borderRadius(14)
+                    .onClick(() => {
+                      const text = item.message ? item.message : `${item.centerLatitude},${item.centerLongitude}, radius=${item.radiusMeters}, count=${item.resultCount}`;
+                      console.log('复制搜索到剪贴板:', text);
+                    })
+                }
+                .padding({ left: 16, right: 16, top: 12, bottom: 12 })
+                .backgroundColor('#FFFFFF')
+              }
+            })
+          }
+          .divider({ strokeWidth: 0.5, color: '#EEE' })
         }
-        .divider({ strokeWidth: 0.5, color: '#EEE' })
       }
     }
     .width('100%')
