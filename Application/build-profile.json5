@@ -5,13 +5,13 @@
         "name": "default",
         "type": "HarmonyOS",
         "material": {
-          "storeFile": "E:/finding_shit/929.p12",
-          "storePassword": "0000001AEE4261A1E4A9491AAE3D65B233F9C7FA072CACA938E1A778E951BF9A93F44EEA54C5C034DCF1",
-          "keyAlias": "test",
-          "keyPassword": "0000001A4500A52FBDDDD90724F3CA5CE8E5629EDFC1DD1DEBA461675FCD41D4E383E5979465208CE81A",
+          "storeFile": "E:/finding_shit/105-2.p12",
+          "storePassword": "0000001B19652251A8418787A318C8138F771CD2B94B0A2245BBA15CD3CEC28CEAF36CA3CBB0BF0C50357F",
+          "keyAlias": "keke",
+          "keyPassword": "0000001BFB90F96F5A06FD40536C6FA56A72D8D73FB6CD410C98F4507913B02745EE2334E1C39C73C13FFB",
           "signAlg": "SHA256withECDSA",
-          "profile": "E:/finding_shit/929Release.p7b",
-          "certpath": "E:/finding_shit/929.cer"
+          "profile": "E:/finding_shit/105-2Release.p7b",
+          "certpath": "E:/finding_shit/105-2.cer"
         }
       },
       {
