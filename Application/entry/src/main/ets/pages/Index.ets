@@ -6,6 +6,7 @@ import { HarmonyGeo } from '../common/geo';
 import { MapServiceFactory } from '../map/MapServiceFactory';
 import { MapService, ToiletPoi } from '../map/MapService';
 import AppStorage from '../common/AppStorage';
+import LocationLogStore from '../common/LocationLogStore';
 import { ToiletCard } from '../components/ToiletCard';
 import { ErrorBanner } from '../components/ErrorBanner';
 import { TopBar } from '../widget/TopBar';
@@ -247,6 +248,19 @@ struct Index {
       }
       const location = await this.geoService!.getCurrentLocation();
       this.center = location;
+      // 写入定位日志
+      try {
+        if (this.context) {
+          await LocationLogStore.init(this.context);
+          await LocationLogStore.getInstance().append({
+            timestamp: Date.now(),
+            latitude: location.latitude,
+            longitude: location.longitude
+          });
+        }
+      } catch (e) {
+        console.warn('写入定位日志失败:', e);
+      }
       
       // 添加移动动画的延迟效果
       animateTo({
@@ -265,6 +279,18 @@ struct Index {
       const error = err as Error;
       console.error(TAG, `Failed to find toilets, error: ${JSON.stringify(error)}`);
       this.error = `Failed to find toilets: ${error.message || 'Unknown error'}`;
+      // 写入错误日志，便于后续排查
+      try {
+        if (this.context) {
+          await LocationLogStore.init(this.context);
+          await LocationLogStore.getInstance().append({
+            timestamp: Date.now(),
+            message: `搜索失败: ${error.message || 'Unknown error'}`
+          });
+        }
+      } catch (e) {
+        console.warn('写入错误日志失败:', e);
+      }
     } finally {
       this.isLoading = false;
     }

@@ -30,6 +30,9 @@ struct Settings {
       // 地图引擎选择
       this.buildMapEngineSelector()
 
+      // 查看日志入口
+      this.buildLogsEntry()
+
       // 移除占位内容，让界面更简洁
     }
     .width('100%')
@@ -208,6 +211,43 @@ struct Settings {
     .padding({ top: 8, bottom: 8 })
     .onClick(() => {
       this.selectedMapEngine = value;
+    })
+  }
+
+  @Builder
+  buildLogsEntry() {
+    Column() {
+      Row() {
+        Column({ space: 4 }) {
+          Text('查看日志')
+            .fontSize(18)
+            .fontWeight(FontWeight.Bold)
+            .fontColor('#333333')
+          Text('主要内容是定位的位置')
+            .fontSize(12)
+            .fontColor('#666666')
+        }
+        .layoutWeight(1)
+
+        Text('打开')
+          .fontSize(14)
+          .fontColor('#4C8BF5')
+      }
+      .width('100%')
+      .padding(16)
+      .onClick(() => {
+        router.pushUrl({ url: 'pages/Logs' });
+      })
+    }
+    .width('100%')
+    .backgroundColor(Color.White)
+    .borderRadius(12)
+    .margin({ bottom: 16 })
+    .shadow({
+      radius: 4,
+      color: '#1A000000',
+      offsetX: 0,
+      offsetY: 2
     })
   }
 }

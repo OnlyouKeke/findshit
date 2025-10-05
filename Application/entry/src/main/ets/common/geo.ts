@@ -65,10 +65,33 @@ export class HarmonyGeo {
   }
 
   async getCurrentLocation(): Promise<geoLocationManager.Location> {
-    const request: geoLocationManager.CurrentLocationRequest = {
+    // 先检查系统定位开关
+    try {
+      // 某些版本不支持该API，调用失败时忽略
+      const enabled = (geoLocationManager as any).isLocationEnabled ? (geoLocationManager as any).isLocationEnabled() : true;
+      if (enabled === false) {
+        throw new Error('系统定位未开启，请打开定位服务');
+      }
+    } catch (_) {
+      // 忽略不可用的API或检查异常
+    }
+
+    // 首次尝试：高精度，较长超时
+    const highAcc: geoLocationManager.CurrentLocationRequest = {
       priority: geoLocationManager.LocationRequestPriority.ACCURACY,
-      timeoutMs: 10000, // 10 seconds
+      timeoutMs: 20000,
     };
-    return await geoLocationManager.getCurrentLocation(request);
+    try {
+      return await geoLocationManager.getCurrentLocation(highAcc);
+    } catch (err) {
+      const error = err as BusinessError | Error;
+      console.warn(TAG, `高精度定位失败，降级重试。error=${(error as any).message || ''}`);
+      // 第二次尝试：低功耗，更长超时，适配弱信号或仅网络定位
+      const lowPower: geoLocationManager.CurrentLocationRequest = {
+        priority: geoLocationManager.LocationRequestPriority.LOW_POWER,
+        timeoutMs: 25000,
+      };
+      return await geoLocationManager.getCurrentLocation(lowPower);
+    }
   }
 }

@@ -31,7 +31,7 @@
     "products": [
       {
         "name": "default",
-        "signingConfig": "929test",
+        "signingConfig": "default",
         "targetSdkVersion": "5.0.4(16)",
         "compatibleSdkVersion": "5.0.4(16)",
         "runtimeOS": "HarmonyOS",
