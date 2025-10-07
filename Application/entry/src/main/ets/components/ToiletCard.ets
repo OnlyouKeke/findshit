@@ -5,11 +5,27 @@
 
 import { ToiletPoi } from '../map/MapService';
 
+// 通过对象回调传递导航动作，避免直接传函数导致的编译/运行限制
+export interface NavigateHandler {
+  run(): void;
+}
+
+// 为 ArkTS V1 显式提供一个类实现，方便在调用方避免对象字面量
+export class NavigateHandlerImpl implements NavigateHandler {
+  private fn: () => void;
+  constructor(fn: () => void) {
+    this.fn = fn;
+  }
+  run(): void {
+    this.fn();
+  }
+}
+
 @Component
 export struct ToiletCard {
   @Prop toilet: ToiletPoi;
   @Prop travelMode: string;
-  @Prop onNavigate: () => void;
+  @Prop onNavigate: NavigateHandler | null = null;
 
   // 根据距离获取颜色
   private getDistanceColor(): string {
@@ -118,21 +134,10 @@ export struct ToiletCard {
         .backgroundColor('#007DFF')
         .borderRadius(18)
         .onClick(() => {
-          this.onNavigate();
-        })
-        
-        // 收藏按钮（可选功能）
-        Button() {
-          Text('⭐')
-            .fontSize(16)
-        }
-        .width(36)
-        .height(36)
-        .backgroundColor('#F5F5F5')
-        .borderRadius(18)
-        .onClick(() => {
-          // 收藏功能
-          console.log(`收藏公厕: ${this.toilet.name}`);
+          // 触发父组件的导航事件（防止未传入时异常）
+          if (this.onNavigate) {
+            this.onNavigate.run();
+          }
         })
       }
       .justifyContent(FlexAlign.Center)

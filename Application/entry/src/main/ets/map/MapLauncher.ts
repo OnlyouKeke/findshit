@@ -37,10 +37,30 @@ export class MapLauncher {
         primaryUri = `baidumap://map/direction?destination=latlng:${latitude},${longitude}|name:${name}&coord_type=wgs84&mode=${travelMode === 'walking' ? 'walking' : 'riding'}`;
         break;
       case 'huawei':
-      default:
-        // 华为地图（Petal Maps）优先尝试 geo 通用协议；部分机型也支持 petalmaps:// 深链
+      default: {
+        // 华为地图（Petal Maps）优化：优先尝试 petalmaps 深链，其次回退到 geo: 通用协议
+        // 注意：不同版本的 Petal Maps 深链参数可能不一致，此处采用较为通用的 routePlan 形式
+        const mode = travelMode === 'walking' ? 'walk' : 'bike';
+        const petalUriCandidates: string[] = [
+          // 常见路线规划入口（destLat/destLng）
+          `petalmaps://routePlan?destLat=${latitude}&destLng=${longitude}&destName=${name}&navType=${mode}`,
+          // 一些版本使用 dlat/dlon/dname
+          `petalmaps://routePlan?dlat=${latitude}&dlon=${longitude}&dname=${name}&navType=${mode}`,
+          // 直接导航入口
+          `petalmaps://navigation?dlat=${latitude}&dlon=${longitude}&dname=${name}&mode=${mode}`
+        ];
+        // 逐一尝试 Petal Maps 深链，若全部失败再用 geo
+        for (const candidate of petalUriCandidates) {
+          try {
+            await (context as any).openLink({ url: candidate });
+            return;
+          } catch (_) {
+            // 继续尝试下一个候选
+          }
+        }
         primaryUri = `geo:${latitude},${longitude}?q=${name}`;
         break;
+      }
     }
 
     // 回退通用geo链接

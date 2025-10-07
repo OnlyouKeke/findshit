@@ -8,12 +8,83 @@ export class HuaweiMapService implements MapService {
     console.log(`Searching for nearby toilets using Huawei Map at (${longitude}, ${latitude}) within ${radiusMeters}m`);
     
     try {
-      // 尝试使用华为地图Kit进行搜索
-      return await this.searchWithHuaweiMapKit(longitude, latitude, radiusMeters);
+      // 方案A：优先使用华为地图站点检索（关键词+附近）
+      return await this.searchWithHuaweiSite(longitude, latitude, radiusMeters);
     } catch (error) {
       console.warn('华为地图Kit不可用，使用模拟数据:', error);
       // 使用Mock数据作为后备方案
       return await this.getMockToiletData(longitude, latitude, radiusMeters);
+    }
+  }
+
+  // 使用华为地图 Site 检索（关键词：厕所/卫生间/公厕）
+  private async searchWithHuaweiSite(longitude: number, latitude: number, radiusMeters: number): Promise<ToiletPoi[]> {
+    // 半径限制，避免过大导致性能问题
+    const radius = Math.min(Math.max(radiusMeters, 50), 3000);
+    const keyword = '厕所|卫生间|公厕';
+
+    // Haversine 距离计算
+    const toRad = (x: number) => x * Math.PI / 180;
+    const haversine = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+      const R = 6371000; // meters
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    };
+
+    try {
+      // 通过 MapKit 的 site 模块进行站点检索
+      const anyMap: any = map as any;
+      const siteModule = anyMap?.site ?? anyMap; // 兼容不同导出形式
+      if (!siteModule) {
+        throw new Error('MapKit site module not available');
+      }
+
+      // 站点服务实例与附近检索请求（使用关键词）
+      const service = new siteModule.SearchService();
+      const request = {
+        query: '厕所|卫生间|公厕', // 主关键词，支持常见同义词
+        // 允许同义词匹配（如 SDK 支持正则/模糊时）
+        // 位置与半径
+        location: { latitude, longitude },
+        radius: radius,
+        pageIndex: 1,
+        pageSize: 50
+      };
+
+      // 优先尝试附近检索；如 SDK 需不同方法名，使用 any 访问避免编译失败
+      const resp = await (service.nearbySearch ? service.nearbySearch(request) : service.textSearch?.(request));
+      const items: any[] = Array.isArray(resp?.sites) ? resp.sites : (Array.isArray(resp?.results) ? resp.results : []);
+      if (!items || items.length === 0) {
+        // 若站点检索为空，回退 Overpass
+        return await this.searchWithHuaweiMapKit(longitude, latitude, radiusMeters);
+      }
+
+      const toilets: ToiletPoi[] = items.map((el: any) => {
+        const name = el?.name ?? el?.poi?.name ?? '公共厕所';
+        const address = el?.formatAddress ?? el?.address ?? '';
+        const lat = el?.location?.lat ?? el?.location?.latitude ?? el?.lat;
+        const lon = el?.location?.lng ?? el?.location?.longitude ?? el?.lon;
+        const id = String(el?.siteId ?? el?.id ?? `${lat},${lon}`);
+        const distance = Math.round(haversine(latitude, longitude, lat, lon));
+        const site: Site = {
+          id,
+          name,
+          address,
+          location: { latitude: lat, longitude: lon }
+        };
+        return { ...site, distance };
+      })
+        .filter(t => Number.isFinite(t.distance) && t.distance <= radiusMeters)
+        .sort((a, b) => a.distance - b.distance);
+
+      return toilets;
+    } catch (error) {
+      // 抛出错误交由上层使用 Mock 兜底
+      console.warn('Site search failed, fallback to Overpass:', error);
+      return await this.searchWithHuaweiMapKit(longitude, latitude, radiusMeters);
     }
   }
 

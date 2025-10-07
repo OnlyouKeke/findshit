@@ -7,9 +7,9 @@ import { MapServiceFactory } from '../map/MapServiceFactory';
 import { MapService, ToiletPoi } from '../map/MapService';
 import MapLauncher from '../map/MapLauncher';
 import AppStorage from '../common/AppStorage';
-import LocationLogStore from '../common/LocationLogStore';
-import SearchLogStore from '../common/SearchLogStore';
-import { ToiletCard } from '../components/ToiletCard';
+import LocationLogStore, { LocationLog } from '../common/LocationLogStore';
+import SearchLogStore, { SearchLog, SearchLogInfo } from '../common/SearchLogStore';
+import { ToiletCard, NavigateHandler, NavigateHandlerImpl } from '../components/ToiletCard';
 import { ErrorBanner } from '../components/ErrorBanner';
 import { TopBar } from '../widget/TopBar';
 
@@ -33,7 +33,9 @@ struct Index {
   @State private isSwipeActive: boolean = false; // 是否正在滑动
   @State private swipeOffset: number = 0; // 滑动偏移量
   @State private visibleCount: number = 0; // 已显示的卡片数量（用于逐个动画显示）
+  @State private appearedIds: string[] = []; // 已出现的卡片ID列表，用于按项淡入
   private staggerTimerId: number | undefined = undefined; // 逐个显示的定时器ID
+  private revealStartTs: number = 0; // 卡片逐显开始时间戳
   @StorageLink('searchDistance') searchDistance: number = 500; // 搜索距离，默认500米
   private geoService: HarmonyGeo | null = null;
   private mapService: MapService | null = null;
@@ -54,6 +56,11 @@ struct Index {
       console.error(TAG, `Failed to get context, error: ${JSON.stringify(error)}`);
       this.error = `Failed to get context: ${error.message}`;
     }
+  }
+
+  aboutToDisappear() {
+    // 组件退出时取消任何残留的逐显定时器，避免异步回调导致崩溃
+    this.cancelStaggerReveal();
   }
 
   // 呼吸动画
@@ -198,6 +205,14 @@ struct Index {
     }
   }
 
+  // 生成显式类型的导航处理器，避免在 UI 声明块中书写对象字面量
+  private makeNavigateHandler(toilet: ToiletPoi): NavigateHandler {
+    return new NavigateHandlerImpl(() => {
+      console.log(`导航到公厕: ${toilet.name}`);
+      this.navigateToToilet(toilet);
+    });
+  }
+
   // 取消逐个显示动画
   private cancelStaggerReveal() {
     if (this.staggerTimerId !== undefined) {
@@ -206,17 +221,79 @@ struct Index {
     }
   }
 
+  // 调试：填充空白卡片列表
+  private debugShowBlankCards(count: number = 20) {
+    // 停止任何进行中的逐显逻辑
+    this.cancelStaggerReveal();
+    this.isLoading = false;
+    // 构造空白卡片数据，满足 ToiletPoi 接口（避免使用泛型推断与未类型化对象）
+    const blanks: ToiletPoi[] = [];
+    for (let i = 0; i < count; i++) {
+      const item: ToiletPoi = {
+        id: `debug-${i}`,
+        name: '',
+        address: '',
+        location: { longitude: 0, latitude: 0 },
+        distance: 0
+      };
+      blanks.push(item);
+    }
+    this.toilets = blanks;
+    this.appearedIds = [];
+    this.showToiletList = true;
+    // 保证列表区域可见
+    this.buttonMoved = true;
+  }
+
   // 启动逐个显示动画
-  private startStaggerReveal(total: number) {
+  private async startStaggerReveal(total: number) {
     this.cancelStaggerReveal();
     this.visibleCount = 0;
+    this.revealStartTs = Date.now();
     const target = Math.min(Math.max(total, 0), 200);
-    const step = () => {
+    // 写入“卡片显示开始”日志
+    try {
+      if (this.context) {
+        await SearchLogStore.init(this.context);
+        const top3 = this.toilets.slice(0, 3).map(t => `${t.name}(${t.distance}m)`).join(', ');
+        const logStart: SearchLog = {
+          timestamp: Date.now(),
+          centerLatitude: this.center?.latitude,
+          centerLongitude: this.center?.longitude,
+          radiusMeters: this.searchDistance,
+          resultCount: total,
+          message: `展示卡片开始 | 模式:${this.travelMode} | 目标:${target} | 间隔:80ms | Top3:${top3}`
+        };
+        await SearchLogStore.getInstance().append(logStart);
+      }
+    } catch (e) {
+      console.warn('写入卡片显示开始日志失败:', e);
+    }
+    const step = async () => {
       if (this.visibleCount < target) {
         this.visibleCount++;
         this.staggerTimerId = setTimeout(step, 80);
       } else {
         this.cancelStaggerReveal();
+        // 写入“卡片显示完成”日志
+        try {
+          if (this.context) {
+            await SearchLogStore.init(this.context);
+            const duration = Date.now() - this.revealStartTs;
+            const top3 = this.toilets.slice(0, 3).map(t => `${t.name}(${t.distance}m)`).join(', ');
+            const logDone: SearchLog = {
+              timestamp: Date.now(),
+              centerLatitude: this.center?.latitude,
+              centerLongitude: this.center?.longitude,
+              radiusMeters: this.searchDistance,
+              resultCount: target,
+              message: `展示卡片完成 | 模式:${this.travelMode} | 用时:${duration}ms | 实际:${this.toilets.length} | Top3:${top3}`
+            };
+            await SearchLogStore.getInstance().append(logDone);
+          }
+        } catch (e) {
+          console.warn('写入卡片显示完成日志失败:', e);
+        }
       }
     };
     step();
@@ -246,6 +323,7 @@ struct Index {
     this.toilets = [];
     this.cancelStaggerReveal();
     this.visibleCount = 0;
+    this.appearedIds = [];
     
     try {
       // 检查权限
@@ -264,11 +342,12 @@ struct Index {
       try {
         if (this.context) {
           await LocationLogStore.init(this.context);
-          await LocationLogStore.getInstance().append({
+          const locLog: LocationLog = {
             timestamp: Date.now(),
             latitude: location.latitude,
             longitude: location.longitude
-          });
+          };
+          await LocationLogStore.getInstance().append(locLog);
         }
       } catch (e) {
         console.warn('写入定位日志失败:', e);
@@ -283,19 +362,22 @@ struct Index {
         this.mapService!.searchNearbyToilets(location.longitude, location.latitude, this.searchDistance)
           .then(async (toilets: ToiletPoi[]) => {
             this.toilets = toilets;
+            // 重置每项出现状态，避免复用旧的动画标记
+            this.appearedIds = [];
             this.showToiletList = true;
-            this.startStaggerReveal(toilets.length);
+            // 改为按项 onAppear 淡入，避免频繁全局状态更新
             // 写入搜索成功日志
             try {
               if (this.context) {
                 await SearchLogStore.init(this.context);
-                await SearchLogStore.getInstance().append({
+                const searchOk: SearchLog = {
                   timestamp: Date.now(),
                   centerLatitude: location.latitude,
                   centerLongitude: location.longitude,
                   radiusMeters: this.searchDistance,
                   resultCount: toilets.length
-                });
+                };
+                await SearchLogStore.getInstance().append(searchOk);
               }
             } catch (e) {
               console.warn('写入搜索成功日志失败:', e);
@@ -304,14 +386,15 @@ struct Index {
             try {
               if (this.context) {
                 await SearchLogStore.init(this.context);
-                await SearchLogStore.getInstance().append({
+                const listLog: SearchLog = {
                   timestamp: Date.now(),
                   centerLatitude: location.latitude,
                   centerLongitude: location.longitude,
                   radiusMeters: this.searchDistance,
                   resultCount: toilets.length,
                   message: '展示卡片列表'
-                });
+                };
+                await SearchLogStore.getInstance().append(listLog);
               }
             } catch (e) {
               console.warn('写入卡片显示日志失败:', e);
@@ -326,11 +409,15 @@ struct Index {
             try {
               if (this.context) {
                 await SearchLogStore.init(this.context);
-                await SearchLogStore.getInstance().appendError(`搜索失败: ${error?.message || 'Unknown error'}`, {
+                const info1: SearchLogInfo = {
                   centerLatitude: location.latitude,
                   centerLongitude: location.longitude,
                   radiusMeters: this.searchDistance
-                });
+                };
+                await SearchLogStore.getInstance().appendError(
+                  `搜索失败: ${error?.message || 'Unknown error'}`,
+                  info1
+                );
               }
             } catch (e) {
               console.warn('写入搜索失败日志失败:', e);
@@ -347,11 +434,15 @@ struct Index {
         if (this.context) {
           await SearchLogStore.init(this.context);
           const center = this.center;
-          await SearchLogStore.getInstance().appendError(`搜索失败: ${error.message || 'Unknown error'}`, {
+          const info2: SearchLogInfo = {
             centerLatitude: center?.latitude,
             centerLongitude: center?.longitude,
             radiusMeters: this.searchDistance
-          });
+          };
+          await SearchLogStore.getInstance().appendError(
+            `搜索失败: ${error.message || 'Unknown error'}`,
+            info2
+          );
         }
       } catch (e) {
         console.warn('写入搜索失败日志失败:', e);
@@ -383,6 +474,15 @@ struct Index {
         })
         
         Blank()
+
+        // 调试按钮：填充空白卡片
+        Button('调试')
+          .width(64)
+          .height(36)
+          .fontSize(14)
+          .backgroundColor('#F5F5F5')
+          .borderRadius(18)
+          .onClick(() => this.debugShowBlankCards(20))
       }
       .width('100%')
       .padding({ left: 16, right: 16, top: 16 })
@@ -517,20 +617,23 @@ struct Index {
                       ToiletCard({
                         toilet: toilet,
                         travelMode: this.travelMode,
-                        onNavigate: () => {
-                          console.log(`导航到公厕: ${toilet.name}`);
-                          this.navigateToToilet(toilet);
-                        }
+                        onNavigate: this.makeNavigateHandler(toilet)
                       })
                     }
-                    .opacity(index < this.visibleCount ? 1 : 0)
+                    .opacity(this.appearedIds.indexOf(toilet.id) >= 0 ? 1 : 0)
+                    .onAppear(() => {
+                      // 首次出现时标记为已出现，触发淡入动画
+                      if (this.appearedIds.indexOf(toilet.id) < 0) {
+                        this.appearedIds = this.appearedIds.concat([toilet.id]);
+                      }
+                    })
                     .animation({
                       duration: 180,
                       curve: Curve.EaseOut
                     })
                   }
                 },
-                (toilet: ToiletPoi) => toilet.id
+                (toilet: ToiletPoi, index: number) => toilet.id || `${toilet.name}-${index}`
               )
             }
             .width('100%')

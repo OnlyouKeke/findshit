@@ -9,6 +9,14 @@ export type SearchLog = {
   message?: string; // 错误或说明信息
 };
 
+// ArkTS V1 不支持 Omit 等工具类型，提供显式信息类型
+export interface SearchLogInfo {
+  centerLatitude?: number;
+  centerLongitude?: number;
+  radiusMeters?: number;
+  resultCount?: number;
+}
+
 class SearchLogStore {
   private static instance: SearchLogStore | null = null;
   private pref!: preferences.Preferences;
@@ -41,7 +49,7 @@ class SearchLogStore {
     await this.pref.flush();
   }
 
-  public async appendError(message: string, info?: Omit<SearchLog, 'timestamp' | 'message'>): Promise<void> {
+  public async appendError(message: string, info?: SearchLogInfo): Promise<void> {
     await this.append({ timestamp: Date.now(), message, ...info });
   }
 

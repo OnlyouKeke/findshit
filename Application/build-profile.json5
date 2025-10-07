@@ -15,23 +15,23 @@
         }
       },
       {
-        "name": "929test",
+        "name": "1052",
         "type": "HarmonyOS",
         "material": {
-          "storeFile": "E:/finding_shit/929.p12",
-          "storePassword": "0000001A6766ACA6AFFED952DBCC236A98C13BBD0EFBCE1B5CF79628B1E5C5270CF49438FD81AE252426",
-          "keyAlias": "test",
-          "keyPassword": "0000001A096A4E3D976CBF8DA94062E10B40969A1F0E3BB6835DBD8E1DBDE96EEC04ED453826001A037A",
+          "storeFile": "E:/finding_shit/105-2.p12",
+          "storePassword": "0000001B484013DF8765AC569DB5F282CD884438C8F5C91E601E85FA3C3A6AAA602585788595192F4D63AD",
+          "keyAlias": "keke",
+          "keyPassword": "0000001BBE65BAC152C8FD36D4F229F5A24448103C0D635DBA725AD1E596A21A5C40BCF08A7FBC95F41C6A",
           "signAlg": "SHA256withECDSA",
-          "profile": "E:/finding_shit/929Release.p7b",
-          "certpath": "E:/finding_shit/929.cer"
+          "profile": "E:/finding_shit/105-2Release.p7b",
+          "certpath": "E:/finding_shit/105-2.cer"
         }
       }
     ],
     "products": [
       {
         "name": "default",
-        "signingConfig": "default",
+        "signingConfig": "1052",
         "targetSdkVersion": "5.0.4(16)",
         "compatibleSdkVersion": "5.0.4(16)",
         "runtimeOS": "HarmonyOS",
