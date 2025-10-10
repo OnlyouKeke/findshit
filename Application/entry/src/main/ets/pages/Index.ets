@@ -463,7 +463,7 @@ struct Index {
         }
         .width(48)
         .height(48)
-        .backgroundColor('#F5F5F5')
+        .backgroundColor($r('app.color.control_background'))
         .borderRadius(24)
         .onClick(() => this.handleSettingsClick())
         .shadow({
@@ -474,15 +474,6 @@ struct Index {
         })
         
         Blank()
-
-        // 调试按钮：填充空白卡片
-        Button('调试')
-          .width(64)
-          .height(36)
-          .fontSize(14)
-          .backgroundColor('#F5F5F5')
-          .borderRadius(18)
-          .onClick(() => this.debugShowBlankCards(20))
       }
       .width('100%')
       .padding({ left: 16, right: 16, top: 16 })
@@ -596,7 +587,7 @@ struct Index {
               }
               .width(80)
               .height(32)
-              .backgroundColor('#F5F5F5')
+              .backgroundColor($r('app.color.control_background'))
               .borderRadius(16)
               .onClick(() => {
                 // 按距离重新排序
@@ -691,7 +682,7 @@ struct Index {
                 .width(100)
                 .height(40)
                 .fontSize(14)
-                .backgroundColor('#F5F5F5')
+                .backgroundColor($r('app.color.control_background'))
                 .fontColor('#007DFF')
                 .borderRadius(20)
                 .border({
@@ -732,7 +723,7 @@ struct Index {
       .width('100%')
       .justifyContent(this.buttonMoved ? FlexAlign.Start : FlexAlign.Center)
       .alignItems(HorizontalAlign.Center)
-      .backgroundColor('#F8F9FA')
+      .backgroundColor($r('app.color.page_background'))
       
       // 底部出行方式选择器（淡化设计）
       if (this.buttonMoved) {
@@ -864,7 +855,7 @@ struct Index {
         }
         .width('100%')
         .padding({ left: 20, right: 20, top: 16, bottom: 20 })
-        .backgroundColor('#FAFAFA')
+        .backgroundColor($r('app.color.surface_background'))
         .justifyContent(FlexAlign.Center)
         .alignItems(HorizontalAlign.Center)
       } else {
@@ -952,7 +943,7 @@ struct Index {
         }
         .width('100%')
         .padding({ left: 20, right: 20, top: 16, bottom: 20 })
-        .backgroundColor('#FAFAFA')
+        .backgroundColor($r('app.color.surface_background'))
         .justifyContent(FlexAlign.Center)
         .alignItems(HorizontalAlign.Center)
       }

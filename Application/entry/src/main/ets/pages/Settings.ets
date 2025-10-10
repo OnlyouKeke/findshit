@@ -37,7 +37,7 @@ struct Settings {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#F5F5F5')
+    .backgroundColor($r('app.color.page_background'))
   }
 
   @Builder
@@ -103,7 +103,7 @@ struct Settings {
       }
     }
     .width('100%')
-    .backgroundColor(Color.White)
+    .backgroundColor($r('app.color.surface_background'))
     .borderRadius(12)
     .margin({ bottom: 16 })
     .shadow({
@@ -190,7 +190,7 @@ struct Settings {
       }
     }
     .width('100%')
-    .backgroundColor(Color.White)
+    .backgroundColor($r('app.color.surface_background'))
     .borderRadius(12)
     .margin({ bottom: 16 })
     .shadow({
@@ -262,7 +262,7 @@ struct Settings {
       })
     }
     .width('100%')
-    .backgroundColor(Color.White)
+    .backgroundColor($r('app.color.surface_background'))
     .borderRadius(12)
     .margin({ bottom: 16 })
     .shadow({
