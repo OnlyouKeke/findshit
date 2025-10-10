@@ -1,140 +1,135 @@
-import { bundleManager } from '@kit.AbilityKit';
+import { bundleManager, OpenLinkOptions } from '@kit.AbilityKit';
 import type { common } from '@kit.AbilityKit';
 import SearchLogStore, { SearchLogInfo } from '../common/SearchLogStore';
 import type { ToiletPoi } from './MapService';
 import AppStorage from '../common/AppStorage';
 
-/**
- * MapLauncher: 根据用户选择的地图引擎，构造深链并尝试打开导航。
- * 首选指定地图的深链，失败则回退到通用 `geo:` 链接。
- */
 export class MapLauncher {
   private static readonly TAG = 'MapLauncher';
-  /** 检查是否安装了 Petal Maps */
-  private static async isPetalMapsInstalled(): Promise<boolean> {
-    try {
-      const info = await bundleManager.getBundleInfo('com.huawei.maps', bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
-      return !!info;
-    } catch (_) {
-      return false;
-    }
-  }
+
   /** 读取当前设置的地图引擎 */
   static async getSelectedEngine(): Promise<string> {
     try {
       return await AppStorage.getInstance().getMapEngine();
-    } catch (e) {
-      // 如果尚未初始化或读取失败，默认使用华为地图/系统地图
+    } catch {
       return 'huawei';
     }
   }
 
+  /** 统一的 canOpen + openLink（强制带 OpenLinkOptions） */
+  private static async canOpen(ctx: common.UIAbilityContext, link: string): Promise<boolean> {
+    try {
+      const opts: OpenLinkOptions = { appLinkingOnly: false };
+      // @ts-ignore: Harmony API
+      if (typeof (ctx as any).canOpenLink === 'function') {
+        const ok = await (ctx as any).canOpenLink(link, opts);
+        return !!ok;
+      }
+    } catch (_) {}
+    // 老系统可能没有 canOpenLink，就返回 true 让上层去尝试
+    return true;
+  }
+
+  private static async openViaStartAbility(ctx: common.UIAbilityContext, uri: string): Promise<boolean> {
+    const want = {
+      action: 'ohos.want.action.viewData',               // 关键：用 viewData
+      entities: ['entity.system.browsable'],             // 关键：允许外部可浏览
+      uri
+    } as any;
+    try {
+      await (ctx as any).startAbility(want);
+      return true;
+    } catch (e) {
+      console.warn(`[${MapLauncher.TAG}] startAbility failed, uri=${uri}, e=${JSON.stringify(e)}`);
+      return false;
+    }
+  }
+
+  private static async openViaLink(ctx: common.UIAbilityContext, link: string): Promise<boolean> {
+    const opts: OpenLinkOptions = { appLinkingOnly: false };
+    try {
+      await (ctx as any).openLink(link, opts);
+      return true;
+    } catch (e) {
+      console.warn(`[${MapLauncher.TAG}] openLink failed, link=${link}, e=${JSON.stringify(e)}`);
+      return false;
+    }
+  }
+
+  private static async tryOpen(ctx: common.UIAbilityContext, uri: string): Promise<boolean> {
+    if (typeof uri !== 'string' || uri.length === 0) return false;
+    // 先探测（如果支持）
+    const probe = await MapLauncher.canOpen(ctx, uri);
+    if (!probe) {
+      console.info(`[${MapLauncher.TAG}] canOpenLink=false, skip ${uri}`);
+      return false;
+    }
+    // 先 startAbility（对自定义 scheme 成功率更高），失败再 openLink
+    if (await MapLauncher.openViaStartAbility(ctx, uri)) return true;
+    if (await MapLauncher.openViaLink(ctx, uri)) return true;
+    return false;
+  }
+
   /** 打开导航到指定厕所 */
-  static async openNavigation(context: common.UIAbilityContext, toilet: ToiletPoi, travelMode: 'walking' | 'cycling' = 'walking'): Promise<void> {
+  static async openNavigation(
+    context: common.UIAbilityContext,
+    toilet: ToiletPoi,
+    travelMode: 'walking' | 'cycling' = 'walking'
+  ): Promise<void> {
     const engine = await MapLauncher.getSelectedEngine();
     const { latitude, longitude } = toilet.location;
     const name = encodeURIComponent(toilet.name);
 
-    console.info(`[${MapLauncher.TAG}] openNavigation engine=${engine} name=${toilet.name} lat=${latitude} lon=${longitude} mode=${travelMode}`);
+    console.info(`[${MapLauncher.TAG}] engine=${engine} name=${toilet.name} lat=${latitude} lon=${longitude} mode=${travelMode}`);
 
-    // 各地图深链（尽量使用通用WGS84坐标）。如未安装对应App，系统可能不响应。
-    // 回退使用 geo: 链接交由系统默认地图处理。
-    let primaryUri = '';
-    switch (engine) {
-      case 'amap':
-        // 高德地图通用路线规划
-        // t: 0驾车/2步行/3公交；此处使用步行
-        primaryUri = `amapuri://route/plan/?dlat=${latitude}&dlon=${longitude}&dname=${name}&dev=0&t=${travelMode === 'walking' ? 2 : 0}`;
-        break;
-      case 'baidu':
-        // 百度地图路线规划（coord_type=wgs84，mode=walking）
-        primaryUri = `baidumap://map/direction?destination=latlng:${latitude},${longitude}|name:${name}&coord_type=wgs84&mode=${travelMode === 'walking' ? 'walking' : 'riding'}`;
-        break;
-      case 'huawei':
-      default: {
-        // 华为地图（Petal Maps）：优先尝试 Petal 深链，若未安装或失败则回退 geo: 协议
-        const mode = travelMode === 'walking' ? 'walk' : 'bike';
-        const installed = await MapLauncher.isPetalMapsInstalled();
-        console.info(`[${MapLauncher.TAG}] Petal Maps installed=${installed}`);
-        if (installed) {
-          const petalUriCandidates: string[] = [
-            `petalmaps://routePlan?destLat=${latitude}&destLng=${longitude}&destName=${name}&navType=${mode}`,
-            `petalmaps://routePlan?dlat=${latitude}&dlon=${longitude}&dname=${name}&navType=${mode}`,
-            `petalmaps://navigation?dlat=${latitude}&dlon=${longitude}&dname=${name}&mode=${mode}`
-          ];
-          // 先使用 startAbility 触发外部应用；失败再尝试 openLink
-          for (const candidate of petalUriCandidates) {
-            const want = { action: 'ohos.want.action.view', uri: candidate } as any;
-            try {
-              console.info(`[${MapLauncher.TAG}] try startAbility uri=${candidate}`);
-              await (context as any).startAbility(want);
-              return;
-            } catch (err) {
-              console.warn(`[${MapLauncher.TAG}] startAbility failed uri=${candidate} err=${JSON.stringify(err)}`);
-              try {
-                console.info(`[${MapLauncher.TAG}] try openLink uri=${candidate}`);
-                await (context as any).openLink(candidate);
-                return;
-              } catch (err2) {
-                console.warn(`[${MapLauncher.TAG}] openLink failed uri=${candidate} err=${JSON.stringify(err2)}`);
-                // 继续尝试下一个候选
-              }
-            }
-          }
-        }
-        primaryUri = `geo:${latitude},${longitude}?q=${name}`;
-        break;
-      }
+    // 尽量覆盖 Petal/MapApp 不同版本参数；以及最终的 geo/https 兜底
+    const petalModeA = travelMode === 'walking' ? 'walking' : 'cycling'; // 有些版本接受全词
+    const petalModeB = travelMode === 'walking' ? 'walk' : 'bike';       // 有些版本接受简写
+    const mapAppMode = travelMode === 'walking' ? 'walk' : 'cycle';      // 官方示例里出现的取值（如 drive/walk/cycle）:contentReference[oaicite:3]{index=3}
+
+    const candidates: string[] = [];
+
+    if (engine === 'amap') {
+      candidates.push(`amapuri://route/plan/?dlat=${latitude}&dlon=${longitude}&dname=${name}&dev=0&t=${travelMode === 'walking' ? 2 : 0}`);
+    } else if (engine === 'baidu') {
+      candidates.push(
+        `baidumap://map/direction?destination=latlng:${latitude},${longitude}|name:${name}&coord_type=wgs84&mode=${travelMode === 'walking' ? 'walking' : 'riding'}`
+      );
+    } else {
+      // Huawei 优先：Petal/MapApp 多方案
+      candidates.push(
+        // Petal 官方常见 routePlan
+        `petalmaps://routePlan?destLat=${latitude}&destLng=${longitude}&destName=${name}&navType=${petalModeA}`,
+        `petalmaps://routePlan?destLat=${latitude}&destLng=${longitude}&destName=${name}&navType=${petalModeB}`,
+        // 旧/替代 navigation 写法
+        `petalmaps://navigation?dlat=${latitude}&dlon=${longitude}&dname=${name}&type=${petalModeB}`,
+        // 官方答复里给过的 MapApp Deep Link（Android/Harmony 设备大多可识别）
+        `mapapp://navigation?daddr=${latitude},${longitude}&language=zh&type=${mapAppMode}`  // :contentReference[oaicite:4]{index=4}
+      );
     }
 
-    // 回退通用geo链接
-    const fallbackUri = `geo:${latitude},${longitude}?q=${name}`;
+    // 通用兜底
+    const geo = `geo:${latitude},${longitude}?q=${name}`;
+    const httpsFallback = `https://petalmaps.com/?q=${latitude},${longitude}`; // 浏览器打开也可让用户再跳 App
 
-    // 使用 UIAbilityContext.openLink 打开深链；失败则回退
-    // 先尝试 startAbility，再回退 openLink
-    const primaryWant = { action: 'ohos.want.action.view', uri: primaryUri } as any;
-    const fallbackWant = { action: 'ohos.want.action.view', uri: fallbackUri } as any;
+    // geo、https 放到最后兜底
+    candidates.push(geo, httpsFallback);
+
     try {
-      console.info(`[${MapLauncher.TAG}] try startAbility primary uri=${primaryUri}`);
-      await (context as any).startAbility(primaryWant);
-      return;
-    } catch (primaryErr) {
-      console.warn(`[${MapLauncher.TAG}] startAbility primary failed err=${JSON.stringify(primaryErr)}`);
-      try {
-        console.info(`[${MapLauncher.TAG}] try startAbility fallback uri=${fallbackUri}`);
-        await (context as any).startAbility(fallbackWant);
-        return;
-      } catch (fallbackStartErr) {
-        console.warn(`[${MapLauncher.TAG}] startAbility fallback failed err=${JSON.stringify(fallbackStartErr)}`);
-        try {
-          console.info(`[${MapLauncher.TAG}] try openLink primary uri=${primaryUri}`);
-          await (context as any).openLink(primaryUri);
-          return;
-        } catch (primaryErr2) {
-          console.warn(`[${MapLauncher.TAG}] openLink primary failed err=${JSON.stringify(primaryErr2)}`);
-          try {
-            console.info(`[${MapLauncher.TAG}] try openLink fallback uri=${fallbackUri}`);
-            await (context as any).openLink(fallbackUri);
-            return;
-          } catch (fallbackErr2) {
-            const finalErr = fallbackErr2 || primaryErr2 || fallbackStartErr || primaryErr;
-            console.error(`[${MapLauncher.TAG}] navigation failed final err=${JSON.stringify(finalErr)}`);
-            // 写入搜索日志（导航失败），方便后续排查
-            try {
-              await SearchLogStore.init(context);
-              const info: SearchLogInfo = {
-                centerLatitude: latitude,
-                centerLongitude: longitude
-              };
-              const msg = `导航失败: ${(finalErr as any)?.message || 'Unknown error'} | engine=${engine}`;
-              await SearchLogStore.getInstance().appendError(msg, info);
-            } catch (_) {
-              // 忽略日志写入失败
-            }
-            throw finalErr;
-          }
-        }
+      for (const uri of candidates) {
+        console.info(`[${MapLauncher.TAG}] try open ${uri}`);
+        if (await MapLauncher.tryOpen(context, uri)) return;
       }
+      throw new Error('all navigation attempts failed');
+    } catch (err) {
+      console.error(`[${MapLauncher.TAG}] navigation failed err=${JSON.stringify(err)}`);
+      try {
+        await SearchLogStore.init(context);
+        const info: SearchLogInfo = { centerLatitude: latitude, centerLongitude: longitude };
+        const msg = `导航失败: ${(err as any)?.message || 'Unknown error'} | engine=${engine}`;
+        await SearchLogStore.getInstance().appendError(msg, info);
+      } catch {}
+      throw err;
     }
   }
 }
