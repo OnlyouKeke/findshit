@@ -39,6 +39,18 @@
     {
       "name": "login_button",
       "value": "#007DFF"
+    },
+    {
+      "name": "page_background",
+      "value": "#F5F5F5"
+    },
+    {
+      "name": "surface_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "control_background",
+      "value": "#F5F5F5"
     }
   ]
 }

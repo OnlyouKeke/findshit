@@ -67,7 +67,7 @@ export struct ToiletCard {
       }
       .width(60)
       .height(70)
-      .backgroundColor('#F8F9FA')
+      .backgroundColor($r('app.color.control_background'))
       .borderRadius(12)
       .justifyContent(FlexAlign.Center)
       .alignItems(HorizontalAlign.Center)
@@ -145,7 +145,7 @@ export struct ToiletCard {
     .width('100%')
     .height(90)
     .padding({ left: 16, right: 16, top: 12, bottom: 12 })
-    .backgroundColor('#FFFFFF')
+    .backgroundColor($r('app.color.surface_background'))
     .borderRadius(16)
     .shadow({
       radius: 12,

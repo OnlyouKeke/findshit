@@ -68,7 +68,7 @@ struct Logs {
           Button('返回')
             .width(80)
             .height(32)
-            .backgroundColor('#F5F5F5')
+            .backgroundColor($r('app.color.control_background'))
             .borderRadius(16)
             .onClick(() => router.back())
         }
@@ -81,14 +81,14 @@ struct Logs {
             Button(this.tab === 'location' ? '定位日志' : '定位日志')
               .width(84)
               .height(28)
-              .backgroundColor(this.tab === 'location' ? '#4C8BF5' : '#F0F0F0')
+              .backgroundColor(this.tab === 'location' ? '#4C8BF5' : $r('app.color.control_background'))
               .fontColor(this.tab === 'location' ? '#FFFFFF' : '#333333')
               .borderRadius(14)
               .onClick(() => this.tab = 'location')
             Button(this.tab === 'search' ? '搜索日志' : '搜索日志')
               .width(84)
               .height(28)
-              .backgroundColor(this.tab === 'search' ? '#4C8BF5' : '#F0F0F0')
+              .backgroundColor(this.tab === 'search' ? '#4C8BF5' : $r('app.color.control_background'))
               .fontColor(this.tab === 'search' ? '#FFFFFF' : '#333333')
               .borderRadius(14)
               .onClick(() => this.tab = 'search')
@@ -98,7 +98,7 @@ struct Logs {
           Button('清空')
             .width(72)
             .height(32)
-            .backgroundColor('#F5F5F5')
+            .backgroundColor($r('app.color.control_background'))
             .borderRadius(16)
             .onClick(() => this.clearLogs())
         }
@@ -129,7 +129,7 @@ struct Logs {
                   Button('复制')
                     .width(56)
                     .height(28)
-                    .backgroundColor('#F0F0F0')
+                    .backgroundColor($r('app.color.control_background'))
                     .borderRadius(14)
                     .onClick(() => {
                       const text = item.message ? item.message : `${item.latitude},${item.longitude}`;
@@ -137,7 +137,7 @@ struct Logs {
                     })
                 }
                 .padding({ left: 16, right: 16, top: 12, bottom: 12 })
-                .backgroundColor('#FFFFFF')
+                .backgroundColor($r('app.color.surface_background'))
               }
             })
           }
@@ -166,7 +166,7 @@ struct Logs {
                   Button('复制')
                     .width(56)
                     .height(28)
-                    .backgroundColor('#F0F0F0')
+                    .backgroundColor($r('app.color.control_background'))
                     .borderRadius(14)
                     .onClick(() => {
                       const text = item.message ? item.message : `${item.centerLatitude},${item.centerLongitude}, radius=${item.radiusMeters}, count=${item.resultCount}`;
@@ -174,7 +174,7 @@ struct Logs {
                     })
                 }
                 .padding({ left: 16, right: 16, top: 12, bottom: 12 })
-                .backgroundColor('#FFFFFF')
+                .backgroundColor($r('app.color.surface_background'))
               }
             })
           }
@@ -184,6 +184,6 @@ struct Logs {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#F5F5F5')
+    .backgroundColor($r('app.color.page_background'))
   }
 }

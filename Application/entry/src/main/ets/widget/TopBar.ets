@@ -44,7 +44,7 @@ export struct TopBar {
     .width('100%')
     .height(56)
     .padding({ left: 16, right: 16 })
-    .backgroundColor('#FFFFFF')
+    .backgroundColor($r('app.color.surface_background'))
     .justifyContent(FlexAlign.SpaceBetween)
     .alignItems(VerticalAlign.Center)
   }

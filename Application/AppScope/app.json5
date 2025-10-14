@@ -2,8 +2,8 @@
   "app": {
     "bundleName": "com.shit.finding.fun",
     "vendor": "zwjkeke",
-    "versionCode": 64,
-    "versionName": "1.3.26",
+    "versionCode": 66,
+    "versionName": "1.3.28",
     "icon": "$media:layered_image",
     "label": "$string:app_name"
   }
