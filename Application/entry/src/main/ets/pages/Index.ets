@@ -11,7 +11,6 @@ import LocationLogStore, { LocationLog } from '../common/LocationLogStore';
 import SearchLogStore, { SearchLog, SearchLogInfo } from '../common/SearchLogStore';
 import { ToiletCard, NavigateHandler, NavigateHandlerImpl } from '../components/ToiletCard';
 import { ErrorBanner } from '../components/ErrorBanner';
-import { TopBar } from '../widget/TopBar';
 
 const TAG = 'Index';
 
@@ -457,32 +456,20 @@ struct Index {
       // 顶部设置按钮区域
       Row() {
         Button() {
-          Text('⚙️')
-            .fontSize(20)
+          Text('⋮')
+            .fontSize(22)
             .fontColor($r('app.color.control_button_text'))
+            .fontWeight(FontWeight.Medium)
         }
-        .width(48)
-        .height(48)
-<<<<<<< HEAD
-        .backgroundColor($r('app.color.control_button_bg'))
-        .borderRadius(24)
-        .border({ width: 1, color: $r('app.color.control_button_border') })
+        .width(40)
+        .height(40)
+        .backgroundColor('transparent')
+        .borderRadius(20)
         .onClick(() => this.handleSettingsClick())
-        .shadow({
-          radius: 4,
-          color: '#00000020',
-          offsetX: 0,
-          offsetY: 2
-        })
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> codex/master
-        Blank()
       }
       .width('100%')
-      .padding({ left: 16, right: 16, top: 16 })
+      .padding({ left: 16, right: 16, top: 12 })
+      .justifyContent(FlexAlign.End)
       
       // 主要内容区域
       Column() {
@@ -595,13 +582,8 @@ struct Index {
               }
               .width(80)
               .height(32)
-<<<<<<< HEAD
-              .backgroundColor($r('app.color.control_button_bg'))
-=======
-              .backgroundColor($r('app.color.control_button_bg'))
->>>>>>> codex/master
+              .backgroundColor('transparent')
               .borderRadius(16)
-              .border({ width: 1, color: $r('app.color.control_button_border') })
               .onClick(() => {
                 // 按距离重新排序
                 this.toilets = this.toilets.sort((a, b) => a.distance - b.distance);
@@ -868,7 +850,7 @@ struct Index {
         }
         .width('100%')
         .padding({ left: 20, right: 20, top: 16, bottom: 20 })
-        .backgroundColor($r('app.color.surface_background'))
+        .backgroundColor('transparent')
         .justifyContent(FlexAlign.Center)
         .alignItems(HorizontalAlign.Center)
       } else {
@@ -956,14 +938,14 @@ struct Index {
         }
         .width('100%')
         .padding({ left: 20, right: 20, top: 16, bottom: 20 })
-        .backgroundColor($r('app.color.surface_card'))
+        .backgroundColor('transparent')
         .justifyContent(FlexAlign.Center)
         .alignItems(HorizontalAlign.Center)
       }
     }
     .width('100%')
     .height('100%')
-    .backgroundColor($r('app.color.page_background'))
+    .backgroundColor('white')
   }
 }
 
