@@ -459,12 +459,13 @@ struct Index {
         Button() {
           Text('⚙️')
             .fontSize(20)
-            .fontColor('#666666')
+            .fontColor($r('app.color.control_button_text'))
         }
         .width(48)
         .height(48)
-        .backgroundColor('#F5F5F5')
+        .backgroundColor($r('app.color.control_button_bg'))
         .borderRadius(24)
+        .border({ width: 1, color: $r('app.color.control_button_border') })
         .onClick(() => this.handleSettingsClick())
         .shadow({
           radius: 4,
@@ -472,17 +473,8 @@ struct Index {
           offsetX: 0,
           offsetY: 2
         })
-        
-        Blank()
 
-        // 调试按钮：填充空白卡片
-        Button('调试')
-          .width(64)
-          .height(36)
-          .fontSize(14)
-          .backgroundColor('#F5F5F5')
-          .borderRadius(18)
-          .onClick(() => this.debugShowBlankCards(20))
+        Blank()
       }
       .width('100%')
       .padding({ left: 16, right: 16, top: 16 })
@@ -590,14 +582,17 @@ struct Index {
                 Row({ space: 4 }) {
                   Text('📊')
                     .fontSize(14)
+                    .fontColor($r('app.color.control_button_text'))
                   Text('距离排序')
                     .fontSize(12)
+                    .fontColor($r('app.color.control_button_text'))
                 }
               }
               .width(80)
               .height(32)
-              .backgroundColor('#F5F5F5')
+              .backgroundColor($r('app.color.control_button_bg'))
               .borderRadius(16)
+              .border({ width: 1, color: $r('app.color.control_button_border') })
               .onClick(() => {
                 // 按距离重新排序
                 this.toilets = this.toilets.sort((a, b) => a.distance - b.distance);
@@ -952,13 +947,14 @@ struct Index {
         }
         .width('100%')
         .padding({ left: 20, right: 20, top: 16, bottom: 20 })
-        .backgroundColor('#FAFAFA')
+        .backgroundColor($r('app.color.surface_card'))
         .justifyContent(FlexAlign.Center)
         .alignItems(HorizontalAlign.Center)
       }
     }
     .width('100%')
     .height('100%')
+    .backgroundColor($r('app.color.page_background'))
   }
 }
 
