@@ -42,19 +42,19 @@
     },
     {
       "name": "page_background",
-      "value": "#F5F5F5"
+      "value": "#FFFFFF"
     },
     {
-<<<<<<< HEAD
       "name": "surface_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "surface_card",
       "value": "#FFFFFF"
     },
     {
       "name": "control_background",
       "value": "#F5F5F5"
-=======
-      "name": "surface_card",
-      "value": "#FFFFFF"
     },
     {
       "name": "control_button_bg",
@@ -62,12 +62,11 @@
     },
     {
       "name": "control_button_border",
-      "value": "#D9D9D9"
+      "value": "#E5E5E5"
     },
     {
       "name": "control_button_text",
       "value": "#1A1A1A"
->>>>>>> codex/master
     }
   ]
 }

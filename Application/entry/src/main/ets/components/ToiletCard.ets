@@ -3,6 +3,8 @@
  * 显示单个厕所的详细信息
  */
 
+import pasteboard from '@ohos.pasteboard';
+import promptAction from '@ohos.promptAction';
 import { ToiletPoi } from '../map/MapService';
 
 // 通过对象回调传递导航动作，避免直接传函数导致的编译/运行限制
@@ -51,6 +53,32 @@ export struct ToiletCard {
       return `${this.toilet.distance}m`;
     } else {
       return `${(this.toilet.distance / 1000).toFixed(1)}km`;
+    }
+  }
+
+  private buildShareText(): string {
+    const name = this.toilet.name || '附近公厕';
+    const distance = this.getDistanceText();
+    const address = this.toilet.address ? `，地址：${this.toilet.address}` : '';
+    const { longitude, latitude } = this.toilet.location;
+    const lon = Number.isFinite(longitude) ? longitude.toFixed(6) : `${longitude}`;
+    const lat = Number.isFinite(latitude) ? latitude.toFixed(6) : `${latitude}`;
+    const markerName = encodeURIComponent(name);
+    const markerAddress = this.toilet.address ? encodeURIComponent(this.toilet.address) : '';
+    const mapUrl = `https://uri.amap.com/marker?position=${lon},${lat}&name=${markerName}${markerAddress ? `&address=${markerAddress}` : ''}&callnative=0`;
+    return `「${name}」距离大约${distance}${address}。\n地图链接：${mapUrl}\n（已复制，粘贴到微信即可分享）`;
+  }
+
+  private async copyShareLink(): Promise<void> {
+    const shareText = this.buildShareText();
+    try {
+      const systemPasteboard = pasteboard.getSystemPasteboard();
+      const data = pasteboard.createData(pasteboard.PasteboardDataType.PASTEBOARD_DATA_PLAIN_TEXT, shareText);
+      await systemPasteboard.setPasteboardData(data);
+      promptAction.showToast({ message: '已复制链接，快去微信分享吧' });
+    } catch (error) {
+      console.error('复制分享链接失败', JSON.stringify(error));
+      promptAction.showToast({ message: '复制失败，请稍后重试' });
     }
   }
 
@@ -118,7 +146,7 @@ export struct ToiletCard {
       .margin({ left: 16, right: 12 })
       .justifyContent(FlexAlign.SpaceBetween)
 
-      // 右侧导航按钮
+      // 右侧操作按钮
       Column({ space: 8 }) {
         Button() {
           Row({ space: 4 }) {
@@ -138,6 +166,23 @@ export struct ToiletCard {
           if (this.onNavigate) {
             this.onNavigate.run();
           }
+        })
+
+        Button() {
+          Row({ space: 4 }) {
+            Text('🟢')
+              .fontSize(14)
+            Text('微信')
+              .fontSize(13)
+              .fontWeight(FontWeight.Medium)
+          }
+        }
+        .width(70)
+        .height(36)
+        .backgroundColor('#07C160')
+        .borderRadius(18)
+        .onClick(() => {
+          this.copyShareLink();
         })
       }
       .justifyContent(FlexAlign.Center)
