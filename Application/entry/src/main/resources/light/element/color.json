@@ -51,6 +51,54 @@
     {
       "name": "control_background",
       "value": "#F5F5F5"
+    },
+    {
+      "name": "surface_card",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "control_button_bg",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "control_button_border",
+      "value": "#E5E5E5"
+    },
+    {
+      "name": "control_button_text",
+      "value": "#1A1A1A"
+    },
+    {
+      "name": "text_primary",
+      "value": "#1A1A1A"
+    },
+    {
+      "name": "text_secondary",
+      "value": "#666666"
+    },
+    {
+      "name": "text_tertiary",
+      "value": "#999999"
+    },
+    {
+      "name": "text_disabled",
+      "value": "#CCCCCC"
+    },
+    {
+      "name": "accent_color",
+      "value": "#007DFF"
+    },
+    {
+      "name": "accent_container",
+      "value": "#F0F8FF"
+    },
+    {
+      "name": "accent_border",
+      "value": "#CCE0FF"
+    },
+    {
+      "name": "error_text",
+      "value": "#FF4444"
     }
   ]
 }

@@ -22,39 +22,39 @@
     },
     {
       "name": "body_color",
-      "value": "#FFF5F1F1"
+      "value": "#F5F1F1"
     },
     {
       "name": "placeholder_background",
-      "value": "#eeeeee"
+      "value": "#2A2A2A"
     },
     {
       "name": "disabled_button_background",
-      "value": "#C2C2C2"
+      "value": "#3A3A3A"
     },
     {
       "name": "border_color",
-      "value": "#FF9B9B9B"
+      "value": "#4D4D4D"
     },
     {
       "name": "login_button",
-      "value": "#007DFF"
+      "value": "#4C8BF5"
     },
     {
       "name": "page_background",
       "value": "#121212"
     },
     {
-<<<<<<< HEAD
       "name": "surface_background",
       "value": "#1E1E1E"
     },
     {
-      "name": "control_background",
-      "value": "#2A2A2A"
-=======
       "name": "surface_card",
-      "value": "#1E1E1E"
+      "value": "#232323"
+    },
+    {
+      "name": "control_background",
+      "value": "#1F1F1F"
     },
     {
       "name": "control_button_bg",
@@ -67,7 +67,38 @@
     {
       "name": "control_button_text",
       "value": "#F5F5F5"
->>>>>>> codex/master
+    },
+    {
+      "name": "text_primary",
+      "value": "#F5F5F5"
+    },
+    {
+      "name": "text_secondary",
+      "value": "#BBBBBB"
+    },
+    {
+      "name": "text_tertiary",
+      "value": "#808080"
+    },
+    {
+      "name": "text_disabled",
+      "value": "#5A5A5A"
+    },
+    {
+      "name": "accent_color",
+      "value": "#4C8BF5"
+    },
+    {
+      "name": "accent_container",
+      "value": "#1E2A44"
+    },
+    {
+      "name": "accent_border",
+      "value": "#2E4C88"
+    },
+    {
+      "name": "error_text",
+      "value": "#FF8080"
     }
   ]
 }

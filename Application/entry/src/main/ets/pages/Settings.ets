@@ -67,17 +67,17 @@ struct Settings {
         Text('默认搜索距离')
           .fontSize(18)
           .fontWeight(FontWeight.Bold)
-          .fontColor('#333333')
+          .fontColor($r('app.color.text_primary'))
           .layoutWeight(1)
 
         Text(this.getSearchDistanceLabel())
           .fontSize(14)
-          .fontColor('#666666')
+          .fontColor($r('app.color.text_secondary'))
           .margin({ right: 8 })
 
         Text(this.searchDistanceExpanded ? '▲' : '▼')
           .fontSize(12)
-          .fontColor('#999999')
+          .fontColor($r('app.color.text_tertiary'))
       }
       .width('100%')
       .padding(16)
@@ -138,7 +138,7 @@ struct Settings {
 
       Text(label)
         .fontSize(16)
-        .fontColor('#333333')
+        .fontColor($r('app.color.text_primary'))
     }
     .width('100%')
     .padding({ top: 8, bottom: 8 })
@@ -155,17 +155,17 @@ struct Settings {
         Text('地图引擎')
           .fontSize(18)
           .fontWeight(FontWeight.Bold)
-          .fontColor('#333333')
+          .fontColor($r('app.color.text_primary'))
           .layoutWeight(1)
 
         Text(this.getMapEngineLabel())
           .fontSize(14)
-          .fontColor('#666666')
+          .fontColor($r('app.color.text_secondary'))
           .margin({ right: 8 })
 
         Text(this.mapEngineExpanded ? '▲' : '▼')
           .fontSize(12)
-          .fontColor('#999999')
+          .fontColor($r('app.color.text_tertiary'))
       }
       .width('100%')
       .padding(16)
@@ -226,7 +226,7 @@ struct Settings {
 
       Text(label)
         .fontSize(16)
-        .fontColor('#333333')
+        .fontColor($r('app.color.text_primary'))
     }
     .width('100%')
     .padding({ top: 8, bottom: 8 })
@@ -244,16 +244,16 @@ struct Settings {
           Text('查看日志')
             .fontSize(18)
             .fontWeight(FontWeight.Bold)
-            .fontColor('#333333')
+            .fontColor($r('app.color.text_primary'))
           Text('主要内容是定位的位置')
             .fontSize(12)
-            .fontColor('#666666')
+            .fontColor($r('app.color.text_secondary'))
         }
         .layoutWeight(1)
 
         Text('打开')
           .fontSize(14)
-          .fontColor('#4C8BF5')
+          .fontColor($r('app.color.accent_color'))
       }
       .width('100%')
       .padding(16)

@@ -106,14 +106,14 @@ export struct ToiletCard {
         Text(this.toilet.name)
           .fontSize(16)
           .fontWeight(FontWeight.Medium)
-          .fontColor('#1A1A1A')
+          .fontColor($r('app.color.text_primary'))
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
         
         // 地址信息（兜底为空字符串，避免未定义导致异常）
         Text(this.toilet.address || '')
           .fontSize(13)
-          .fontColor('#666666')
+          .fontColor($r('app.color.text_secondary'))
           .maxLines(2)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .lineHeight(18)
@@ -136,7 +136,7 @@ export struct ToiletCard {
               .fontSize(12)
             Text(this.getWalkingTime())
               .fontSize(13)
-              .fontColor('#007DFF')
+              .fontColor($r('app.color.accent_color'))
           }
         }
         .alignItems(VerticalAlign.Center)
@@ -159,7 +159,7 @@ export struct ToiletCard {
         }
         .width(70)
         .height(36)
-        .backgroundColor('#007DFF')
+        .backgroundColor($r('app.color.accent_color'))
         .borderRadius(18)
         .onClick(() => {
           // 触发父组件的导航事件（防止未传入时异常）
@@ -190,7 +190,7 @@ export struct ToiletCard {
     .width('100%')
     .height(90)
     .padding({ left: 16, right: 16, top: 12, bottom: 12 })
-    .backgroundColor($r('app.color.surface_background'))
+    .backgroundColor($r('app.color.surface_card'))
     .borderRadius(16)
     .shadow({
       radius: 12,
@@ -200,7 +200,7 @@ export struct ToiletCard {
     })
     .border({
       width: 1,
-      color: '#F0F0F0'
+      color: $r('app.color.control_button_border')
     })
     .margin({ bottom: 12 })
     .animation({
