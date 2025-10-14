@@ -45,12 +45,29 @@
       "value": "#F5F5F5"
     },
     {
+<<<<<<< HEAD
       "name": "surface_background",
       "value": "#FFFFFF"
     },
     {
       "name": "control_background",
       "value": "#F5F5F5"
+=======
+      "name": "surface_card",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "control_button_bg",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "control_button_border",
+      "value": "#D9D9D9"
+    },
+    {
+      "name": "control_button_text",
+      "value": "#1A1A1A"
+>>>>>>> codex/master
     }
   ]
 }

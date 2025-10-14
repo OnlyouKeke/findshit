@@ -68,8 +68,10 @@ struct Logs {
           Button('返回')
             .width(80)
             .height(32)
-            .backgroundColor($r('app.color.control_background'))
+            .backgroundColor($r('app.color.control_button_bg'))
+            .fontColor($r('app.color.control_button_text'))
             .borderRadius(16)
+            .border({ width: 1, color: $r('app.color.control_button_border') })
             .onClick(() => router.back())
         }
         .padding(24)
@@ -98,8 +100,10 @@ struct Logs {
           Button('清空')
             .width(72)
             .height(32)
-            .backgroundColor($r('app.color.control_background'))
+            .backgroundColor($r('app.color.control_button_bg'))
+            .fontColor($r('app.color.control_button_text'))
             .borderRadius(16)
+            .border({ width: 1, color: $r('app.color.control_button_border') })
             .onClick(() => this.clearLogs())
         }
         .padding({ left: 16, right: 16, top: 12, bottom: 8 })
@@ -129,19 +133,29 @@ struct Logs {
                   Button('复制')
                     .width(56)
                     .height(28)
+<<<<<<< HEAD
                     .backgroundColor($r('app.color.control_background'))
+=======
+                    .backgroundColor($r('app.color.control_button_bg'))
+                    .fontColor($r('app.color.control_button_text'))
+>>>>>>> codex/master
                     .borderRadius(14)
+                    .border({ width: 1, color: $r('app.color.control_button_border') })
                     .onClick(() => {
                       const text = item.message ? item.message : `${item.latitude},${item.longitude}`;
                       console.log('复制定位到剪贴板:', text);
                     })
                 }
                 .padding({ left: 16, right: 16, top: 12, bottom: 12 })
+<<<<<<< HEAD
                 .backgroundColor($r('app.color.surface_background'))
+=======
+                .backgroundColor($r('app.color.surface_card'))
+>>>>>>> codex/master
               }
             })
           }
-          .divider({ strokeWidth: 0.5, color: '#EEE' })
+          .divider({ strokeWidth: 0.5, color: $r('app.color.control_button_border') })
         } else {
           List() {
             ForEach(this.searchLogs, (item: SearchLog) => {
@@ -166,19 +180,29 @@ struct Logs {
                   Button('复制')
                     .width(56)
                     .height(28)
+<<<<<<< HEAD
                     .backgroundColor($r('app.color.control_background'))
+=======
+                    .backgroundColor($r('app.color.control_button_bg'))
+                    .fontColor($r('app.color.control_button_text'))
+>>>>>>> codex/master
                     .borderRadius(14)
+                    .border({ width: 1, color: $r('app.color.control_button_border') })
                     .onClick(() => {
                       const text = item.message ? item.message : `${item.centerLatitude},${item.centerLongitude}, radius=${item.radiusMeters}, count=${item.resultCount}`;
                       console.log('复制搜索到剪贴板:', text);
                     })
                 }
                 .padding({ left: 16, right: 16, top: 12, bottom: 12 })
+<<<<<<< HEAD
                 .backgroundColor($r('app.color.surface_background'))
+=======
+                .backgroundColor($r('app.color.surface_card'))
+>>>>>>> codex/master
               }
             })
           }
-          .divider({ strokeWidth: 0.5, color: '#EEE' })
+          .divider({ strokeWidth: 0.5, color: $r('app.color.control_button_border') })
         }
       }
     }
