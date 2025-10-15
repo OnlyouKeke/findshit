@@ -480,11 +480,11 @@ struct Index {
             .height(120)
             .fontSize(20)
             .fontWeight(FontWeight.Bold)
-            .backgroundColor('#007DFF')
+            .backgroundColor($r('app.color.accent_color'))
             .borderRadius(60)
             .shadow({
               radius: 25,
-              color: '#007DFF',
+              color: $r('app.color.accent_color'),
               offsetX: 0,
               offsetY: 10
             })
@@ -514,11 +514,11 @@ struct Index {
             LoadingProgress()
               .width(40)
               .height(40)
-              .color('#007DFF')
-            
+              .color($r('app.color.accent_color'))
+
             Text('正在搜索附近的公厕...')
               .fontSize(16)
-              .fontColor('#666666')
+              .fontColor($r('app.color.text_secondary'))
           }
           .margin({ top: 40 })
         }
@@ -528,10 +528,10 @@ struct Index {
           Column({ space: 12 }) {
             Text('😔')
               .fontSize(32)
-            
+
             Text(this.error)
               .fontSize(14)
-              .fontColor('#FF4444')
+              .fontColor($r('app.color.error_text'))
               .textAlign(TextAlign.Center)
               .maxLines(2)
             
@@ -539,7 +539,7 @@ struct Index {
               .width(80)
               .height(32)
               .fontSize(12)
-              .backgroundColor('#007DFF')
+              .backgroundColor($r('app.color.accent_color'))
               .borderRadius(16)
               .onClick(() => {
                 this.error = '';
@@ -559,11 +559,11 @@ struct Index {
                 Text(`找到 ${this.toilets.length} 个公厕`)
                   .fontSize(20)
                   .fontWeight(FontWeight.Bold)
-                  .fontColor('#1A1A1A')
-                
+                  .fontColor($r('app.color.text_primary'))
+
                 Text(`搜索范围 ${this.searchDistance}米`)
                   .fontSize(14)
-                  .fontColor('#666666')
+                  .fontColor($r('app.color.text_secondary'))
               }
               .alignItems(HorizontalAlign.Start)
               
@@ -630,6 +630,7 @@ struct Index {
               strokeWidth: 0,
               color: 'transparent'
             })
+            .backgroundColor('transparent')
           }
           .width('100%')
           .layoutWeight(1)
@@ -656,18 +657,18 @@ struct Index {
             
             // 提示文本
             Column({ space: 8 }) {
-              Text('附近没有找到公厕')
-                .fontSize(18)
-                .fontWeight(FontWeight.Medium)
-                .fontColor('#333333')
-              
-              Text(`搜索范围：${this.searchDistance}米`)
-                .fontSize(14)
-                .fontColor('#666666')
-              
-              Text('试试扩大搜索范围或换个位置')
-                .fontSize(14)
-                .fontColor('#999999')
+            Text('附近没有找到公厕')
+              .fontSize(18)
+              .fontWeight(FontWeight.Medium)
+              .fontColor($r('app.color.text_primary'))
+
+            Text(`搜索范围：${this.searchDistance}米`)
+              .fontSize(14)
+              .fontColor($r('app.color.text_secondary'))
+
+            Text('试试扩大搜索范围或换个位置')
+              .fontSize(14)
+              .fontColor($r('app.color.text_tertiary'))
             }
             .alignItems(HorizontalAlign.Center)
             
@@ -678,11 +679,11 @@ struct Index {
                 .height(40)
                 .fontSize(14)
                 .backgroundColor($r('app.color.control_background'))
-                .fontColor('#007DFF')
+                .fontColor($r('app.color.accent_color'))
                 .borderRadius(20)
                 .border({
                   width: 1,
-                  color: '#007DFF'
+                  color: $r('app.color.accent_color')
                 })
                 .onClick(() => {
                   // 扩大搜索范围
@@ -696,7 +697,7 @@ struct Index {
                 .width(100)
                 .height(40)
                 .fontSize(14)
-                .backgroundColor('#007DFF')
+                .backgroundColor($r('app.color.accent_color'))
                 .borderRadius(20)
                 .onClick(() => {
                   this.showToiletList = false;
@@ -729,11 +730,11 @@ struct Index {
             .height(80)
             .fontSize(16)
             .fontWeight(FontWeight.Bold)
-            .backgroundColor('#007DFF')
+            .backgroundColor($r('app.color.accent_color'))
             .borderRadius(40)
             .shadow({
               radius: 15,
-              color: '#007DFF',
+              color: $r('app.color.accent_color'),
               offsetX: 0,
               offsetY: 5
             })
@@ -751,8 +752,8 @@ struct Index {
           Column({ space: 8 }) {
             Text('出行方式')
               .fontSize(12)
-              .fontColor('#999999')
-            
+              .fontColor($r('app.color.text_tertiary'))
+
             Row({ space: 20 }) {
               // 步行按钮
               Column({ space: 4 }) {
@@ -764,7 +765,7 @@ struct Index {
                   })
                 Text('步行')
                   .fontSize(10)
-                  .fontColor(this.travelMode === 'walking' ? '#007DFF' : '#CCCCCC')
+                  .fontColor(this.travelMode === 'walking' ? $r('app.color.accent_color') : $r('app.color.text_disabled'))
                   .animation({
                     duration: 200,
                     curve: Curve.EaseOut
@@ -773,10 +774,10 @@ struct Index {
               .width(50)
               .height(50)
               .borderRadius(25)
-              .backgroundColor(this.travelMode === 'walking' ? '#F0F8FF' : 'transparent')
+              .backgroundColor(this.travelMode === 'walking' ? $r('app.color.accent_container') : 'transparent')
               .border({
                 width: this.travelMode === 'walking' ? 2 : 1,
-                color: this.travelMode === 'walking' ? '#007DFF' : '#E0E0E0'
+                color: this.travelMode === 'walking' ? $r('app.color.accent_color') : $r('app.color.control_button_border')
               })
               .justifyContent(FlexAlign.Center)
               .scale({
@@ -801,7 +802,7 @@ struct Index {
                   })
                 Text('骑行')
                   .fontSize(10)
-                  .fontColor(this.travelMode === 'cycling' ? '#007DFF' : '#CCCCCC')
+                  .fontColor(this.travelMode === 'cycling' ? $r('app.color.accent_color') : $r('app.color.text_disabled'))
                   .animation({
                     duration: 200,
                     curve: Curve.EaseOut
@@ -810,10 +811,10 @@ struct Index {
               .width(50)
               .height(50)
               .borderRadius(25)
-              .backgroundColor(this.travelMode === 'cycling' ? '#F0F8FF' : 'transparent')
+              .backgroundColor(this.travelMode === 'cycling' ? $r('app.color.accent_container') : 'transparent')
               .border({
                 width: this.travelMode === 'cycling' ? 2 : 1,
-                color: this.travelMode === 'cycling' ? '#007DFF' : '#E0E0E0'
+                color: this.travelMode === 'cycling' ? $r('app.color.accent_color') : $r('app.color.control_button_border')
               })
               .justifyContent(FlexAlign.Center)
               .scale({
@@ -858,8 +859,8 @@ struct Index {
         Column({ space: 8 }) {
           Text('出行方式')
             .fontSize(12)
-            .fontColor('#999999')
-          
+            .fontColor($r('app.color.text_tertiary'))
+
           Row({ space: 20 }) {
             // 步行按钮
             Column({ space: 4 }) {
@@ -871,7 +872,7 @@ struct Index {
                 })
               Text('步行')
                 .fontSize(10)
-                .fontColor(this.travelMode === 'walking' ? '#007DFF' : '#CCCCCC')
+                .fontColor(this.travelMode === 'walking' ? $r('app.color.accent_color') : $r('app.color.text_disabled'))
                 .animation({
                   duration: 200,
                   curve: Curve.EaseOut
@@ -880,10 +881,10 @@ struct Index {
             .width(50)
             .height(50)
             .borderRadius(25)
-            .backgroundColor(this.travelMode === 'walking' ? '#F0F8FF' : 'transparent')
+            .backgroundColor(this.travelMode === 'walking' ? $r('app.color.accent_container') : 'transparent')
             .border({
               width: this.travelMode === 'walking' ? 2 : 1,
-              color: this.travelMode === 'walking' ? '#007DFF' : '#E0E0E0'
+              color: this.travelMode === 'walking' ? $r('app.color.accent_color') : $r('app.color.control_button_border')
             })
             .justifyContent(FlexAlign.Center)
             .scale({
@@ -908,7 +909,7 @@ struct Index {
                 })
               Text('骑行')
                 .fontSize(10)
-                .fontColor(this.travelMode === 'cycling' ? '#007DFF' : '#CCCCCC')
+                .fontColor(this.travelMode === 'cycling' ? $r('app.color.accent_color') : $r('app.color.text_disabled'))
                 .animation({
                   duration: 200,
                   curve: Curve.EaseOut
@@ -917,10 +918,10 @@ struct Index {
             .width(50)
             .height(50)
             .borderRadius(25)
-            .backgroundColor(this.travelMode === 'cycling' ? '#F0F8FF' : 'transparent')
+            .backgroundColor(this.travelMode === 'cycling' ? $r('app.color.accent_container') : 'transparent')
             .border({
               width: this.travelMode === 'cycling' ? 2 : 1,
-              color: this.travelMode === 'cycling' ? '#007DFF' : '#E0E0E0'
+              color: this.travelMode === 'cycling' ? $r('app.color.accent_color') : $r('app.color.control_button_border')
             })
             .justifyContent(FlexAlign.Center)
             .scale({
